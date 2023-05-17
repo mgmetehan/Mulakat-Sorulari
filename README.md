@@ -454,3 +454,109 @@ Aspect-oriented programming (AOP) Faydaları:
 WebSocket: Bu yöntem, web sayfasındaki bir tarayıcı ve bir başka yapı arasında bir bağlantı kurar ve bu bağlantı sayesinde tarayıcı anlık olarak bilgi alarak ekranı güncellemesini sağlar. Böylece, web sayfasının yenilenmesine gerek kalmadan ekran anlık olarak güncellenebilir.
 
 </details>
+
+<details>
+
+<summary>Java'da Set ve Map veri yapılarının ArrayList ile fark?</summary>
+
+1. Veri Sıralaması: **`ArrayList`**, verileri eklenme sırasına göre saklar ve tekrarlı elemanlara izin verirken, **`Set`** verileri sırasız bir şekilde saklar ve tekrarlı elemanlara izin vermez. **`Map`** ise anahtar-değer çiftlerini saklar ve her anahtarın yalnızca bir kez bulunmasına izin verir.
+2. Eleman Erişimi: **`ArrayList`**, indeks numaraları kullanılarak elemanlara erişimi destekler. **`Set`** ve **`Map`** ise elemanlara anahtar değerleriyle erişimi destekler. Her bir elemanın benzersiz bir anahtarı olduğu için, hızlı erişim sağlarlar.
+3. Tekrarlı Elemanlar: **`ArrayList`** aynı elemanın birden fazla kez bulunmasına izin verirken, **`Set`** ve **`Map`** her elemanın yalnızca bir kez bulunmasına izin verir.
+4. Performans: Eleman ekleme ve silme işlemlerinde **`ArrayList`** daha hızlıdır, çünkü elemanların sırasını korumak için fazladan bir maliyeti yoktur. Ancak, elemanlara erişimde **`Set`** ve **`Map`** daha hızlıdır çünkü anahtar değerlerini kullanarak doğrudan elemanlara erişebilirler.
+
+</details>
+
+<details>
+
+<summary>ArrayList and a LinkedList arasindaki fark?</summary>
+
+**`ArrayList`** indeks tabanlı erişim ve sıralı veri depolama için daha uygundurken, **`LinkedList`** dinamik ekleme ve silme işlemleri için daha uygundur.
+
+</details>
+
+<details>
+
+<summary>Stack ve Heap memory Arasındaki Fark Nedir?</summary>
+
+Eğer program esnasında boyutları bildirilmiş değişmez bir değer kullanıyorsak _stack_, değişebilir bir değer kullanıyorsak _heap_ bizim için uygun olacaktır. _Stack_ ve _heap_ kullanımları farklı ve dikkat edilmesi gereken bir konudur. _Stack_ kullanılır ve işi bittikten sonra kendini otomatik olarak bellekten yok eder. Fakat _heap_‘te bu işi siz yapmalısınız.
+
+Genel olarak, stack hafızası genellikle yerel değişkenler, metod çağrıları, işaretçiler gibi programın çalışma zamanında dinamik olarak değişmeyen verileri depolamak için kullanılırken, heap hafızası daha büyük ve dinamik olarak değişen veri yapılarını, nesneleri ve veri yapısı örneklerini depolamak için kullanılır.
+
+</details>
+
+<details>
+
+<summary>Mutable ve Immutable nedir ?</summary>
+
+Immutable (değişmez), nesneler bir kez oluşturulduktan sonra içeriği değiştirilemeyen sınıflardır. Tam tersi olarak, değiştirilebilen sınıflar da Mutable (değişebilir) sınıflardır. Kısacası Immutable nesneler değişmeyen nesnelerdir. Onları oluşturursun, fakat onları değiştiremezsin.
+
+</details>
+
+<details>
+
+<summary>Multithreading nedir ?</summary>
+
+Multithreading'in avantajları:
+
+1. Performans Artışı: Multithreading, iş parçacıklarını eşzamanlı olarak çalıştırarak programın daha hızlı çalışmasını sağlar.
+2. Paralel İşlemler: Birden fazla iş parçacığı sayesinde farklı görevler aynı anda yürütülebilir, bu da paralelizmi sağlar.
+3. Daha iyi Yanıt Süresi: Multithreading, kullanıcı girişlerine daha hızlı yanıt verir ve daha duyarlı bir kullanıcı deneyimi sağlar.
+4. Kaynak Verimliliği: İş parçacıklarının çekirdekler arasında dağıtılması, işlemci kaynaklarının daha verimli kullanılmasını sağlar.
+5. İletişim ve Paylaşım: İş parçacıkları arasında bilgi ve veri paylaşımı yapabilir, iletişim kurabilirsiniz.
+
+Multithreading'in dezavantajları:
+
+1. Yarış Koşulları: Birden fazla iş parçacığı aynı kaynağı değiştiriyorsa, yarış koşulları ve veri uyumluluğu sorunları ortaya çıkabilir.
+2. Senkronizasyon Zorlukları: İş parçacıkları arasında senkronizasyon gerektiğinde, senkronizasyon mekanizmalarını doğru şekilde kullanmak karmaşık olabilir.
+3. Hata Ayıklama: Multithreading hataları genellikle daha zor tespit edilebilir ve hata ayıklama süreci daha karmaşık olabilir.
+4. Kaynak Tüketimi: Birden fazla iş parçacığı, işlemci ve bellek kaynaklarını daha yoğun bir şekilde kullanır. Gereksiz iş parçacığı oluşturma veya verimsiz kodlamalar performans sorunlarına neden olabilir.
+5. Karmaşıklık: Multithreading, programın karmaşıklığını artırabilir. İş parçacıklarının doğru bir şekilde senkronize edilmesi ve yönetilmesi gereklidir.
+
+Sonuç olarak, multithreading'in avantajları arasında performans artışı, paralel işlemler, daha iyi yanıt süresi ve kaynak verimliliği bulunurken, yarış koşulları, senkronizasyon zorlukları, hata ayıklama zorlukları ve kaynak tüketimi gibi dezavantajları da vardır. Doğru bir şekilde kullanıldığında multithreading, verimli ve hızlı çalışan uygulamaların geliştirilmesini sağlar.
+
+</details>
+
+<details>
+
+<summary>Spring IOC nedir?</summary>
+
+Spring IOC (Inversion of Control), Spring Framework'ün temel bir prensibidir ve bir tasarım desenidir. IOC, bir bileşenin (bean) oluşturulması, yapılandırılması ve yönetilmesi sürecinin kontrolünü programcıdan alarak, bu görevi Spring Framework'e devretmeyi sağlar.
+
+IOC'nin temel felsefesi, bağımlılıkların tersine çevrilmesidir. Geleneksel olarak, bir bileşen diğer bileşenlerle doğrudan ilişkilerini kurar ve bunları oluşturur veya yönetir. Ancak, IOC ile bileşenlerin bağımlılıkları tersine çevrilir ve Spring konteyneri tarafından yönetilen bir IOC konteyneri kullanılır.
+
+Spring IOC, aşağıdaki şekillerde sağladığı avantajlara sahiptir:
+
+1. Bağımlılıkların Yönetimi: IOC sayesinde, bileşenlerin bağımlılıklarını yönetmek kolaylaşır. Bileşenler, Spring konteynerine tanımlanır ve bağımlılıkları otomatik olarak çözülür.
+2. Gevşek Bağlılık: IOC, bileşenler arasındaki bağımlılığı gevşek hale getirir. Bileşenler, aralarında sıkı bağlantılar oluşturmak yerine, Spring konteyneri tarafından yönetilen arayüzler veya sözleşmeler üzerinden etkileşimde bulunurlar.
+3. Test Edilebilirlik: IOC, bağımlılıkları enjekte etme mekanizması sunar, bu da bileşenlerin daha kolay test edilmesini sağlar. Bağımlılıkların taklitleri (mocks) kullanılarak bileşenlerin test edilmesi daha kolay hale gelir.
+4. Modülerlik: IOC, bileşenlerin bağımsız olarak geliştirilmesini ve yeniden kullanılmasını sağlar. Bileşenlerin işlevselliği birbirinden bağımsız olarak geliştirilebilir ve daha sonra IOC konteyneri tarafından birleştirilir.
+
+Inversion of control;
+
+* Strategy Pattern
+* Service Lacator Pattern
+* Factory Pattern
+* Dependency Injection
+
+gibi mekanizmalarla uygulanabilir.
+
+</details>
+
+<details>
+
+<summary>Spring Bean nedir?</summary>
+
+Spring Bean, Spring Framework tarafından yönetilen ve IOC konteyneri tarafından oluşturulan, yönetilen ve yapılandırılan bir nesnedir. Bean'ler, Spring uygulamalarında kullanılan temel yapı taşlarıdır ve Spring konteyneri tarafından oluşturulurlar ve yönetilirler.
+
+Spring Bean'lerin temel özellikleri şunlardır:
+
+1. Yaşam Döngüsü Yönetimi: Spring Bean'ler, IOC konteyneri tarafından yönetilen bir yaşam döngüsüne sahiptir. Konteyner, bean'in oluşturulması, yapılandırılması, kullanılması ve sonlandırılması gibi adımları otomatik olarak gerçekleştirir.
+2. Bağımlılıkların Otomatik Çözülmesi: Bean'ler arasındaki bağımlılıklar, IOC konteyneri tarafından otomatik olarak çözülür. Bağımlı bean'ler, uygun şekilde enjekte edilir veya referansları çözülür.
+3. Yapılandırma ve Ayarlanabilirlik: Bean'ler, Spring konteynerine yapılandırma metadataları ile tanımlanır. Bu metadatalar, XML veya Java tabanlı konfigürasyon dosyaları, Java Annotation'ları veya Spring Boot gibi modern araçlar aracılığıyla sağlanabilir. Bu sayede bean'lerin özellikleri, bağımlılıkları ve davranışları kolayca ayarlanabilir.
+4. Ölçeklenebilirlik ve Modülerlik: Spring Bean'ler, uygulamaların ölçeklenmesi ve modüler bir yapıya sahip olması için kullanışlıdır. Bileşenlerin ayrı ayrı geliştirilebilmesi ve ardından IOC konteyneri tarafından birleştirilmesi sağlanır.
+
+Spring Bean'ler, Spring Framework'ün sunduğu çeşitli özelliklerden yararlanabilirler. Örneğin, AOP (Aspect-Oriented Programming) ile güvenlik, transaksiyon yönetimi, önbellekleme gibi ilave işlevselliği uygulamak mümkündür.
+
+Spring Bean'leri, IOC konteynerine tanımlanan bir isim veya tip aracılığıyla elde edebilir ve uygulamanın farklı bölgelerinde kullanabilirsiniz. Bu sayede bean'lerin oluşturulması ve yönetimi Spring tarafından otomatik olarak gerçekleştirilirken, programcılar bean'lerin işlevselliği üzerinde odaklanabilir ve kolayca uygulama geliştirebilir.
+
+</details>
