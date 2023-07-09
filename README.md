@@ -2,6 +2,21 @@
 
 <details>
 
+<summary>Senin sorman gereken sorular ?</summary>
+
+1. Projenin amaci ve kapsami nedir?
+2. Projede kullanilan teknolojiler nelerdir?
+3. Proje ne zaman basladi ve ne zaman tamamlanmasi bekleniyor?
+4. Proje ekibi ne kadar buyuk ve hangi rolleri iceriyordu?
+5. Java versiyonu nedir?
+6. Spring boot versiyonu nedir?
+7. JPA , jdbc ne kullaniyorsunuz?
+8. Github, gitlab vb ne kullaniyorsunuz?
+
+</details>
+
+<details>
+
 <summary>Stateful vs stateless nedir?</summary>
 
 Stateful yapı, bir programın durum bilgisini saklayan ve bu duruma göre işlem yapan bir yapıdır. Stateful yapılar, geçmiş işlemlere bağlı olarak çalışan uygulamalar için kullanılır
@@ -339,31 +354,31 @@ JPA'nın popüler uygulamalarından biri Hibernate'dir. Hibernate, JPA spesifika
 
 <summary>Solid ilkeleri?</summary>
 
-### S— Single-responsibility principle
+#### S— Single-responsibility principle
 
 **ÖZET**: Single responsibility prensibi sınıflarımızın iyi tanımlanmış tek bir sorumluluğu olması gerektiğini anlatmaktadır. Bir sınıf (nesne) yalnızca bir amaç uğruna değiştirilebilir, o amaçta o sınıfa yüklenen sorumluluktur, yani bir sınıfın yapması gereken yalnızca bir işi olması gerekir.
 
 or/ Elbise mağazası sınıfı, yalnızca elbise stoklarını takip etmek ve elbise satışlarıyla ilgilenmekle sorumludur. Örneğin, elbiselerin stok seviyelerini güncellemek, yeni elbise eklemek, elbise satışlarını kaydetmek gibi işlemleri yapabilir.
 
-### O— Open-closed principle
+#### O— Open-closed principle
 
 **ÖZET**: Bir sınıf ya da fonksiyon halihazırda var olan özellikleri korumalı ve değişikliğe izin vermemelidir. Yani davranışını değiştirmiyor olmalı ve yeni özellikler kazanabiliyor olmalıdır.
 
 or/ Elbise mağazası sınıfı, yeni elbiselerin eklenmesine açık olmalıdır. Yeni bir elbise türü eklenmek istendiğinde, mevcut mağaza sınıfı değiştirilmeden yeni elbise türü sınıfı oluşturularak eklenir.
 
-### L— Liskov substitution principle
+#### L— Liskov substitution principle
 
 **ÖZET**: Kodlarımızda herhangi bir değişiklik yapmaya gerek duymadan alt sınıfları, türedikleri(üst)(ana) sınıfların yerine kullanabilmeliyiz.
 
 or/ Elbise mağazasında farklı türde elbiseler bulunabilir, örneğin elbiseler, gömlekler, pantolonlar gibi. Bu durumda, her tür elbisenin kullanılabilirliği ve davranışları aynı olmalıdır. Yani, her tür elbise, mağaza işlemlerinde birbirinin yerine geçebilmelidir.
 
-### I— Interface segregation principle
+#### I— Interface segregation principle
 
 **ÖZET**: Sorumlulukların hepsini tek bir arayüze toplamak yerine daha özelleştirilmiş birden fazla arayüz oluşturmalıyız.
 
 or/ Elbise mağazası sınıfı, müşteriye satış yapmak, stok durumunu kontrol etmek ve raporlama gibi işlemleri gerçekleştirebilir. Ancak, tüm bu işlemler için tek bir genel arayüz kullanmak yerine, müşteri satışları için ayrı bir arayüz, stok kontrolü için ayrı bir arayüz ve raporlama için ayrı bir arayüz gibi daha özelleştirilmiş arayüzler oluşturulabilir.
 
-### D— Dependency Inversion Principle
+#### D— Dependency Inversion Principle
 
 **ÖZET**: Sınıflar arası bağımlılıklar olabildiğince az olmalıdır özellikle üst seviye sınıflar alt seviye sınıflara bağımlı olmamalıdır.
 
