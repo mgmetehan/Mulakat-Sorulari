@@ -690,8 +690,6 @@ Bu annotasyonlar, Spring framework'ü içinde uygulama bileşenlerini belirtmek 
 
 </details>
 
-
-
 <details>
 
 <summary>Hibernate'de Fetch typelar nelerdir? Açıklayabilir misin?</summary>
@@ -729,3 +727,7 @@ public class Order {
 Bu örnek, `Order` sınıfında `OrderItem` ile `@OneToMany` ilişkisinin olduğunu ve ilişkili verilerin `LAZY` fetch türüyle yükleneceğini belirtir.
 
 </details>
+
+> Kafka vs RabbitMq
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
