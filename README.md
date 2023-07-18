@@ -575,3 +575,157 @@ Spring Bean'ler, Spring Framework'ün sunduğu çeşitli özelliklerden yararlan
 Spring Bean'leri, IOC konteynerine tanımlanan bir isim veya tip aracılığıyla elde edebilir ve uygulamanın farklı bölgelerinde kullanabilirsiniz. Bu sayede bean'lerin oluşturulması ve yönetimi Spring tarafından otomatik olarak gerçekleştirilirken, programcılar bean'lerin işlevselliği üzerinde odaklanabilir ve kolayca uygulama geliştirebilir.
 
 </details>
+
+<details>
+
+<summary>Java'da static ve final nedir ve nerelerde kullanılıyor. Örnek verebilir misin?</summary>
+
+
+
+static`ve`final\` anahtar kelimeleri, Java programlama dilinde farklı amaçlar için kullanılan önemli kavramlardır.
+
+1.  `static` Anahtar Kelimesi:
+
+    * `static` anahtar kelimesi, bir değişkenin veya metotun sınıfa ait olduğunu belirtmek için kullanılır. Bu, o değişkenin veya metotun sınıfın herhangi bir örneği olmadan kullanılabileceği anlamına gelir.
+    * `static` değişkenler, sınıfa ait olan değişkenlerdir ve her bir örneği tarafından paylaşılırlar. Değişkenin son değeri, tüm örnekler arasında aynıdır.
+    * `static` metotlar, sınıfa ait olan metotlardır ve sınıf adıyla doğrudan çağrılabilirler. Bunlar örneklerle ilişkili olmadığından, sınıfın durumunu değiştiremezler.&#x20;
+    * Örnek:
+
+    ```java
+     class MyClass {
+           static int count; // Statik bir değişken
+
+           public MyClass() {
+               count++; // Her bir örneğin oluşturulmasıyla count değeri artar
+           }
+
+           public static void printMessage() {
+               System.out.println("Statik metot");
+           }
+       }
+       
+       MyClass obj1 = new MyClass();
+       MyClass obj2 = new MyClass();
+       System.out.println(MyClass.count); // Çıktı: 2
+       MyClass.printMessage(); // Çıktı: Statik metot
+    ```
+
+
+2.  `final` Anahtar Kelimesi:
+
+    * `final` anahtar kelimesi, bir değişkenin, metotun veya sınıfın değiştirilemez olduğunu belirtmek için kullanılır.
+    * `final` değişkenler, bir kez değer atandıktan sonra değiştirilemezler. Sabit değerlere sahip değişkenlerdir.
+    * `final` metotlar, alt sınıflar tarafından ezilemezler. Yani, bu metotlar alt sınıflar tarafından değiştirilemez veya yeniden uygulanamaz.
+    * `final` sınıflar, alt sınıflara sahip olamazlar. Yani, başka bir sınıf bir `final` sınıfından türetilemez.&#x20;
+    * Final degiskenler, class'larda ve methodlarda kullanilabilir.
+    * Örnek:
+
+    ```java
+    final int MAX_VALUE = 100;
+       // MAX_VALUE değeri bir kez atandıktan sonra değiştirilemez
+
+       class BaseClass {
+           public final void printMessage() {
+               System.out.println("BaseClass'ten mesaj");
+           }
+       }
+
+       class DerivedClass extends BaseClass {
+           // Hata verecektir: "Cannot override the final method from BaseClass"
+           public void printMessage() {
+               System.out.println("DerivedClass'ten mesaj");
+           }
+       }
+
+       final class FinalClass {
+           // ...
+       }
+
+       // Hata verecektir: "Cannot inherit from final FinalClass"
+       class DerivedClass extends FinalClass {
+           // ...
+       }
+       
+    ```
+
+</details>
+
+<details>
+
+<summary>@ComponentScan, @Component, @Bean, @Repository, @Service, @Controller ve @RestController annotation neden kullanıyoruz?</summary>
+
+Java Spring framework'ü, uygulama geliştirme sürecini kolaylaştıran ve düzenleyen bir dizi annotasyon (işaretleyici) sağlar. İşte bu annotasyonlardan bazılarının kullanım amacı:
+
+1. `@ComponentScan`: Bu annotasyon, Spring uygulamasının bileşenlerini (component) taramak için kullanılır. Belirtilen paket veya paketlerdeki sınıfları tarayarak, Spring tarafından yönetilen bean'leri bulur ve otomatik olarak yaratır.
+2. `@Component`: Bu annotasyon, bir sınıfın bir Spring bileşeni olduğunu belirtmek için kullanılır. Spring, bu annotasyonu gördüğünde ilgili sınıfı bir bean olarak yönetir ve Spring uygulaması içinde kullanılabilir hale getirir.
+3. `@Bean`: Bu annotasyon, bir metodu Spring tarafından yönetilen bir bean olarak kaydetmek için kullanılır. Genellikle yapılandırma sınıflarında veya @Configuration annotasyonu ile işaretlenmiş sınıflarda kullanılır. Bu şekilde, ilgili metot tarafından dönülen nesne Spring konteynerine dahil edilir ve uygulama içinde kullanılabilir hale gelir.
+4. `@Repository`: Bu annotasyon, veri erişim katmanı (data access layer) sınıflarını belirtmek için kullanılır. Bir veritabanına erişmek, sorguları yürütmek veya veri işleme işlemlerini gerçekleştirmek gibi veri tabanı işlemleriyle ilgili sınıfları işaretlemek için kullanılır.
+5. `@Service`: Bu annotasyon, iş mantığı katmanı (business logic layer) sınıflarını belirtmek için kullanılır. Uygulama iş mantığını uygulayan servis sınıflarını ifade eder. Veri işleme, hesaplamalar, dış hizmetlere erişim vb. gibi işlemleri gerçekleştirmek için kullanılabilir.
+6. `@Controller`: Bu annotasyon, Spring MVC (Model-View-Controller) tabanlı web uygulamalarında kullanılan kontrol sınıflarını belirtmek için kullanılır. İstemci taleplerini karşılamak, işlemek ve uygun bir yanıt döndürmek için kullanılır.
+7. `@RestController`: Bu annotasyon, RESTful web hizmetleri sunmak için kullanılan kontrol sınıflarını belirtmek için kullanılır. Hem `@Controller` hem de `@ResponseBody` annotasyonlarının birleşimidir. Bu sayede, ilgili sınıfın tüm yöntemleri JSON veya XML gibi veri formatlarında yanıtlar üretir.
+
+Bu annotasyonlar, Spring framework'ü içinde uygulama bileşenlerini belirtmek ve yapılandırmak için kullanılır. Bu sayede Spring, otomatik olarak sınıfları yönetir, bağımlılıkları çözer ve uygulamanın düzgün çalışmasını sağlar. Her annotasyonun kendine özgü bir amacı ve kullanım senaryosu vardır ve projenin ihtiyaçlarına göre doğru bir şekilde kullanılması önemlidir.
+
+</details>
+
+<details>
+
+<summary>HashMap'ın çalışma mantığını anlatırmısın. Neden equal ve hashCode methodlarını kullanmalıyız?</summary>
+
+1. `HashMap`'in Çalışma Mantığı:
+   * `HashMap`, bir anahtar-değer ikilileri koleksiyonudur. Her bir anahtar, benzersiz olmalıdır ve değerlere karşılık gelir.
+   * `HashMap`, anahtarların hash değerlerine dayanarak verileri hızlı bir şekilde depolar ve erişir.
+   * Bir anahtarın hash değeri, `hashCode()` metodunu kullanarak hesaplanır. Bu hash değeri, `HashMap` içindeki bir hücreye (bucket) karşılık gelir.
+   * Eşleşen anahtarlar aynı hücreye atanabilir. Bu durumda, bu hücrede bir zincir (linked list) oluşur.
+   * `HashMap`, `equals()` metodu aracılığıyla anahtarların eşitliğini kontrol eder. Eşit olan anahtarlar aynı hücrede aynı zincirde bulunur.
+   * Bir değere erişmek istediğimizde, ilgili anahtarın hash değeri kullanılarak hedef hücreye ulaşılır ve zincirde gezinilir.
+2. `equals()` ve `hashCode()` Metodlarının Önemi:
+   * `equals()` metodu, iki nesnenin içeriklerinin eşit olup olmadığını kontrol eder. `HashMap` içinde anahtarları karşılaştırmak için kullanılır.
+   * `hashCode()` metodu, bir nesnenin benzersiz bir hash değerini döndürür. Bu değer, `HashMap` içindeki hücreye yerleştirme ve erişimde kullanılır.
+   * `HashMap`, iki anahtarın eşit olduğunu belirlemek için `equals()` metodunu kullanır. Eğer `equals()` metodu doğru bir şekilde uygulanmazsa, aynı anahtarın farklı hash değerleri olabilir ve bu da beklenmeyen sonuçlara yol açabilir.
+   * `hashCode()` metodunun doğru bir şekilde uygulanması, aynı nesnelerin her zaman aynı hash değerine sahip olmasını sağlar. Bu, aynı anahtarın aynı hücreye atanmasını ve doğru değerin elde edilmesini sağlar.
+   * `equals()` ve `hashCode()` metodlarının birlikte kullanılması, `HashMap` içinde anahtarların doğru şekilde çalışmasını sağlar. Eğer bir anahtarın `equals()` metodunu geçersiz kılarsanız, aynı anahtarın `hashCode()` metodunu da geçersiz kılmanız gerekir.
+
+`equals()` ve `hashCode()` metodlarının doğru bir şekilde uygulanması, `HashMap`'in anahtarlarını güvenilir ve etkin bir şekilde işlemesini sağlar. Bu nedenle, `HashMap` veya benzeri veri yapılarında anahtar olarak kullanılan sınıfların bu metodları düzgün bir şekilde uygulamaları önemlidir. Aksi takdirde, beklenmeyen sonuçlara ve hatalı veri erişimine neden olabilir.
+
+</details>
+
+
+
+<details>
+
+<summary>Hibernate'de Fetch typelar nelerdir? Açıklayabilir misin?</summary>
+
+Hibernate, Java tabanlı bir ORM (Object-Relational Mapping) çerçevesidir ve veritabanı işlemlerini kolaylaştırır. Fetch türleri, Hibernate'de nesne ilişkileri ve ilişkili verilerin nasıl alınacağını belirtmek için kullanılan kavramlardır. İşte Hibernate'de kullanılan fetch türlerinin açıklamaları:
+
+1. `FetchType.LAZY`:
+   * Bu fetch türü, ilişkili verilerin gerektiğinde yani kullanıldığında yüklenmesini sağlar.
+   * İlişkili veriler, ilgili nesneye erişilmeye çalışıldığında veya verilerin çağrılması gerektiğinde yüklenir.
+   * Bu, performans açısından faydalı olabilir çünkü ilişkili veriler yalnızca ihtiyaç duyulduğunda getirilir ve gereksiz yüklenme önlenebilir.
+2. `FetchType.EAGER`:
+   * Bu fetch türü, ilişkili verilerin ana nesne yüklenirken hemen yüklenmesini sağlar.
+   * İlişkili veriler, ana nesnenin yüklendiği aşamada otomatik olarak getirilir.
+   * İhtiyaç duyulmasa bile tüm ilişkili veriler yüklenir, bu nedenle büyük veri kümesi veya performans endişeleri oluşabilir.
+3. `FetchType.DEFAULT`:
+   * Bu fetch türü, belirli bir fetch türü belirtilmediğinde varsayılan olarak kullanılır.
+   * Genellikle `FetchType.LAZY` ile aynıdır, yani ilişkili veriler gerektiğinde yüklenir.
+
+Fetch türleri, Hibernate'in ilişkili nesneleri veritabanından nasıl getireceğini belirler. `LAZY` fetch türü, veri erişimini daha tembel bir şekilde yapar ve performansı artırabilirken, `EAGER` fetch türü, ilişkili verileri hemen getirerek veritabanı erişimlerini artırabilir. Seçilecek olan fetch türü, uygulamanın ihtiyaçlarına ve performans gereksinimlerine bağlıdır.
+
+Fetch türleri, genellikle Hibernate'de ilişkili nesneler arasında `@OneToMany`, `@OneToOne`, `@ManyToMany` gibi ilişki annotasyonları kullanıldığında belirtilir. Bu annotasyonlar üzerinde `fetch` parametresi kullanılarak fetch türü belirtilebilir.
+
+Örneğin:
+
+```java
+@Entity
+public class Order {
+    // ...
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<OrderItem> items;
+    // ...
+}
+```
+
+Bu örnek, `Order` sınıfında `OrderItem` ile `@OneToMany` ilişkisinin olduğunu ve ilişkili verilerin `LAZY` fetch türüyle yükleneceğini belirtir.
+
+</details>
