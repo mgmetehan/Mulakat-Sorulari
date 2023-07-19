@@ -728,6 +728,26 @@ Bu örnek, `Order` sınıfında `OrderItem` ile `@OneToMany` ilişkisinin olduğ
 
 </details>
 
+<details>
+
+<summary>Hibernate N+1 problemi nedir ?</summary>
+
+Hibernate N+1 problemi, bir nesne ilişkisel eşlemesi (object-relational mapping - ORM) aracı olan Hibernate'in performans sorunlarına neden olan bir durumu ifade eder. Bu sorun, ilişkili nesnelerin veritabanından alınması için gereken sorgu sayısının aşırı artmasıyla ortaya çıkar.
+
+Örneğin, bir ilişkisel veritabanında "Kitap" ve "Yazar" tabloları olduğunu düşünelim. Her bir kitap bir yazar tarafından yazılmıştır ve bu nedenle "Kitap" tablosu ile "Yazar" tablosu arasında bir ilişki vardır. Hibernate, bu ilişkiyi kullanarak bir kitabı alırken ilişkili yazar bilgilerini de getirebilir.
+
+N+1 problemi, bir sorgu yürütüldüğünde Hibernate'in önce ana tabloyu (örneğin "Kitap" tablosu) sorgulaması ve ardından her bir kitap için ayrı ayrı yazarın bilgilerini almak için ek sorgular yürütmesiyle ortaya çıkar. Bu durumda, N sayısı kitap sayısına eşittir ve her bir kitap için 1 adet ek sorgu yürütülür. Bu, veritabanı üzerinde gereksiz yük oluşturur ve performansı düşürebilir.
+
+Hibernate'de N+1 problemi çözmek için birkaç yaklaşım vardır:
+
+1. Eager loading (acele yükleme): İlişkili verilerin önceden yüklenmesini sağlayarak, ek sorguların önüne geçebilirsiniz. Örneğin, sorgunuzu Hibernate'in `fetch` özelliğini kullanarak ilişkili verilerin otomatik olarak yüklenmesini sağlayabilirsiniz.
+2. Lazy loading (geç yükleme): İlişkili verileri talep edildiği anda yüklemek için tembel yükleme kullanabilirsiniz. Hibernate, ilişkili verileri gerektiğinde yükler ve böylece gereksiz sorgu sayısını azaltır.
+3. Batch loading (toplu yükleme): Hibernate, veritabanından toplu olarak veri getirmek için `@BatchSize` veya `@OneToMany` gibi özellikleri kullanabilirsiniz. Bu, bir sorguda birden çok nesnenin verilerini getirerek performansı artırabilir.
+4. Join fetch: İlişkili verileri tek bir sorguda getirmek için `JOIN FETCH` ifadesini kullanabilirsiniz. Bu, N+1 probleminden kaçınmanın etkili bir yoludur.
+
+</details>
+
 > Kafka vs RabbitMq
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
