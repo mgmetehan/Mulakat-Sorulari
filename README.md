@@ -747,6 +747,60 @@ Hibernate'de N+1 problemi çözmek için birkaç yaklaşım vardır:
 
 </details>
 
+<details>
+
+<summary>Spring Context nedir?</summary>
+
+Spring Context, Spring Framework'de önemli bir rol oynayan ve uygulama bileşenlerini yöneten temel yapıdır. Spring Context, IOC (Inversion of Control) prensibini uygular ve Spring Bean'lerinin oluşturulması, yapılandırılması ve yönetilmesinden sorumlu olan bir konteynerdir.
+
+Spring Context, genellikle "ApplicationContext" adlı bir arayüzü veya onun uygulamasını temsil eder. Bu, Spring tabanlı uygulamaların çalışma zamanında oluşturulan ve Spring Bean'lerini barındıran bir ortamdır. Uygulama, Spring Context üzerinden Spring Bean'lerine erişebilir ve Spring Context tarafından yönetilen nesnelerin yaşam döngüsünü kontrol edebilir.
+
+Spring Context, XML veya Java tabanlı yapılandırmayla oluşturulabilir. XML tabanlı yapılandırmada, "applicationContext.xml" gibi bir dosyada bean tanımlamaları yapılırken, Java tabanlı yapılandırmada ise "AnnotationConfigApplicationContext" veya diğer uygun uygulamalar kullanılarak yapılandırma sınıfı belirtilir.
+
+Spring Context, aşağıdaki işlevleri sağlar:
+
+1. **Dependency Injection (Bağımlılık Enjeksiyonu):** Spring Context, Spring Bean'lerine diğer bağımlılıklarını enjekte eder. Böylece, nesneler arasındaki bağımlılıkları azaltır ve uygulamanın esnekliğini artırır.
+2. **Bean Yaratma ve Yönetimi:** Spring Context, Spring Bean'lerinin yaşam döngüsünü yönetir ve istemci tarafından elle oluşturulması ve yönetilmesi gerekmez. İlgili yapılandırmalara göre Spring Context, bean'leri önceden oluşturabilir veya istemci talebine göre onları oluşturabilir.
+3. **AOP (Aspect-Oriented Programming) Desteği:** Spring Context, AOP prensiplerini uygulamayı sağlar. Bu sayede, uygulama işlevselliğini temel iş mantığından ayrı olarak modüle edebilir ve belirli işlemleri yatay olarak keserek tekrar kullanabilir.
+4. **Internationalization (I18N) Desteği:** Spring Context, uygulama içinde metinlerin çevirisini ve yerelleştirmeyi kolaylaştıran I18N desteği sunar.
+
+Spring Context, uygulama tarafından oluşturulur ve genellikle uygulama ömrü boyunca varlığını sürdürür. Bu sayede, Spring Bean'lerini yönetir ve uygulama bileşenlerinin etkileşimini kolaylaştırır. ApplicationContext, birçok farklı tipi destekler ve Spring tarafından sağlanan çeşitli özellikleri kullanarak uygulamanın ihtiyaçlarına uygun şekilde yapılandırılabilir.
+
+</details>
+
+<details>
+
+<summary>Spring Bean nedir?</summary>
+
+Spring Bean, Spring Framework'in temel yapı taşlarından biridir. Spring, Java tabanlı bir uygulama geliştirme çerçevesidir ve işletim ortamı bağımsızlığı ve hafiflik sunar. Spring Bean, Spring konteyneri tarafından yönetilen ve yönetilen nesnelerin bir örneğidir.
+
+Spring Bean'ler, Spring IOC (Inversion of Control) prensibiyle yönetilir. Bu prensip, uygulama nesnelerinin oluşturulması, yapılandırılması ve yönetilmesinin doğrudan uygulama tarafından değil, dış bir konteyner tarafından gerçekleştirilmesini sağlar. Bu, uygulama kodunun daha esnek ve kolay test edilebilir olmasına yardımcı olur.
+
+Spring Bean'leri tanımlamak için genellikle XML tabanlı ya da Java tabanlı yapılandırma kullanılır. XML tabanlı yapılandırmada, "applicationContext.xml" gibi bir dosya içinde bean tanımları yapılırken, Java tabanlı yapılandırmada ise "@Component" veya "@Bean" gibi Spring tarafından sağlanan belirteçler kullanılarak tanımlamalar yapılır.
+
+Örnek olarak, aşağıdaki gibi bir Spring Bean tanımı düşünelim:
+
+```xml
+<bean id="exampleBean" class="com.example.ExampleBean">
+    <!-- Bean properties and dependencies -->
+</bean>
+```
+
+veya Java tabanlı yapılandırmada:
+
+```java
+@Component
+public class ExampleBean {
+    // Bean properties and dependencies
+}
+```
+
+Bu tanımlamalar, "exampleBean" adında bir Spring Bean'in oluşturulduğunu belirtir. Bu nesneye, sınıfının adı olan "com.example.ExampleBean" veya Java tabanlı yapılandırmada sınıfın kendisi atanarak bağımlılıklar ve özellikler belirtilir.
+
+Spring Bean'ler, Spring uygulamalarındaki farklı bileşenler arasında veri ve hizmetlerin paylaşılmasını sağlar. Aynı zamanda, bu bileşenlerin yaşam döngüsü, Spring konteyneri tarafından yönetilir, bu nedenle geliştirici tarafından elle oluşturulup yönetilmesine gerek kalmaz.
+
+</details>
+
 > Kafka vs RabbitMq
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
