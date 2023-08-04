@@ -386,6 +386,8 @@ or/ Elbise mağazası sınıfı, doğrudan stok veritabanına veya satış işle
 
 </details>
 
+<figure><img src=".gitbook/assets/1690607098312.gif" alt=""><figcaption></figcaption></figure>
+
 <details>
 
 <summary>clean code ?</summary>
