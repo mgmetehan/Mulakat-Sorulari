@@ -807,3 +807,36 @@ Spring Bean'ler, Spring uygulamalarındaki farklı bileşenler arasında veri ve
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
+<details>
+
+<summary>Eureka Server nedir? </summary>
+
+Bir mikroservis mimarisinde calisan tum mikroservislerin listesini tutar. Bu servislerin hangi IP adreslerinde calistiklarini ve hangi portlardan erisebileceklerini bilir. Bu bilgi diger servisler tarafindan kullanilarak bir servisin calistigi makineye baglanilabilir. Servislerin calisma durumunu izleyerek calismama durumunda diger servisleri uyararak bu servis yerine baska bir servisin calismasini saglar. Mikroservis mimarisinde servisler arasi iletisimi kolaylastirir. Eureka server bir REST API sunar. Bu API eureka server ‘ a kaydedilen mikroservislerin listesini dondurur ve mikroservislerin durumunu izler. Sonuc olarak eureka server, bir mikroservis mimarisinde kullanilan bir servis registry ‘ dir.
+
+Spring Cloud Netflix Eureka'nin temel ozellikleri sunlardir:
+
+1. Hizmet kaydi ve kesfi: Hizmetler, Eureka sunucusuna kaydedilir ve diger hizmetler bu sunucudan kayitli hizmetleri bulabilir.
+2. Yuk dengeleme: Eureka, yuk dengeleme islemlerini kolaylastirir ve hizmetler arasinda yuku dagitabilir.
+3. Hata toleransi: Eureka, sistemdeki hizmetlerin durumunu izler ve hata durumlarinda otomatik olarak yeniden dengeleme yapabilir.
+4. Dinamik olceklendirme: Eureka, yeni hizmetlerin otomatik olarak tespit edilmesini ve sistemdeki degisikliklere dinamik olarak uyum saglamayi mumkun kilar.
+5. Kendi kendine iyilestirme: Eureka, hizmetlerin durumunu izleyebilir ve gerektiginde sorunlari tespit edip cozebilir.
+
+</details>
+
+<details>
+
+<summary>Feign Client nedir?</summary>
+
+Servislerimiz arasindaki iletisimi klasik yontem diyebilecegimiz RestTemplate ile yaparak saglabiliyoruz. RestTemplate ile yapilan iletisim yontemini kullanarak metotlarimiz icerisinde ilgili api istegini kullanarak metotlarimizi bagimli hale getiriyoruz.
+
+OpenFeign kullanarak servis iletisimi interface templateler uzerinden yonetip, daha okunabilir ve configurasyonel olarak kullanabilmeyi saglamaktayiz.
+
+Bu kullanabilirlik sayesinde cok fazla kullanilan servislerin yonetilebilmesi ve olasi degisiklerde daha hizli ve kolay mudahale edebilmemizi saglamaktadir.
+
+Feign'in bazi temel ozellikleri sunlardir:
+
+1. Deklaratif API: Feign, RESTful servislerle etkilesimde bulunmak icin basit bir deklaratif API saglar. Bu sayede, gelistiricilerin uzak servislere istekler gondermek icin ayrintili kodlar yazmalari gerekmez.
+2. Annotasyonlar: Feign, metotlari ve parametreleri isaretlemek icin anotasyonlar kullanir. Bu anotasyonlar, isteklerin nasil yapilacagini ve hedef servislerin nerede oldugunu belirtir.
+3. Yapilandirilabilirlik: Feign, yapilandirilabilir ozelliklerle gelir, bu sayede gelistiricilerin isteklerin zaman asimi surelerini, yeniden deneme politikalarini ve diger baglamsal ayarlari kolayca belirlemelerine olanak tanir.
+
+</details>
