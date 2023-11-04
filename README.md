@@ -840,3 +840,63 @@ Feign'in bazi temel ozellikleri sunlardir:
 3. Yapilandirilabilirlik: Feign, yapilandirilabilir ozelliklerle gelir, bu sayede gelistiricilerin isteklerin zaman asimi surelerini, yeniden deneme politikalarini ve diger baglamsal ayarlari kolayca belirlemelerine olanak tanir.
 
 </details>
+
+<details>
+
+<summary>Resilience4j Nedir ?</summary>
+
+[`https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52`](https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52)`-> Cok iyi anlatiyor`
+
+## 🎯 Resilience4j Nedir ?
+
+* Bilindiği üzere, arka-plan (back-end) servislerinin giderek karmaşıklaşması ve tek parça halinde sürdürülebilirliğinin zorlaşmasının sonucunda, mikroservis mimarisi kullanılarak arka-plan servislerinin birbirleriyle iletişim halinde olan, nispeten daha küçük servisler halinde düzenlenmesi oldukça popüler hale gelmiştir.
+* Bu servisler, birbirleriyle kapalı bir ağ üzerinde, çoğunlukla HTTP protokolünü kullanarak haberleşmektedirler.
+* Lakin, birbirleriyle HTTP üzerinden haberleşen servisler, bazı ek problemleri de beraberinde getirebilirler.
+* Projemden örnek verirsem user-service servisi, kendisine gelen istekleri karşılamak üzere department-service servisiyle iletişime geçiyor olsun.
+* department-service servisinde oluşabilecek bir sistem hatası, servisin yeni bir sürümünün sunucuya yüklenmesi veya yeni sürümde çıkabilecek istikrar sorunları gibi bir çok nedenden ötürü, department-service servisine giden isteklerin zamanlı bir biçimde yanıtlanamadığını ve bazı çağrılarda uygun bir cevap nesnesi yerine sunucu hatalarının döndürüldüğünü düşünün.
+* Bu durumda, department-service servisinin döndürdüğü hata user-service servisine de sıçrayacaktır.
+* Ardından, söz konusu hata department-service servisine çağrı yapılan katmandan itibaren üst katmanlara (servis, denetici (controller)vs.) fırlatılacak ve user-service servisine çağrı gerçekleştiren servisin de uygun bir yanıt alamamasına neden olacaktır.
+* Bu şekilde oluşan bir hata yayılım zinciri, son kullanıcının söz konusu web uygulamasını arzu ettiği bir biçimde kullanamamasıyla sonuçlanacaktır.
+* Bu durumlar ne gibi yöntemlerle giderilebilir.
+
+### 📌 Retry
+
+* Beklenmedik bir yanıtın - ya da yanıt alınamamasının - isteği tekrar göndererek düzeltilebileceğini varsaydığımızda, yeniden deneme kalıbını kullanmak yardımcı olabilir. Bu, işlem başarısız olarak işaretlenmeden önce başarısız isteklerin yapılandırılabilir sayıda yeniden denendiği çok basit bir modeldir.
+* Aşağıdaki durumlarda yeniden denemeler yararlı olabilir:
+* Paket kaybı gibi geçici ağ sorunları.
+* Hedef hizmetin dahili hataları, örneğin bir veritabanı kesintisinden kaynaklanan.
+* Hedef hizmete yönelik çok sayıda talep nedeniyle yanıt alınamaması veya yavaş yanıt alınması.
+
+### 📌 Fallback
+
+* Geri dönüş kalıbı, hizmetinizin başka bir hizmete yapılan başarısız bir istek durumunda yürütmeye devam etmesini sağlar. Eksik bir yanıt nedeniyle hesaplamayı iptal etmek yerine, bir geri dönüş değeri doldururuz.
+
+### 📌 Timeout
+
+* Zaman aşımı modeli oldukça basittir ve birçok HTTP istemcisinin yapılandırılmış varsayılan bir zaman aşımı vardır. Amaç, yanıtlar için sınırsız bekleme sürelerinden kaçınmak ve böylece zaman aşımı içinde yanıt alınamayan her isteği başarısız olarak değerlendirmektir.
+
+### 📌 Circuit breaker
+
+* Circuit Breakers deseni, adından anlaşılacağı üzere elektronik devrelerdeki, devre kesici şalt cihazlar gibi kurgulanan bir yöntemdir.
+* Devre kesiciler, elektronik devreyi korumak için sistemde meydana gelen bir aksaklık durumunda (yük akımını veya kısa devre akımları) yük geçişini durdururlar.
+* Circuit Breakers deseni uygulandığında, servisler arasında haberleşmeyi kapsayacak şekilde inşaa edilir.
+* Servisler arasındaki iletişimi (Event, Message, Http, vb.) izler ve haberleşmedeki meydana gelen hataları takip eder.
+* Request yapılan bir API ucunun, http 500 hata kodu dönmesi veya fırlatılan bir event’in handle edilememesi bu hata duruma örnek olarak gösterilebilir.
+* Sistemde meydana gelen hata durumu belirli bir eşik değerini geçtiğinde ise Circuit Breakers açık duruma geçer ve haberleşmeyi keser, daha önce belirlenen hata mesajlarını döndürür.
+* Bir süre bekledikten sonra devre yarı açık duruma geçer. Bu durumda bir isteğin geçmesine izin verir ve başarısız olması durumunda açık duruma veya başarılı olması durumunda kapalı duruma geri döner.
+* Circuit Breakers açık durumdayken haberleşme trafiğini izlemeye devam eder ve istek yapılan servis veya fırlatılan bir event başarılı sonuçlar dönmeye başlamışsa kapalı duruma geçer.
+* Circuit Breakers’ın üç durumu vardır. Bu durumlar: Açık (Open), Kapalı (Closed) ve Yarı-Açık (Half-Open).
+
+#### Closed
+
+* Sigorta tamamen kapalıdır. Bütün çağrıların yapılmasına izin verilir ve hatalı çağrılar kurtarma metoduna yönlendirilebilir (fallback). Hatalı çağrıların sayısının (veya oranının) belirli bir sayının üstünde olması takdirinde, sigorta, açık konuma getirilir.
+
+#### Open
+
+* Sigorta aktif konumdadır ve çağrıların tamamını reddetmektedir. Reddedilen çağrılar, mikroservis içerisinde yer alan bir kurtarma metoduna yönlendirilerek çağrının sorunsuz bir biçimde sonuçlanması sağlanabilir.
+
+#### Half-Open
+
+* Sigortanın açık konuma geçmesinden belirli bir süre sonra, sigorta, kendini yarı açık konuma getirir. Bu durumda belirli sayıda (veya oranda) çağrının gerçekleştirilmesine izin verilir. Eğer hatalı çağrıların oranı (veya sayısı) belirli bir sayının üzerinde olursa, tekrardan açık konuma geçilir; aksi takdirde sigorta tamamen kapatılır.
+
+</details>
