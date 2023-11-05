@@ -900,3 +900,11 @@ Feign'in bazi temel ozellikleri sunlardir:
 * Sigortanın açık konuma geçmesinden belirli bir süre sonra, sigorta, kendini yarı açık konuma getirir. Bu durumda belirli sayıda (veya oranda) çağrının gerçekleştirilmesine izin verilir. Eğer hatalı çağrıların oranı (veya sayısı) belirli bir sayının üzerinde olursa, tekrardan açık konuma geçilir; aksi takdirde sigorta tamamen kapatılır.
 
 </details>
+
+<details>
+
+<summary>Entity Inheritance’ın Püf Noktaları (@MappedSuperclass,@Inheritance,@DiscriminatorValue)</summary>
+
+[https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c](https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c)
+
+</details>
