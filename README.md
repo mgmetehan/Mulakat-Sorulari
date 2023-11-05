@@ -921,3 +921,59 @@ Java'da, Lombok kutuphanesi siniflarin olusturulmasi sirasinda tekrar eden ve si
 Genel olarak, `@SuperBuilder`'in `@Builder`'dan daha guclu bir versiyonu oldugunu soyleyebiliriz. `@SuperBuilder`, ust siniflardan gelen alanlarla calisirken daha esneklik ve kolaylik saglar. Bu nedenle, miras alinan siniflarin builder desenini kullanirken `@SuperBuilder` tercih edilebilir.
 
 </details>
+
+<details>
+
+<summary>Herhangi Bir Servisten Hata Geldiginde Bu Hata Durumunu Nasil Tolere Edersiniz?</summary>
+
+"Kafka Shovel", hatali verilerin diger sistemler tarafindan tolere edilmesini saglar. Bu, hatali verilerin baska bir konuma kaydedilmesini veya gecici olarak saklanmasini saglar. Spring Retry, bazi durumlarda dezavantajlara sahip olabilir, bu nedenle Kafka Shovel gibi alternatifleri tercih etmek daha uygundur.
+
+</details>
+
+<details>
+
+<summary>Iki Servis Arasinda Hata Olustugunda Nasil Yonetirsiniz?</summary>
+
+"Retry" mekanizmasini kullanarak, belirlenen bir sure icinde tekrar deneme yapilabilir. Bu, hata olustugunda otomatik olarak tekrar deneme yapilmasini saglayan bir yaklasimdir.
+
+</details>
+
+<details>
+
+<summary>Bir Servisten Gec Cevap Geldiginde Diger API'leri Etkilememek Icin Ne Yaparsiniz?</summary>
+
+"Circuit breaker" tasarim desenini uygulayarak, hatali veya yavas hizmetlerin etkisini sinirlayabilirsiniz. Bu sayede diger API'lerin etkilenmemesini saglamis olursunuz.
+
+</details>
+
+<details>
+
+<summary>Kafka'ya Event Gonderdiniz Fakat Kafka Coktu, Bunu Nasil Yonetirsiniz?</summary>
+
+"Outbox" deseni kullanarak, Kafka'nin cokmesi durumunda gonderilen mesajlarin gecici bir yerde saklanarak daha sonra tekrar gonderilmesini saglayabilirsiniz.
+
+</details>
+
+<details>
+
+<summary>CQRS Kullanirken Iki Veritabanini Senkronize Etmenin Bir Yolu Olmadan Nasil Cozum Uretirsiniz?</summary>
+
+"Debezium" ve "Kafka Connect" gibi araclari kullanarak, veritabanlari arasinda gercek zamanli veri senkronizasyonunu saglayabilirsiniz. Bu araclar, veritabanlari arasinda degisiklikleri izlemek ve bunlari bir Kafka akisina donusturmek icin kullanilir.
+
+</details>
+
+<details>
+
+<summary>Kafka Partisyonu Nedir?</summary>
+
+Kafka, mesajlari parcalara boler ve bu parcalari farkli sunucu parcalarinda depolar. Bu parcalara "partisyon" adi verilir. Partisyonlar, verilerin paralel islenmesini ve yuksek olceklenebilirlik saglar.
+
+</details>
+
+<details>
+
+<summary>Kafka'ya Event Gonderirken Neden "Key" Gondeririz?</summary>
+
+"Key", mesajlari gruplamak ve belirli bir sirayla islemek icin kullanilir. Key, mesajin hangi partisyon icinde depolanacagini belirlemek icin kullanilabilir.
+
+</details>
