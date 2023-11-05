@@ -908,3 +908,16 @@ Feign'in bazi temel ozellikleri sunlardir:
 [https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c](https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c)
 
 </details>
+
+<details>
+
+<summary>@Builder vs @SuperBuilder</summary>
+
+Java'da, Lombok kutuphanesi siniflarin olusturulmasi sirasinda tekrar eden ve sikici olan kodlamayi azaltmak icin kullanilir. `@Builder` ve `@SuperBuilder` gibi Lombok anotasyonlari, builder desenini uygulamak icin kullanilir. Her iki anotasyon da siniflarin nesnelerini olusturmak icin kolay bir yol saglar, ancak bazi temel farkliliklari vardir. Iste her ikisinin de temel ozellikleri:
+
+1. **@Builder:** Bu anotasyon, Lombok tarafindan saglanir ve sinifin uzerine eklendiginde, derleme zamaninda o sinifa bir Builder sinifi ekler. Bu Builder sinifi, sinifin tum alanlarini icerir ve bu alanlari kullanarak nesneleri olusturmaniza olanak tanir. Ancak, bu sinifin ust siniflardan gelen alanlarla basa cikma yetenegi sinirlidir.
+2. **@SuperBuilder:** Bu anotasyon da Lombok tarafindan saglanir ve `@Builder`'in genisletilmis bir versiyonudur. Bu anotasyon, sinifin uzerine eklendiginde, derleme zamaninda o sinifa bir Builder sinifi ekler. Bu Builder sinifi, sinifin tum alanlarini icerir ve ayrica ust siniflardan gelen alanlarla basa cikabilir. Bu, miras alinan siniflarla calisirken builder desenini kullanmayi daha kolay hale getirir.
+
+Genel olarak, `@SuperBuilder`'in `@Builder`'dan daha guclu bir versiyonu oldugunu soyleyebiliriz. `@SuperBuilder`, ust siniflardan gelen alanlarla calisirken daha esneklik ve kolaylik saglar. Bu nedenle, miras alinan siniflarin builder desenini kullanirken `@SuperBuilder` tercih edilebilir.
+
+</details>
