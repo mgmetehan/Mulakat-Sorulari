@@ -2,6 +2,21 @@
 
 <details>
 
+<summary>Senin sorman gereken sorular ?</summary>
+
+1. Projenin amaci ve kapsami nedir?
+2. Projede kullanilan teknolojiler nelerdir?
+3. Proje ne zaman basladi ve ne zaman tamamlanmasi bekleniyor?
+4. Proje ekibi ne kadar buyuk ve hangi rolleri iceriyordu?
+5. Java versiyonu nedir?
+6. Spring boot versiyonu nedir?
+7. JPA , jdbc ne kullaniyorsunuz?
+8. Github, gitlab vb ne kullaniyorsunuz?
+
+</details>
+
+<details>
+
 <summary>Stateful vs stateless nedir?</summary>
 
 Stateful yapı, bir programın durum bilgisini saklayan ve bu duruma göre işlem yapan bir yapıdır. Stateful yapılar, geçmiş işlemlere bağlı olarak çalışan uygulamalar için kullanılır
@@ -118,15 +133,9 @@ equals() bir methoddur ve değişkenler arasındaki değer kontrolünü yapar.
 
 <summary>DAO nedir?</summary>
 
-DAO, Data Access Object'in kisaltmasidir. Bu, bir yazilim uygulamasi ile veritabani arasindaki iletisimden sorumlu olan bir tasarim desenidir. DAO, uygulamanin veritabanina bagimliligini azaltmak ve uygulama kodunu daha okunakli, bakimi kolay ve test edilebilir hale getirmek icin kullanilir.
+DAO, Data Access Object'ın kısaltmasıdır. Bu, bir yazılım uygulaması ile veritabanı arasındaki iletişimden sorumlu olan bir tasarım desenidir. DAO, uygulamanın veritabanına bağımlılığını azaltmak ve uygulama kodunu daha okunaklı, bakımı kolay ve test edilebilir hale getirmek için kullanılır.
 
 Dao da crud islemleri yapilir
-
-Spring Boot'ta DAO, genellikle Spring Data JPA veya JDBC gibi veritabani erisim teknolojileriyle birlikte kullanilir. Bu teknolojiler, veritabani islemlerini gerceklestirmek icin gelistirilmis araclar ve ozellikler sunar. Spring Data JPA, Java Persistence API (JPA) standardini kullanarak nesne iliskisel esleme (ORM) saglar, boylece veritabani tablolari ve Java siniflari arasinda bir esleme yapabilirsiniz.
-
-Spring Boot'ta bir DAO sinifi, genellikle belirli bir varlik sinifinin (entity class) veritabani islemlerini gerceklestiren metotlari icerir. Bu sinif, veritabani baglantisi kurar, sorgulari yurutur ve sonuclari dondurur.
-
-Bir nevi @Repository class'i bizim dao'umuz oluyor.
 
 </details>
 
@@ -345,37 +354,39 @@ JPA'nın popüler uygulamalarından biri Hibernate'dir. Hibernate, JPA spesifika
 
 <summary>Solid ilkeleri?</summary>
 
-### S— Single-responsibility principle
+#### S— Single-responsibility principle
 
 **ÖZET**: Single responsibility prensibi sınıflarımızın iyi tanımlanmış tek bir sorumluluğu olması gerektiğini anlatmaktadır. Bir sınıf (nesne) yalnızca bir amaç uğruna değiştirilebilir, o amaçta o sınıfa yüklenen sorumluluktur, yani bir sınıfın yapması gereken yalnızca bir işi olması gerekir.
 
 or/ Elbise mağazası sınıfı, yalnızca elbise stoklarını takip etmek ve elbise satışlarıyla ilgilenmekle sorumludur. Örneğin, elbiselerin stok seviyelerini güncellemek, yeni elbise eklemek, elbise satışlarını kaydetmek gibi işlemleri yapabilir.
 
-### O— Open-closed principle
+#### O— Open-closed principle
 
 **ÖZET**: Bir sınıf ya da fonksiyon halihazırda var olan özellikleri korumalı ve değişikliğe izin vermemelidir. Yani davranışını değiştirmiyor olmalı ve yeni özellikler kazanabiliyor olmalıdır.
 
 or/ Elbise mağazası sınıfı, yeni elbiselerin eklenmesine açık olmalıdır. Yeni bir elbise türü eklenmek istendiğinde, mevcut mağaza sınıfı değiştirilmeden yeni elbise türü sınıfı oluşturularak eklenir.
 
-### L— Liskov substitution principle
+#### L— Liskov substitution principle
 
 **ÖZET**: Kodlarımızda herhangi bir değişiklik yapmaya gerek duymadan alt sınıfları, türedikleri(üst)(ana) sınıfların yerine kullanabilmeliyiz.
 
 or/ Elbise mağazasında farklı türde elbiseler bulunabilir, örneğin elbiseler, gömlekler, pantolonlar gibi. Bu durumda, her tür elbisenin kullanılabilirliği ve davranışları aynı olmalıdır. Yani, her tür elbise, mağaza işlemlerinde birbirinin yerine geçebilmelidir.
 
-### I— Interface segregation principle
+#### I— Interface segregation principle
 
 **ÖZET**: Sorumlulukların hepsini tek bir arayüze toplamak yerine daha özelleştirilmiş birden fazla arayüz oluşturmalıyız.
 
 or/ Elbise mağazası sınıfı, müşteriye satış yapmak, stok durumunu kontrol etmek ve raporlama gibi işlemleri gerçekleştirebilir. Ancak, tüm bu işlemler için tek bir genel arayüz kullanmak yerine, müşteri satışları için ayrı bir arayüz, stok kontrolü için ayrı bir arayüz ve raporlama için ayrı bir arayüz gibi daha özelleştirilmiş arayüzler oluşturulabilir.
 
-### D— Dependency Inversion Principle
+#### D— Dependency Inversion Principle
 
 **ÖZET**: Sınıflar arası bağımlılıklar olabildiğince az olmalıdır özellikle üst seviye sınıflar alt seviye sınıflara bağımlı olmamalıdır.
 
 or/ Elbise mağazası sınıfı, doğrudan stok veritabanına veya satış işlemlerinin gerçekleştirildiği başka bir sınıfa bağımlı olmamalıdır. Bunun yerine, bir arayüz üzerinden bağımlılık oluşturulabilir ve ilgili işlemler bu arayüz üzerinden gerçekleştirilebilir. Bu sayede, farklı veritabanları veya satış işlemlerini gerçekleştiren farklı sınıflar, bu arayüzü uygulayarak kullanılabilir hale gelir.
 
 </details>
+
+<figure><img src=".gitbook/assets/1690607098312.gif" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -494,7 +505,18 @@ Genel olarak, stack hafızası genellikle yerel değişkenler, metod çağrılar
 
 <summary>Mutable ve Immutable nedir ?</summary>
 
-Immutable (değişmez), nesneler bir kez oluşturulduktan sonra içeriği değiştirilemeyen sınıflardır. Tam tersi olarak, değiştirilebilen sınıflar da Mutable (değişebilir) sınıflardır. Kısacası Immutable nesneler değişmeyen nesnelerdir. Onları oluşturursun, fakat onları değiştiremezsin.
+Immutable (degismez), nesneler bir kez olusturulduktan sonra icerigi degistirilemeyen siniflardir. Tam tersi olarak, degistirilebilen siniflar da Mutable (degisebilir) siniflardir. Kisacasi Immutable nesneler degismeyen nesnelerdir. Onlari olusturursun, fakat onlari degistiremezsin.
+
+Java'da immutability ornegi String sinifidir. String nesneleri bir kez olusturulduktan sonra degistirilemez. Eger bir String nesnesini degistirirseniz, aslinda yeni bir String nesnesi olusturulur.
+
+Immutabilite avantajlari sunlar olabilir:
+
+1. **Thread Guvenligi:** Degismez nesnelerin thread guvenligi daha yuksektir, cunku bir kez olusturulduktan sonra durumu degistirilemedigi icin senkronizasyon sorunlari ortaya cikmaz.
+2. **Cacheleme Kolayligi:** Degismez nesneler cacheleme (onbellege alma) icin uygundur, cunku bir kere olusturulduktan sonra degerleri degismedigi icin cacheleme islemleri daha etkili olabilir.
+3. **Debug Kolayligi:** Degismez nesnelerin degerleri degismedigi icin programin durumu daha ongorulebilir ve hata ayiklama daha kolay olabilir.
+4. **Referans Stabilitesi:** Degismez nesnelerin referanslari degismedigi icin bir nesnenin referansi uzerinde calisan diger kodlar icin beklenmeyen durumlar ortaya cikmaz.
+
+Bu nedenlerden dolayi, ozellikle coklu is parcacigi iceren ortamlarda veya guvenilir, tahmin edilebilir kod yazma ihtiyaci olan yerlerde immutabilite prensibi tercih edilebilir.
 
 </details>
 
@@ -564,5 +586,495 @@ Spring Bean'lerin temel özellikleri şunlardır:
 Spring Bean'ler, Spring Framework'ün sunduğu çeşitli özelliklerden yararlanabilirler. Örneğin, AOP (Aspect-Oriented Programming) ile güvenlik, transaksiyon yönetimi, önbellekleme gibi ilave işlevselliği uygulamak mümkündür.
 
 Spring Bean'leri, IOC konteynerine tanımlanan bir isim veya tip aracılığıyla elde edebilir ve uygulamanın farklı bölgelerinde kullanabilirsiniz. Bu sayede bean'lerin oluşturulması ve yönetimi Spring tarafından otomatik olarak gerçekleştirilirken, programcılar bean'lerin işlevselliği üzerinde odaklanabilir ve kolayca uygulama geliştirebilir.
+
+</details>
+
+<details>
+
+<summary>Java'da static ve final nedir ve nerelerde kullanılıyor. Örnek verebilir misin?</summary>
+
+
+
+static`ve`final\` anahtar kelimeleri, Java programlama dilinde farklı amaçlar için kullanılan önemli kavramlardır.
+
+1.  `static` Anahtar Kelimesi:
+
+    * `static` anahtar kelimesi, bir değişkenin veya metotun sınıfa ait olduğunu belirtmek için kullanılır. Bu, o değişkenin veya metotun sınıfın herhangi bir örneği olmadan kullanılabileceği anlamına gelir.
+    * `static` değişkenler, sınıfa ait olan değişkenlerdir ve her bir örneği tarafından paylaşılırlar. Değişkenin son değeri, tüm örnekler arasında aynıdır.
+    * `static` metotlar, sınıfa ait olan metotlardır ve sınıf adıyla doğrudan çağrılabilirler. Bunlar örneklerle ilişkili olmadığından, sınıfın durumunu değiştiremezler.&#x20;
+    * Örnek:
+
+    ```java
+     class MyClass {
+           static int count; // Statik bir değişken
+
+           public MyClass() {
+               count++; // Her bir örneğin oluşturulmasıyla count değeri artar
+           }
+
+           public static void printMessage() {
+               System.out.println("Statik metot");
+           }
+       }
+       
+       MyClass obj1 = new MyClass();
+       MyClass obj2 = new MyClass();
+       System.out.println(MyClass.count); // Çıktı: 2
+       MyClass.printMessage(); // Çıktı: Statik metot
+    ```
+
+
+2.  `final` Anahtar Kelimesi:
+
+    * `final` anahtar kelimesi, bir değişkenin, metotun veya sınıfın değiştirilemez olduğunu belirtmek için kullanılır.
+    * `final` değişkenler, bir kez değer atandıktan sonra değiştirilemezler. Sabit değerlere sahip değişkenlerdir.
+    * `final` metotlar, alt sınıflar tarafından ezilemezler. Yani, bu metotlar alt sınıflar tarafından değiştirilemez veya yeniden uygulanamaz.
+    * `final` sınıflar, alt sınıflara sahip olamazlar. Yani, başka bir sınıf bir `final` sınıfından türetilemez.&#x20;
+    * Final degiskenler, class'larda ve methodlarda kullanilabilir.
+    * Örnek:
+
+    ```java
+    final int MAX_VALUE = 100;
+       // MAX_VALUE değeri bir kez atandıktan sonra değiştirilemez
+
+       class BaseClass {
+           public final void printMessage() {
+               System.out.println("BaseClass'ten mesaj");
+           }
+       }
+
+       class DerivedClass extends BaseClass {
+           // Hata verecektir: "Cannot override the final method from BaseClass"
+           public void printMessage() {
+               System.out.println("DerivedClass'ten mesaj");
+           }
+       }
+
+       final class FinalClass {
+           // ...
+       }
+
+       // Hata verecektir: "Cannot inherit from final FinalClass"
+       class DerivedClass extends FinalClass {
+           // ...
+       }
+       
+    ```
+
+</details>
+
+<details>
+
+<summary>@ComponentScan, @Component, @Bean, @Repository, @Service, @Controller ve @RestController annotation neden kullanıyoruz?</summary>
+
+Java Spring framework'ü, uygulama geliştirme sürecini kolaylaştıran ve düzenleyen bir dizi annotasyon (işaretleyici) sağlar. İşte bu annotasyonlardan bazılarının kullanım amacı:
+
+1. `@ComponentScan`: Bu annotasyon, Spring uygulamasının bileşenlerini (component) taramak için kullanılır. Belirtilen paket veya paketlerdeki sınıfları tarayarak, Spring tarafından yönetilen bean'leri bulur ve otomatik olarak yaratır.
+2. `@Component`: Bu annotasyon, bir sınıfın bir Spring bileşeni olduğunu belirtmek için kullanılır. Spring, bu annotasyonu gördüğünde ilgili sınıfı bir bean olarak yönetir ve Spring uygulaması içinde kullanılabilir hale getirir.
+3. `@Bean`: Bu annotasyon, bir metodu Spring tarafından yönetilen bir bean olarak kaydetmek için kullanılır. Genellikle yapılandırma sınıflarında veya @Configuration annotasyonu ile işaretlenmiş sınıflarda kullanılır. Bu şekilde, ilgili metot tarafından dönülen nesne Spring konteynerine dahil edilir ve uygulama içinde kullanılabilir hale gelir.
+4. `@Repository`: Bu annotasyon, veri erişim katmanı (data access layer) sınıflarını belirtmek için kullanılır. Bir veritabanına erişmek, sorguları yürütmek veya veri işleme işlemlerini gerçekleştirmek gibi veri tabanı işlemleriyle ilgili sınıfları işaretlemek için kullanılır.
+5. `@Service`: Bu annotasyon, iş mantığı katmanı (business logic layer) sınıflarını belirtmek için kullanılır. Uygulama iş mantığını uygulayan servis sınıflarını ifade eder. Veri işleme, hesaplamalar, dış hizmetlere erişim vb. gibi işlemleri gerçekleştirmek için kullanılabilir.
+6. `@Controller`: Bu annotasyon, Spring MVC (Model-View-Controller) tabanlı web uygulamalarında kullanılan kontrol sınıflarını belirtmek için kullanılır. İstemci taleplerini karşılamak, işlemek ve uygun bir yanıt döndürmek için kullanılır.
+7. `@RestController`: Bu annotasyon, RESTful web hizmetleri sunmak için kullanılan kontrol sınıflarını belirtmek için kullanılır. Hem `@Controller` hem de `@ResponseBody` annotasyonlarının birleşimidir. Bu sayede, ilgili sınıfın tüm yöntemleri JSON veya XML gibi veri formatlarında yanıtlar üretir.
+
+Bu annotasyonlar, Spring framework'ü içinde uygulama bileşenlerini belirtmek ve yapılandırmak için kullanılır. Bu sayede Spring, otomatik olarak sınıfları yönetir, bağımlılıkları çözer ve uygulamanın düzgün çalışmasını sağlar. Her annotasyonun kendine özgü bir amacı ve kullanım senaryosu vardır ve projenin ihtiyaçlarına göre doğru bir şekilde kullanılması önemlidir.
+
+</details>
+
+<details>
+
+<summary>HashMap'ın çalışma mantığını anlatırmısın. Neden equal ve hashCode methodlarını kullanmalıyız?</summary>
+
+1. `HashMap`'in Çalışma Mantığı:
+   * `HashMap`, bir anahtar-değer ikilileri koleksiyonudur. Her bir anahtar, benzersiz olmalıdır ve değerlere karşılık gelir.
+   * `HashMap`, anahtarların hash değerlerine dayanarak verileri hızlı bir şekilde depolar ve erişir.
+   * Bir anahtarın hash değeri, `hashCode()` metodunu kullanarak hesaplanır. Bu hash değeri, `HashMap` içindeki bir hücreye (bucket) karşılık gelir.
+   * Eşleşen anahtarlar aynı hücreye atanabilir. Bu durumda, bu hücrede bir zincir (linked list) oluşur.
+   * `HashMap`, `equals()` metodu aracılığıyla anahtarların eşitliğini kontrol eder. Eşit olan anahtarlar aynı hücrede aynı zincirde bulunur.
+   * Bir değere erişmek istediğimizde, ilgili anahtarın hash değeri kullanılarak hedef hücreye ulaşılır ve zincirde gezinilir.
+2. `equals()` ve `hashCode()` Metodlarının Önemi:
+   * `equals()` metodu, iki nesnenin içeriklerinin eşit olup olmadığını kontrol eder. `HashMap` içinde anahtarları karşılaştırmak için kullanılır.
+   * `hashCode()` metodu, bir nesnenin benzersiz bir hash değerini döndürür. Bu değer, `HashMap` içindeki hücreye yerleştirme ve erişimde kullanılır.
+   * `HashMap`, iki anahtarın eşit olduğunu belirlemek için `equals()` metodunu kullanır. Eğer `equals()` metodu doğru bir şekilde uygulanmazsa, aynı anahtarın farklı hash değerleri olabilir ve bu da beklenmeyen sonuçlara yol açabilir.
+   * `hashCode()` metodunun doğru bir şekilde uygulanması, aynı nesnelerin her zaman aynı hash değerine sahip olmasını sağlar. Bu, aynı anahtarın aynı hücreye atanmasını ve doğru değerin elde edilmesini sağlar.
+   * `equals()` ve `hashCode()` metodlarının birlikte kullanılması, `HashMap` içinde anahtarların doğru şekilde çalışmasını sağlar. Eğer bir anahtarın `equals()` metodunu geçersiz kılarsanız, aynı anahtarın `hashCode()` metodunu da geçersiz kılmanız gerekir.
+
+`equals()` ve `hashCode()` metodlarının doğru bir şekilde uygulanması, `HashMap`'in anahtarlarını güvenilir ve etkin bir şekilde işlemesini sağlar. Bu nedenle, `HashMap` veya benzeri veri yapılarında anahtar olarak kullanılan sınıfların bu metodları düzgün bir şekilde uygulamaları önemlidir. Aksi takdirde, beklenmeyen sonuçlara ve hatalı veri erişimine neden olabilir.
+
+</details>
+
+<details>
+
+<summary>Hibernate'de Fetch typelar nelerdir? Açıklayabilir misin?</summary>
+
+Hibernate, Java tabanlı bir ORM (Object-Relational Mapping) çerçevesidir ve veritabanı işlemlerini kolaylaştırır. Fetch türleri, Hibernate'de nesne ilişkileri ve ilişkili verilerin nasıl alınacağını belirtmek için kullanılan kavramlardır. İşte Hibernate'de kullanılan fetch türlerinin açıklamaları:
+
+1. `FetchType.LAZY`:
+   * Bu fetch türü, ilişkili verilerin gerektiğinde yani kullanıldığında yüklenmesini sağlar.
+   * İlişkili veriler, ilgili nesneye erişilmeye çalışıldığında veya verilerin çağrılması gerektiğinde yüklenir.
+   * Bu, performans açısından faydalı olabilir çünkü ilişkili veriler yalnızca ihtiyaç duyulduğunda getirilir ve gereksiz yüklenme önlenebilir.
+2. `FetchType.EAGER`:
+   * Bu fetch türü, ilişkili verilerin ana nesne yüklenirken hemen yüklenmesini sağlar.
+   * İlişkili veriler, ana nesnenin yüklendiği aşamada otomatik olarak getirilir.
+   * İhtiyaç duyulmasa bile tüm ilişkili veriler yüklenir, bu nedenle büyük veri kümesi veya performans endişeleri oluşabilir.
+3. `FetchType.DEFAULT`:
+   * Bu fetch türü, belirli bir fetch türü belirtilmediğinde varsayılan olarak kullanılır.
+   * Genellikle `FetchType.LAZY` ile aynıdır, yani ilişkili veriler gerektiğinde yüklenir.
+
+Fetch türleri, Hibernate'in ilişkili nesneleri veritabanından nasıl getireceğini belirler. `LAZY` fetch türü, veri erişimini daha tembel bir şekilde yapar ve performansı artırabilirken, `EAGER` fetch türü, ilişkili verileri hemen getirerek veritabanı erişimlerini artırabilir. Seçilecek olan fetch türü, uygulamanın ihtiyaçlarına ve performans gereksinimlerine bağlıdır.
+
+Fetch türleri, genellikle Hibernate'de ilişkili nesneler arasında `@OneToMany`, `@OneToOne`, `@ManyToMany` gibi ilişki annotasyonları kullanıldığında belirtilir. Bu annotasyonlar üzerinde `fetch` parametresi kullanılarak fetch türü belirtilebilir.
+
+Örneğin:
+
+```java
+@Entity
+public class Order {
+    // ...
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<OrderItem> items;
+    // ...
+}
+```
+
+Bu örnek, `Order` sınıfında `OrderItem` ile `@OneToMany` ilişkisinin olduğunu ve ilişkili verilerin `LAZY` fetch türüyle yükleneceğini belirtir.
+
+</details>
+
+<details>
+
+<summary>Hibernate N+1 problemi nedir ?</summary>
+
+Hibernate N+1 problemi, bir nesne ilişkisel eşlemesi (object-relational mapping - ORM) aracı olan Hibernate'in performans sorunlarına neden olan bir durumu ifade eder. Bu sorun, ilişkili nesnelerin veritabanından alınması için gereken sorgu sayısının aşırı artmasıyla ortaya çıkar.
+
+Örneğin, bir ilişkisel veritabanında "Kitap" ve "Yazar" tabloları olduğunu düşünelim. Her bir kitap bir yazar tarafından yazılmıştır ve bu nedenle "Kitap" tablosu ile "Yazar" tablosu arasında bir ilişki vardır. Hibernate, bu ilişkiyi kullanarak bir kitabı alırken ilişkili yazar bilgilerini de getirebilir.
+
+N+1 problemi, bir sorgu yürütüldüğünde Hibernate'in önce ana tabloyu (örneğin "Kitap" tablosu) sorgulaması ve ardından her bir kitap için ayrı ayrı yazarın bilgilerini almak için ek sorgular yürütmesiyle ortaya çıkar. Bu durumda, N sayısı kitap sayısına eşittir ve her bir kitap için 1 adet ek sorgu yürütülür. Bu, veritabanı üzerinde gereksiz yük oluşturur ve performansı düşürebilir.
+
+Hibernate'de N+1 problemi çözmek için birkaç yaklaşım vardır:
+
+1. Eager loading (acele yükleme): İlişkili verilerin önceden yüklenmesini sağlayarak, ek sorguların önüne geçebilirsiniz. Örneğin, sorgunuzu Hibernate'in `fetch` özelliğini kullanarak ilişkili verilerin otomatik olarak yüklenmesini sağlayabilirsiniz.
+2. Lazy loading (geç yükleme): İlişkili verileri talep edildiği anda yüklemek için tembel yükleme kullanabilirsiniz. Hibernate, ilişkili verileri gerektiğinde yükler ve böylece gereksiz sorgu sayısını azaltır.
+3. Batch loading (toplu yükleme): Hibernate, veritabanından toplu olarak veri getirmek için `@BatchSize` veya `@OneToMany` gibi özellikleri kullanabilirsiniz. Bu, bir sorguda birden çok nesnenin verilerini getirerek performansı artırabilir.
+4. Join fetch: İlişkili verileri tek bir sorguda getirmek için `JOIN FETCH` ifadesini kullanabilirsiniz. Bu, N+1 probleminden kaçınmanın etkili bir yoludur.
+
+</details>
+
+<details>
+
+<summary>Spring Context nedir?</summary>
+
+Spring Context, Spring Framework'de önemli bir rol oynayan ve uygulama bileşenlerini yöneten temel yapıdır. Spring Context, IOC (Inversion of Control) prensibini uygular ve Spring Bean'lerinin oluşturulması, yapılandırılması ve yönetilmesinden sorumlu olan bir konteynerdir.
+
+Spring Context, genellikle "ApplicationContext" adlı bir arayüzü veya onun uygulamasını temsil eder. Bu, Spring tabanlı uygulamaların çalışma zamanında oluşturulan ve Spring Bean'lerini barındıran bir ortamdır. Uygulama, Spring Context üzerinden Spring Bean'lerine erişebilir ve Spring Context tarafından yönetilen nesnelerin yaşam döngüsünü kontrol edebilir.
+
+Spring Context, XML veya Java tabanlı yapılandırmayla oluşturulabilir. XML tabanlı yapılandırmada, "applicationContext.xml" gibi bir dosyada bean tanımlamaları yapılırken, Java tabanlı yapılandırmada ise "AnnotationConfigApplicationContext" veya diğer uygun uygulamalar kullanılarak yapılandırma sınıfı belirtilir.
+
+Spring Context, aşağıdaki işlevleri sağlar:
+
+1. **Dependency Injection (Bağımlılık Enjeksiyonu):** Spring Context, Spring Bean'lerine diğer bağımlılıklarını enjekte eder. Böylece, nesneler arasındaki bağımlılıkları azaltır ve uygulamanın esnekliğini artırır.
+2. **Bean Yaratma ve Yönetimi:** Spring Context, Spring Bean'lerinin yaşam döngüsünü yönetir ve istemci tarafından elle oluşturulması ve yönetilmesi gerekmez. İlgili yapılandırmalara göre Spring Context, bean'leri önceden oluşturabilir veya istemci talebine göre onları oluşturabilir.
+3. **AOP (Aspect-Oriented Programming) Desteği:** Spring Context, AOP prensiplerini uygulamayı sağlar. Bu sayede, uygulama işlevselliğini temel iş mantığından ayrı olarak modüle edebilir ve belirli işlemleri yatay olarak keserek tekrar kullanabilir.
+4. **Internationalization (I18N) Desteği:** Spring Context, uygulama içinde metinlerin çevirisini ve yerelleştirmeyi kolaylaştıran I18N desteği sunar.
+
+Spring Context, uygulama tarafından oluşturulur ve genellikle uygulama ömrü boyunca varlığını sürdürür. Bu sayede, Spring Bean'lerini yönetir ve uygulama bileşenlerinin etkileşimini kolaylaştırır. ApplicationContext, birçok farklı tipi destekler ve Spring tarafından sağlanan çeşitli özellikleri kullanarak uygulamanın ihtiyaçlarına uygun şekilde yapılandırılabilir.
+
+</details>
+
+<details>
+
+<summary>Spring Bean nedir?</summary>
+
+Spring Bean, Spring Framework'in temel yapı taşlarından biridir. Spring, Java tabanlı bir uygulama geliştirme çerçevesidir ve işletim ortamı bağımsızlığı ve hafiflik sunar. Spring Bean, Spring konteyneri tarafından yönetilen ve yönetilen nesnelerin bir örneğidir.
+
+Spring Bean'ler, Spring IOC (Inversion of Control) prensibiyle yönetilir. Bu prensip, uygulama nesnelerinin oluşturulması, yapılandırılması ve yönetilmesinin doğrudan uygulama tarafından değil, dış bir konteyner tarafından gerçekleştirilmesini sağlar. Bu, uygulama kodunun daha esnek ve kolay test edilebilir olmasına yardımcı olur.
+
+Spring Bean'leri tanımlamak için genellikle XML tabanlı ya da Java tabanlı yapılandırma kullanılır. XML tabanlı yapılandırmada, "applicationContext.xml" gibi bir dosya içinde bean tanımları yapılırken, Java tabanlı yapılandırmada ise "@Component" veya "@Bean" gibi Spring tarafından sağlanan belirteçler kullanılarak tanımlamalar yapılır.
+
+Örnek olarak, aşağıdaki gibi bir Spring Bean tanımı düşünelim:
+
+```xml
+<bean id="exampleBean" class="com.example.ExampleBean">
+    <!-- Bean properties and dependencies -->
+</bean>
+```
+
+veya Java tabanlı yapılandırmada:
+
+```java
+@Component
+public class ExampleBean {
+    // Bean properties and dependencies
+}
+```
+
+Bu tanımlamalar, "exampleBean" adında bir Spring Bean'in oluşturulduğunu belirtir. Bu nesneye, sınıfının adı olan "com.example.ExampleBean" veya Java tabanlı yapılandırmada sınıfın kendisi atanarak bağımlılıklar ve özellikler belirtilir.
+
+Spring Bean'ler, Spring uygulamalarındaki farklı bileşenler arasında veri ve hizmetlerin paylaşılmasını sağlar. Aynı zamanda, bu bileşenlerin yaşam döngüsü, Spring konteyneri tarafından yönetilir, bu nedenle geliştirici tarafından elle oluşturulup yönetilmesine gerek kalmaz.
+
+</details>
+
+> Kafka vs RabbitMq
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Eureka Server nedir? </summary>
+
+Bir mikroservis mimarisinde calisan tum mikroservislerin listesini tutar. Bu servislerin hangi IP adreslerinde calistiklarini ve hangi portlardan erisebileceklerini bilir. Bu bilgi diger servisler tarafindan kullanilarak bir servisin calistigi makineye baglanilabilir. Servislerin calisma durumunu izleyerek calismama durumunda diger servisleri uyararak bu servis yerine baska bir servisin calismasini saglar. Mikroservis mimarisinde servisler arasi iletisimi kolaylastirir. Eureka server bir REST API sunar. Bu API eureka server ‘ a kaydedilen mikroservislerin listesini dondurur ve mikroservislerin durumunu izler. Sonuc olarak eureka server, bir mikroservis mimarisinde kullanilan bir servis registry ‘ dir.
+
+Spring Cloud Netflix Eureka'nin temel ozellikleri sunlardir:
+
+1. Hizmet kaydi ve kesfi: Hizmetler, Eureka sunucusuna kaydedilir ve diger hizmetler bu sunucudan kayitli hizmetleri bulabilir.
+2. Yuk dengeleme: Eureka, yuk dengeleme islemlerini kolaylastirir ve hizmetler arasinda yuku dagitabilir.
+3. Hata toleransi: Eureka, sistemdeki hizmetlerin durumunu izler ve hata durumlarinda otomatik olarak yeniden dengeleme yapabilir.
+4. Dinamik olceklendirme: Eureka, yeni hizmetlerin otomatik olarak tespit edilmesini ve sistemdeki degisikliklere dinamik olarak uyum saglamayi mumkun kilar.
+5. Kendi kendine iyilestirme: Eureka, hizmetlerin durumunu izleyebilir ve gerektiginde sorunlari tespit edip cozebilir.
+
+</details>
+
+<details>
+
+<summary>Feign Client nedir?</summary>
+
+Servislerimiz arasindaki iletisimi klasik yontem diyebilecegimiz RestTemplate ile yaparak saglabiliyoruz. RestTemplate ile yapilan iletisim yontemini kullanarak metotlarimiz icerisinde ilgili api istegini kullanarak metotlarimizi bagimli hale getiriyoruz.
+
+OpenFeign kullanarak servis iletisimi interface templateler uzerinden yonetip, daha okunabilir ve configurasyonel olarak kullanabilmeyi saglamaktayiz.
+
+Bu kullanabilirlik sayesinde cok fazla kullanilan servislerin yonetilebilmesi ve olasi degisiklerde daha hizli ve kolay mudahale edebilmemizi saglamaktadir.
+
+Feign'in bazi temel ozellikleri sunlardir:
+
+1. Deklaratif API: Feign, RESTful servislerle etkilesimde bulunmak icin basit bir deklaratif API saglar. Bu sayede, gelistiricilerin uzak servislere istekler gondermek icin ayrintili kodlar yazmalari gerekmez.
+2. Annotasyonlar: Feign, metotlari ve parametreleri isaretlemek icin anotasyonlar kullanir. Bu anotasyonlar, isteklerin nasil yapilacagini ve hedef servislerin nerede oldugunu belirtir.
+3. Yapilandirilabilirlik: Feign, yapilandirilabilir ozelliklerle gelir, bu sayede gelistiricilerin isteklerin zaman asimi surelerini, yeniden deneme politikalarini ve diger baglamsal ayarlari kolayca belirlemelerine olanak tanir.
+
+</details>
+
+<details>
+
+<summary>Resilience4j Nedir ?</summary>
+
+[`https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52`](https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52)`-> Cok iyi anlatiyor`
+
+## 🎯 Resilience4j Nedir ?
+
+* Bilindiği üzere, arka-plan (back-end) servislerinin giderek karmaşıklaşması ve tek parça halinde sürdürülebilirliğinin zorlaşmasının sonucunda, mikroservis mimarisi kullanılarak arka-plan servislerinin birbirleriyle iletişim halinde olan, nispeten daha küçük servisler halinde düzenlenmesi oldukça popüler hale gelmiştir.
+* Bu servisler, birbirleriyle kapalı bir ağ üzerinde, çoğunlukla HTTP protokolünü kullanarak haberleşmektedirler.
+* Lakin, birbirleriyle HTTP üzerinden haberleşen servisler, bazı ek problemleri de beraberinde getirebilirler.
+* Projemden örnek verirsem user-service servisi, kendisine gelen istekleri karşılamak üzere department-service servisiyle iletişime geçiyor olsun.
+* department-service servisinde oluşabilecek bir sistem hatası, servisin yeni bir sürümünün sunucuya yüklenmesi veya yeni sürümde çıkabilecek istikrar sorunları gibi bir çok nedenden ötürü, department-service servisine giden isteklerin zamanlı bir biçimde yanıtlanamadığını ve bazı çağrılarda uygun bir cevap nesnesi yerine sunucu hatalarının döndürüldüğünü düşünün.
+* Bu durumda, department-service servisinin döndürdüğü hata user-service servisine de sıçrayacaktır.
+* Ardından, söz konusu hata department-service servisine çağrı yapılan katmandan itibaren üst katmanlara (servis, denetici (controller)vs.) fırlatılacak ve user-service servisine çağrı gerçekleştiren servisin de uygun bir yanıt alamamasına neden olacaktır.
+* Bu şekilde oluşan bir hata yayılım zinciri, son kullanıcının söz konusu web uygulamasını arzu ettiği bir biçimde kullanamamasıyla sonuçlanacaktır.
+* Bu durumlar ne gibi yöntemlerle giderilebilir.
+
+### 📌 Retry
+
+* Beklenmedik bir yanıtın - ya da yanıt alınamamasının - isteği tekrar göndererek düzeltilebileceğini varsaydığımızda, yeniden deneme kalıbını kullanmak yardımcı olabilir. Bu, işlem başarısız olarak işaretlenmeden önce başarısız isteklerin yapılandırılabilir sayıda yeniden denendiği çok basit bir modeldir.
+* Aşağıdaki durumlarda yeniden denemeler yararlı olabilir:
+* Paket kaybı gibi geçici ağ sorunları.
+* Hedef hizmetin dahili hataları, örneğin bir veritabanı kesintisinden kaynaklanan.
+* Hedef hizmete yönelik çok sayıda talep nedeniyle yanıt alınamaması veya yavaş yanıt alınması.
+
+### 📌 Fallback
+
+* Geri dönüş kalıbı, hizmetinizin başka bir hizmete yapılan başarısız bir istek durumunda yürütmeye devam etmesini sağlar. Eksik bir yanıt nedeniyle hesaplamayı iptal etmek yerine, bir geri dönüş değeri doldururuz.
+
+### 📌 Timeout
+
+* Zaman aşımı modeli oldukça basittir ve birçok HTTP istemcisinin yapılandırılmış varsayılan bir zaman aşımı vardır. Amaç, yanıtlar için sınırsız bekleme sürelerinden kaçınmak ve böylece zaman aşımı içinde yanıt alınamayan her isteği başarısız olarak değerlendirmektir.
+
+### 📌 Circuit breaker
+
+* Circuit Breakers deseni, adından anlaşılacağı üzere elektronik devrelerdeki, devre kesici şalt cihazlar gibi kurgulanan bir yöntemdir.
+* Devre kesiciler, elektronik devreyi korumak için sistemde meydana gelen bir aksaklık durumunda (yük akımını veya kısa devre akımları) yük geçişini durdururlar.
+* Circuit Breakers deseni uygulandığında, servisler arasında haberleşmeyi kapsayacak şekilde inşaa edilir.
+* Servisler arasındaki iletişimi (Event, Message, Http, vb.) izler ve haberleşmedeki meydana gelen hataları takip eder.
+* Request yapılan bir API ucunun, http 500 hata kodu dönmesi veya fırlatılan bir event’in handle edilememesi bu hata duruma örnek olarak gösterilebilir.
+* Sistemde meydana gelen hata durumu belirli bir eşik değerini geçtiğinde ise Circuit Breakers açık duruma geçer ve haberleşmeyi keser, daha önce belirlenen hata mesajlarını döndürür.
+* Bir süre bekledikten sonra devre yarı açık duruma geçer. Bu durumda bir isteğin geçmesine izin verir ve başarısız olması durumunda açık duruma veya başarılı olması durumunda kapalı duruma geri döner.
+* Circuit Breakers açık durumdayken haberleşme trafiğini izlemeye devam eder ve istek yapılan servis veya fırlatılan bir event başarılı sonuçlar dönmeye başlamışsa kapalı duruma geçer.
+* Circuit Breakers’ın üç durumu vardır. Bu durumlar: Açık (Open), Kapalı (Closed) ve Yarı-Açık (Half-Open).
+
+#### Closed
+
+* Sigorta tamamen kapalıdır. Bütün çağrıların yapılmasına izin verilir ve hatalı çağrılar kurtarma metoduna yönlendirilebilir (fallback). Hatalı çağrıların sayısının (veya oranının) belirli bir sayının üstünde olması takdirinde, sigorta, açık konuma getirilir.
+
+#### Open
+
+* Sigorta aktif konumdadır ve çağrıların tamamını reddetmektedir. Reddedilen çağrılar, mikroservis içerisinde yer alan bir kurtarma metoduna yönlendirilerek çağrının sorunsuz bir biçimde sonuçlanması sağlanabilir.
+
+#### Half-Open
+
+* Sigortanın açık konuma geçmesinden belirli bir süre sonra, sigorta, kendini yarı açık konuma getirir. Bu durumda belirli sayıda (veya oranda) çağrının gerçekleştirilmesine izin verilir. Eğer hatalı çağrıların oranı (veya sayısı) belirli bir sayının üzerinde olursa, tekrardan açık konuma geçilir; aksi takdirde sigorta tamamen kapatılır.
+
+</details>
+
+<details>
+
+<summary>Entity Inheritance’ın Püf Noktaları (@MappedSuperclass,@Inheritance,@DiscriminatorValue)</summary>
+
+[https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c](https://medium.com/kodgemisi/entity-inheritance%C4%B1n-p%C3%BCf-noktalar%C4%B1-65ed7fdf93c)
+
+</details>
+
+<details>
+
+<summary>@Builder vs @SuperBuilder</summary>
+
+Java'da, Lombok kutuphanesi siniflarin olusturulmasi sirasinda tekrar eden ve sikici olan kodlamayi azaltmak icin kullanilir. `@Builder` ve `@SuperBuilder` gibi Lombok anotasyonlari, builder desenini uygulamak icin kullanilir. Her iki anotasyon da siniflarin nesnelerini olusturmak icin kolay bir yol saglar, ancak bazi temel farkliliklari vardir. Iste her ikisinin de temel ozellikleri:
+
+1. **@Builder:** Bu anotasyon, Lombok tarafindan saglanir ve sinifin uzerine eklendiginde, derleme zamaninda o sinifa bir Builder sinifi ekler. Bu Builder sinifi, sinifin tum alanlarini icerir ve bu alanlari kullanarak nesneleri olusturmaniza olanak tanir. Ancak, bu sinifin ust siniflardan gelen alanlarla basa cikma yetenegi sinirlidir.
+2. **@SuperBuilder:** Bu anotasyon da Lombok tarafindan saglanir ve `@Builder`'in genisletilmis bir versiyonudur. Bu anotasyon, sinifin uzerine eklendiginde, derleme zamaninda o sinifa bir Builder sinifi ekler. Bu Builder sinifi, sinifin tum alanlarini icerir ve ayrica ust siniflardan gelen alanlarla basa cikabilir. Bu, miras alinan siniflarla calisirken builder desenini kullanmayi daha kolay hale getirir.
+
+Genel olarak, `@SuperBuilder`'in `@Builder`'dan daha guclu bir versiyonu oldugunu soyleyebiliriz. `@SuperBuilder`, ust siniflardan gelen alanlarla calisirken daha esneklik ve kolaylik saglar. Bu nedenle, miras alinan siniflarin builder desenini kullanirken `@SuperBuilder` tercih edilebilir.
+
+</details>
+
+<details>
+
+<summary>Herhangi Bir Servisten Hata Geldiginde Bu Hata Durumunu Nasil Tolere Edersiniz?</summary>
+
+"Kafka Shovel", hatali verilerin diger sistemler tarafindan tolere edilmesini saglar. Bu, hatali verilerin baska bir konuma kaydedilmesini veya gecici olarak saklanmasini saglar. Spring Retry, bazi durumlarda dezavantajlara sahip olabilir, bu nedenle Kafka Shovel gibi alternatifleri tercih etmek daha uygundur.
+
+</details>
+
+<details>
+
+<summary>Iki Servis Arasinda Hata Olustugunda Nasil Yonetirsiniz?</summary>
+
+"Retry" mekanizmasini kullanarak, belirlenen bir sure icinde tekrar deneme yapilabilir. Bu, hata olustugunda otomatik olarak tekrar deneme yapilmasini saglayan bir yaklasimdir.
+
+</details>
+
+<details>
+
+<summary>Bir Servisten Gec Cevap Geldiginde Diger API'leri Etkilememek Icin Ne Yaparsiniz?</summary>
+
+"Circuit breaker" tasarim desenini uygulayarak, hatali veya yavas hizmetlerin etkisini sinirlayabilirsiniz. Bu sayede diger API'lerin etkilenmemesini saglamis olursunuz.
+
+</details>
+
+<details>
+
+<summary>Kafka'ya Event Gonderdiniz Fakat Kafka Coktu, Bunu Nasil Yonetirsiniz?</summary>
+
+"Outbox" deseni kullanarak, Kafka'nin cokmesi durumunda gonderilen mesajlarin gecici bir yerde saklanarak daha sonra tekrar gonderilmesini saglayabilirsiniz.
+
+</details>
+
+<details>
+
+<summary>CQRS Kullanirken Iki Veritabanini Senkronize Etmenin Bir Yolu Olmadan Nasil Cozum Uretirsiniz?</summary>
+
+"Debezium" ve "Kafka Connect" gibi araclari kullanarak, veritabanlari arasinda gercek zamanli veri senkronizasyonunu saglayabilirsiniz. Bu araclar, veritabanlari arasinda degisiklikleri izlemek ve bunlari bir Kafka akisina donusturmek icin kullanilir.
+
+</details>
+
+<details>
+
+<summary>Kafka Partisyonu Nedir?</summary>
+
+Kafka, mesajlari parcalara boler ve bu parcalari farkli sunucu parcalarinda depolar. Bu parcalara "partisyon" adi verilir. Partisyonlar, verilerin paralel islenmesini ve yuksek olceklenebilirlik saglar.
+
+</details>
+
+<details>
+
+<summary>Kafka'ya Event Gonderirken Neden "Key" Gondeririz?</summary>
+
+"Key", mesajlari gruplamak ve belirli bir sirayla islemek icin kullanilir. Key, mesajin hangi partisyon icinde depolanacagini belirlemek icin kullanilabilir.
+
+</details>
+
+<details>
+
+<summary>Spring’te Bean scope’lari nedir?</summary>
+
+Spring Framework, uygulama icindeki beanlerin yasam dongusunu ve kullanim kapsamlarini yonetmek icin bean scope'larini tanimlar. Bean scope'u, bir bean'in bir uygulama icindeki belirli bir baglam icindeki yasam suresini ve gorunurlugunu belirler. Iste Spring'te bulunan bazi yaygin bean scope'lari:
+
+1. **Singleton:**
+   * **Aciklama:** Singleton scope'u, bir uygulama icinde yalnizca bir tek ornegi olusturulacak ve paylasilacak olan beanler icin kullanilir.
+   * **Tanimlama:** `@Scope("singleton")` veya sadece `@Singleton` anotasyonu kullanilarak belirlenir (varsayilan scope).
+2. **Prototype:**
+   * **Aciklama:** Prototype scope'u, her talepte yeni bir ornek olusturacak ve kullanacak olan beanler icin kullanilir.
+   * **Tanimlama:** `@Scope("prototype")` veya sadece `@Prototype` anotasyonu kullanilarak belirlenir.
+3. **Request:**
+   * **Aciklama:** Request scope'u, her HTTP isteginde bir kere olusturulan ve o istegin yasam suresi boyunca paylasilan beanler icin kullanilir (yalnizca web uygulamalari icin gecerlidir).
+   * **Tanimlama:** `@Scope(value = WebApplicationContext.SCOPE_REQUEST)` veya `@RequestScope` anotasyonu kullanilarak belirlenir.
+4. **Session:**
+   * **Aciklama:** Session scope'u, bir kullanicinin bir oturumu boyunca bir kez olusturulan ve o oturum suresince paylasilan beanler icin kullanilir (yalnizca web uygulamalari icin gecerlidir).
+   * **Tanimlama:** `@Scope(value = WebApplicationContext.SCOPE_SESSION)` veya `@SessionScope` anotasyonu kullanilarak belirlenir.
+5. **Application/Singleton (Spring 4+):**
+   * **Aciklama:** Spring 4 ve sonraki surumlerde "application" ismiyle Singleton scope'u belirtilebilir. Bu, beanin bir uygulama icinde yalnizca bir kez olusturulup paylasilmasi anlamina gelir.
+   * **Tanimlama:** `@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)` veya `@Scope("singleton")` kullanilabilir.
+6. **WebSocket (Spring 4.2+):**
+   * **Aciklama:** Spring 4.2 ve sonraki surumlerde "websocket" ismiyle bir scope tanimlandi. Bu scope, bir WebSocket baglantisi icin bir beanin yasam suresini belirler.
+   * **Tanimlama:** `@Scope(value = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)` kullanilabilir.
+
+Bu scope'lar, Spring konteyneri tarafindan yonetilen beanlerin nasil olusturuldugu, paylasildigi ve ne kadar sureyle var oldugu gibi konularda onemli bir rol oynar. Bean scope'larini secerken uygulamanin ihtiyaclarina ve kullanim senaryolarina dikkat etmek onemlidir.
+
+</details>
+
+<details>
+
+<summary>Spring Boot JPA kullanilarak veritabani islemleri gerceklestirirken, neden Java Records siniflarini entity olarak kullanmakta zorlaniriz?</summary>
+
+Java Records, Java dilinde veri tasiyan siniflari daha basitlestirmek ve kod yazimini azaltmak icin sunulan bir ozelliktir. Spring Boot ve JPA (Java Persistence API) ile calisirken, genellikle entity siniflari kullanilir. Ancak, Java Records'in bazi ozellikleri ve davranislari, JPA ile uyumlu olmasi zor olabilir, bu nedenle Spring Boot JPA projelerinde genellikle Records yerine geleneksel siniflar tercih edilir. Iste bazi nedenler:
+
+1. **Immutable Olma Zorunlulugu:** JPA, entity siniflarinin genellikle immutable (degistirilemez) olmasini bekler. Records, immutable olmaya egilimli olsalar da, icerdikleri final alanlara sahip olmak zorunda degiller. Bu durum, JPA'nin beklentileri ile celisebilir.
+2. **Getter ve Setter Metotlari:** JPA, entity siniflarinda getter ve setter metotlarini kullanir. Records, otomatik olarak getter metotlari olustursa da, setter metotlarini otomatik olarak olusturmaz. Bu durum, JPA'nin beklentileriyle uyumsuz olabilir.
+3. **Parametreli Kurucu Metotlar:** JPA, entity siniflarinda genellikle parametreli kurucu metotlari bekler. Records, kendi kurucu metotlarini otomatik olarak olustursa da, bu durumun kontrolunu tam olarak saglamak bazen zor olabilir.
+
+Bu nedenlerle, Spring Boot JPA projelerinde genellikle geleneksel siniflar (POJO - Plain Old Java Object) tercih edilir. Bu siniflarin ozellikle JPA ile uyumlu ve beklenen davranislari karsilamasi daha kolaydir. Ancak, Java Records'in gelecekteki guncellemelerle birlikte bu durumu duzeltmesi veya iyilestirmesi mumkundur.
+
+</details>
+
+<details>
+
+<summary>Idempotence nedir?</summary>
+
+Idempotans (idempotence), ayni islemin bir veya daha fazla kez uygulanmasinin sonucunu degistirmeyecek veya etkilemeyecek bir ozelliktir. Idempotent bir islem, bir kez uygulandiginda sonucunun ne oldugu onemli olmaksizin, ayni islemi tekrar tekrar uygulamak, sonucu degistirmeyecek veya sistemde istenmeyen etkiler yaratmayacaktir.
+
+Idempotansin temel ozellikleri sunlardir:
+
+1. **Tekrarlilik:** Bir islem idempotentse, ayni islemi bir veya daha fazla kez uygulamak sonucu degistirmeyecek veya etkilemeyecektir.
+2. **Guvenli Uygulama:** Idempotent islemler, guvenli bir sekilde tekrar tekrar uygulanabilir. Ornegin, ayni HTTP istegi bir veya daha fazla kez gonderildiginde, sistemde istenmeyen sonuclar olmamalidir.
+3. **Durumsuzluk:** Idempotent islemler durumsuzdur, yani bir islemi uygulamak icin sistemdeki gecmis durumu bilmeye ihtiyac duymazlar. Herhangi bir anda, ayni islemi uygulamak, gecmisteki uygulamalarla baglantili degildir.
+
+Bu ozellik, ozellikle dagitik sistemlerde, ag hatalari ve tekrar denemelerle basa cikma gibi senaryolarda onemli bir rol oynar.
+
+HTTP protokolu icinde bazi metotlar idempotenttir. Ornegin, GET, PUT, HEAD ve DELETE idempotent islemlerdir. PUT metodu, bir kaynagi belirtilen konumda guncellemek icin kullanildiginda idempotenttir cunku ayni veriyi tekrar tekrar gondermek sonucu degistirmeyecektir. Ancak, POST metodu genellikle idempotent degildir cunku genellikle yeni bir kaynak olusturmak icin kullanilir, ve ayni POST istegi tekrar tekrar gonderildiginde her seferinde yeni bir kaynak olusturabilir.
+
+</details>
+
+<details>
+
+<summary>Iliskisel (relational) ve iliskisel olmayan (non-relational veya NoSQL) veritabanlari arasindaki temel farklar  nedir?</summary>
+
+Iliskisel (relational) ve iliskisel olmayan (non-relational veya NoSQL) veritabanlari arasindaki temel farklar sunlardir:
+
+**Iliskisel Veritabanlari:**
+
+1. **Yapisi:** Iliskisel veritabanlari tablolardan olusur ve bu tablolar arasinda iliskiler vardir. Genellikle SQL (Structured Query Language) kullanilarak sorgulanir.
+2. **Sema:** Iliskisel veritabanlari, veri semasina sahiptir. Bu, veri yapisinin onceden tanimlanmis ve belirlenmis bir yapiya sahip oldugu anlamina gelir. Ornek olarak, bir MySQL veya PostgreSQL veritabani iliskisel bir veritabanidir.
+3. **ACID Ilkeleri:** Iliskisel veritabanlari ACID (Atomicity, Consistency, Isolation, Durability) ilkelerine uyar ve bu da veritabaninin guvenilirligini saglar. ACID, veri butunlugunu ve guvenilirligini korumak icin tasarlanmis bir dizi ozelliktir.
+4. **Kullanim Alanlari:** Iliskisel veritabanlari genellikle karmasik sorgulara ve tablolar arasi iliskilere ihtiyac duyulan durumlar icin uygundur. Is transaksiyonlari, finansal uygulamalar ve genel is uygulamalari gibi alanlarda yaygin olarak kullanilir.
+
+**Iliskisel Olmayan (NoSQL) Veritabanlari:**
+
+1. **Yapisi:** Iliskisel olmayan veritabanlari genellikle belgelere, anahtar-deger ciftlerine, sutun tabanli yapiya veya grafiklere dayanabilir. JSON, BSON gibi formatlari kullanabilirler.
+2. **Sema:** Iliskisel olmayan veritabanlari genellikle semasizdir veya esnek bir semaya sahiptir. Yeni veri alanlari eklemek veya mevcut alanlari degistirmek daha esnektir.
+3. **ACID Ilkeleri:** Iliskisel olmayan veritabanlari genellikle ACID yerine CAP teoremine (Consistency, Availability, Partition Tolerance) dayanir. Bu, sistemlerin tutarlilik, erisilebilirlik ve bolumlenmis aglara dayaniklilik arasinda bir denge kurdugu anlamina gelir.
+4. **Kullanim Alanlari:** Iliskisel olmayan veritabanlari, buyuk veri, dagitik sistemler, hizli ve olceklenebilir veri depolama ihtiyaci olan projelerde daha yaygin olarak kullanilir. Ornegin, MongoDB (belge tabanli), Redis (anahtar-deger tabanli) ve Cassandra (sutun tabanli) gibi veritabanlari iliskisel olmayan veritabanlarina ornektir.
+
+**Hangi Durumlarda Hangisini Kullanmali:**
+
+* Iliskisel veritabanlari, karmasik sorgulara ve tablolar arasi iliskilere ihtiyac duyulan geleneksel is uygulamalari ve transaksiyonel sistemler icin uygun olabilir.
+* Iliskisel olmayan veritabanlari, buyuk veri, dagitik sistemler, hizli ve olceklenebilir veri depolama ihtiyaci olan projeler icin daha uygun olabilir.
+
+Genellikle, projenin gereksinimleri, veri yapisi ve olceklenebilirlik ihtiyaclari, iliskisel veya iliskisel olmayan veritabani seciminde belirleyici olabilir.
 
 </details>
