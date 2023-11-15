@@ -812,6 +812,68 @@ Bu tanımlamalar, "exampleBean" adında bir Spring Bean'in oluşturulduğunu bel
 
 Spring Bean'ler, Spring uygulamalarındaki farklı bileşenler arasında veri ve hizmetlerin paylaşılmasını sağlar. Aynı zamanda, bu bileşenlerin yaşam döngüsü, Spring konteyneri tarafından yönetilir, bu nedenle geliştirici tarafından elle oluşturulup yönetilmesine gerek kalmaz.
 
+
+
+Spring'de bean'leri olusturmanin birkac yolu vardir:
+
+#### 1. **XML Tabanli Konfigurasyon:**
+
+Spring, XML tabanli konfigurasyon kullanarak bean'leri tanimlamaniza olanak tanir. Ornegin:
+
+```xml
+<!-- applicationContext.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBean" class="com.example.MyBean" />
+</beans>
+```
+
+#### 2. **Component Scanning ve `@Component` Annotation:**
+
+Spring, siniflari otomatik olarak taramak ve tanimlamak icin bilesen tarama (component scanning) ozelligini sunar. Siniflari tanimlamak icin `@Component` veya ozel olarak belirlenmis diger stereotype anotasyonlari kullanabilirsiniz.
+
+```java
+// Sinif tanimi
+@Component
+public class MyComponent {
+    // ...
+}
+```
+
+#### 3. **`@Service`, `@Repository`, ve `@Controller` Annotasyonlari:**
+
+`@Service`, `@Repository`, ve `@Controller` gibi anotasyonlar, sinifin ozel bir rol oynadigini belirten ozel stereotype anotasyonlardir. Bu anotasyonlar, `@Component` anotasyonunu genisletir.
+
+```java
+// @Service anotasyonuyla isaretlenmis bir sinif
+@Service
+public class MyService {
+    // ...
+}
+```
+
+#### 4. **JavaConfig ve `@Bean` Annotasyonu:**
+
+JavaConfig kullanarak bean'leri tanimlamak da mumkundur. Bu, bir konfigurasyon sinifinda `@Bean` anotasyonu kullanarak gerceklestirilir.
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+
+Bu yontemlerin her biri, Spring konteynerinin yonetimine girecek bean'leri belirlemenin bir yolunu saglar. Secim, uygulamanizin ihtiyaclarina ve tercih ettiginiz konfigurasyon tarzina baglidir.
+
+
+
 </details>
 
 > Kafka vs RabbitMq
@@ -1345,3 +1407,141 @@ Feign'in bazi temel ozellikleri sunlardir:
 
 </details>
 
+<details>
+
+<summary>Spring MVC <code>DispatcherServlet</code> nedir?</summary>
+
+Spring MVC'nin merkezi bilesenlerinden biri olan `DispatcherServlet`, gelen HTTP isteklerini isleyen ve uygun kontrolcuye yonlendiren bir on denetleme (pre-processing) mekanizmasidir. Spring MVC, bir Model-View-Controller (MVC) tasarim deseni uzerine kurulmustur ve `DispatcherServlet` bu tasarim deseninin uygulanmasini saglayan onemli bir bilesendir.
+
+`DispatcherServlet`, gelen HTTP isteklerini alir, bu istekleri isler ve sonuc olarak bir "Model" nesnesi olusturur. Bu model nesnesi, bir "View" ile eslestirilerek HTML sayfasi veya baska bir turde kullanici arayuzu olusturulur. `DispatcherServlet`, bu sureci baslatir ve sonuc olarak kullaniciya geri donecek olan HTML veya diger icerikleri olusturur.
+
+`DispatcherServlet`'in temel gorevleri sunlardir:
+
+1. **Istek Yonlendirme (Request Mapping):**
+   * Gelen HTTP isteginin URL'sine ve diger bilgilerine bakarak uygun kontrolcuyu belirler. Bu islem, konfigurasyon dosyalarinda (ornegin, `@RequestMapping` anotasyonlari) tanimlanan istek eslemeleri temelinde gerceklesir.
+2. **Model ve View Olusturma:**
+   * Belirlenen kontrolcu tarafindan islenen istek sonucunda bir model ve bir gorunum (view) olusturur. Model, kontrolcu tarafindan doldurulan verileri icerir.
+3. **View Cozumleme (View Resolution):**
+   * Olusturulan model ve view, belirtilen view cozuculeri tarafindan islenir ve gercek HTML sayfasi veya baska bir turdeki kullanici arayuzu olusturulur.
+4. **HTTP Yaniti Olusturma:**
+   * Istegin islenmesi sonucunda olusturulan view, yanit olarak kullaniciya gonderilir.
+
+`DispatcherServlet`, genellikle Spring uygulamalarinda `web.xml` konfigurasyon dosyasinda veya daha modern bir yaklasim olan Java tabanli konfigurasyon siniflarinda (JavaConfig) yapilandirilir.
+
+Asagidaki ornekte, basit bir `DispatcherServlet` konfigurasyonu gosterilmektedir:
+
+```xml
+<!-- web.xml dosyasi -->
+<servlet>
+    <servlet-name>myDispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring-mvc-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>myDispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+```
+
+Bu ornekte, `myDispatcherServlet` isimli bir `DispatcherServlet` konfigure edilmistir. `contextConfigLocation` parametresi ile bu servlet icin kullanilacak olan Spring MVC konfigurasyon dosyasinin yolu belirtilmistir.
+
+</details>
+
+<details>
+
+<summary>Reflection nedir?</summary>
+
+Reflection, bir programin calisma zamaninda kendi yapisini, ozelliklerini ve davranislarini inceleme yetenegidir. Yani, bir Java programinin calisma zamaninda siniflari, metodlari, alanlari ve diger bilesenleri analiz edip manipule etmesini saglayan bir ozelliktir. Reflection, genellikle siniflarin ve nesnelerin ozelliklerine dinamik olarak erisim saglamak, nesne olusturmak, metodlari cagirmak gibi islemleri gerceklestirmek icin kullanilir.
+
+Java'da Reflection, `java.lang.reflect` paketi icinde bulunan siniflar ve arayuzler araciligiyla gerceklestirilir. Bu paket icinde yer alan `Class`, `Method`, `Field`, `Constructor` gibi siniflar, Reflection islemlerini gerceklestirmek icin kullanilir.
+
+Bir sinifin veya nesnenin ozelliklerine Reflection kullanarak erisebilir ve bu ozellikleri manipule edebilirsiniz. Ancak, Reflection kullanmak genellikle performans maliyeti yuksek bir islemdir ve kodunuzu karmasik hale getirebilir. Bu nedenle, Reflection'i kullanmadan once dikkatlice dusunmek ve ihtiyaciniz olup olmadigini degerlendirmek onemlidir.
+
+Ornek bir Reflection kullanimi su sekilde olabilir:
+
+```java
+import java.lang.reflect.Method;
+
+public class ReflectionExample {
+    public static void main(String[] args) {
+        try {
+            // Reflection ile bir sinifin Class nesnesini almak
+            Class<?> clazz = Class.forName("com.example.MyClass");
+
+            // Reflection ile bir sinifin metotlarini almak
+            Method[] methods = clazz.getDeclaredMethods();
+
+            // Alinan metotlari yazdirmak
+            for (Method method : methods) {
+                System.out.println("Method Name: " + method.getName());
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Bu ornekte, `Class.forName` metodu ile belirtilen sinifin `Class` nesnesini aliyoruz. Daha sonra `getDeclaredMethods` metodu ile bu sinifin tum metotlarini alip yazdiriyoruz. Bu, basit bir Reflection ornegidir.
+
+</details>
+
+<details>
+
+<summary>Spring framework icinde kullanilan tasarim desenleri neler?</summary>
+
+1. **Singleton Tasarim Deseni:**
+2. **Prototype Tasarim Deseni:**
+3. **Factory Method Tasarim Deseni:**
+4. **Dependency Injection (Bagimlilik Enjeksiyonu) Tasarim Deseni:**
+5. **Observer Tasarim Deseni:**
+6. **Proxy Tasarim Deseni:**
+7. **Template Method Tasarim Deseni:**
+8. **Inversion of Control(IoC):**
+9. **AOP (Aspect-Oriented Programming):**
+
+</details>
+
+<details>
+
+<summary>Spring Application Context nedir?</summary>
+
+Spring Framework'te `ApplicationContext`, Spring uygulamalarindaki nesnelerin yasam dongusunu ve bagimliliklarini yoneten merkezi bir konteynerdir. Bu konteyner, bir Java EE uygulamasinin ortami icin yapilandirma bilgilerini, servisleri ve bilesenleri icerir. `ApplicationContext`, Spring IoC (Inversion of Control) konteynerinin en kapsamli uygulamasidir.
+
+`ApplicationContext`, genellikle uygulamanin baslangicinda olusturulur ve uygulamanin yasam suresi boyunca varligini surdurur. Bu konteyner, Spring bilesenlerini (bean'leri), tanimli servisleri ve diger uygulama bilesenlerini yonetir.
+
+`ApplicationContext`'in temel ozellikleri sunlardir:
+
+1. **IoC Konteyneri:**
+   * IoC prensibine dayanir. Bu, uygulama kodunun nesneleri olusturmak ve bunlari bagimliliklariyla iliskilendirmek yerine, bu islemlerin konteyner tarafindan yonetilmesi anlamina gelir.
+2. **Bean Yonetimi:**
+   * Spring uygulamalarindaki nesneler genellikle "bean" olarak adlandirilir. `ApplicationContext`, bu bean'leri olusturur, yonetir ve gerektiginde saglar. Bean'ler, genellikle XML veya Java tabanli konfigurasyonlarla tanimlanir.
+3. **AOP (Aspect-Oriented Programming) Destegi:**
+   * `ApplicationContext`, AOP prensiplerine uygun olarak cesitli nesne yonlendirmeleri ve kesme noktalari tanimlama yetenegi saglar. Bu, uygulamanin modulerligini artirir.
+4. **Olay Yayini ve Dinleme:**
+   * `ApplicationContext`, uygulama icindeki olaylari yayinlamak ve dinlemek icin bir olay mekanizmasi saglar. Bu, uygulama icindeki farkli bilesenlerin haberlesmesini kolaylastirabilir.
+5. **Uygulama Duzeyinde Hata Yonetimi:**
+   * `ApplicationContext`, uygulama duzeyinde hata yonetimi saglar. Bu, ozel hata durumlari icin tanimlanmis olan hata isleyicileri ve stratejileri kullanma yetenegi anlamina gelir.
+6. **Cevre (Environment) Destegi:**
+   * `ApplicationContext`, uygulamanin calistigi cevreyi (development, production, test vb.) belirleyen bir cevre nesnesi saglar. Bu, cesitli konfigurasyonlarin uygulama uzerinde farkli sekillerde etki gostermesini saglar.
+
+Spring uygulamalarinin cogu, `ApplicationContext`'in ozel bir turu olan `AnnotationConfigApplicationContext`, `ClassPathXmlApplicationContext` veya `GenericWebApplicationContext` gibi turlerle olusturulan bir `ApplicationContext` kullanir.
+
+</details>
+
+<details>
+
+<summary>Spring framework ile gelistirilen bir uygulamada <code>@Service</code> anotasyonu tanimlandiginda, framework nasil davranir?</summary>
+
+1. **Bean Olarak Yonetme:** Spring, `@Service` anotasyonu kullanildiginda sinifi bir Spring bean'i olarak yonetir. Bu, sinifin Spring tarafindan yonetilen bir bilesen oldugu anlamina gelir.
+2. **Application Context'e Tanitma:** Sinif, Spring'in genel uygulama konteksti (application context) icinde tanitilir. Application context, uygulamanin genelindeki tum Spring bilesenlerini yoneten bir konteynerdir.
+3. **Bean'in Olusturulmasi:** Application context, ilgili sinif icin bir nesne olusturur. Bu nesne, `@Service` anotasyonu ile isaretlenen sinifin bir ornegidir. Bu ornek, uygulama calistigi surece kullanilmaya hazir bir sekilde saklanir.
+
+Bu adimlar, Spring'in `@Service` anotasyonu kullanilarak isaretlenen siniflari ele alir ve bunlari Spring konteynerinde yonetilebilen, uygulamanin genelinde kullanilabilen bilesenlere donusturur.
+
+</details>
