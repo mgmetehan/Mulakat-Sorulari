@@ -555,7 +555,7 @@ IOC'nin temel felsefesi, bağımlılıkların tersine çevrilmesidir. Geleneksel
 Spring IOC, aşağıdaki şekillerde sağladığı avantajlara sahiptir:
 
 1. Bağımlılıkların Yönetimi: IOC sayesinde, bileşenlerin bağımlılıklarını yönetmek kolaylaşır. Bileşenler, Spring konteynerine tanımlanır ve bağımlılıkları otomatik olarak çözülür.
-2. Gevşek Bağlılık: IOC, bileşenler arasındaki bağımlılığı gevşek hale getirir. Bileşenler, aralarında sıkı bağlantılar oluşturmak yerine, Spring konteyneri tarafından yönetilen arayüzler veya sözleşmeler üzerinden etkileşimde bulunurlar.
+2. Gevşek Bağlılık(Loosely coupled?): IOC, bileşenler arasındaki bağımlılığı gevşek hale getirir. Bileşenler, aralarında sıkı bağlantılar oluşturmak yerine, Spring konteyneri tarafından yönetilen arayüzler veya sözleşmeler üzerinden etkileşimde bulunurlar.
 3. Test Edilebilirlik: IOC, bağımlılıkları enjekte etme mekanizması sunar, bu da bileşenlerin daha kolay test edilmesini sağlar. Bağımlılıkların taklitleri (mocks) kullanılarak bileşenlerin test edilmesi daha kolay hale gelir.
 4. Modülerlik: IOC, bileşenlerin bağımsız olarak geliştirilmesini ve yeniden kullanılmasını sağlar. Bileşenlerin işlevselliği birbirinden bağımsız olarak geliştirilebilir ve daha sonra IOC konteyneri tarafından birleştirilir.
 
@@ -817,100 +817,6 @@ Spring Bean'ler, Spring uygulamalarındaki farklı bileşenler arasında veri ve
 > Kafka vs RabbitMq
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
-
-<details>
-
-<summary>Eureka Server nedir? </summary>
-
-Bir mikroservis mimarisinde calisan tum mikroservislerin listesini tutar. Bu servislerin hangi IP adreslerinde calistiklarini ve hangi portlardan erisebileceklerini bilir. Bu bilgi diger servisler tarafindan kullanilarak bir servisin calistigi makineye baglanilabilir. Servislerin calisma durumunu izleyerek calismama durumunda diger servisleri uyararak bu servis yerine baska bir servisin calismasini saglar. Mikroservis mimarisinde servisler arasi iletisimi kolaylastirir. Eureka server bir REST API sunar. Bu API eureka server ‘ a kaydedilen mikroservislerin listesini dondurur ve mikroservislerin durumunu izler. Sonuc olarak eureka server, bir mikroservis mimarisinde kullanilan bir servis registry ‘ dir.
-
-Spring Cloud Netflix Eureka'nin temel ozellikleri sunlardir:
-
-1. Hizmet kaydi ve kesfi: Hizmetler, Eureka sunucusuna kaydedilir ve diger hizmetler bu sunucudan kayitli hizmetleri bulabilir.
-2. Yuk dengeleme: Eureka, yuk dengeleme islemlerini kolaylastirir ve hizmetler arasinda yuku dagitabilir.
-3. Hata toleransi: Eureka, sistemdeki hizmetlerin durumunu izler ve hata durumlarinda otomatik olarak yeniden dengeleme yapabilir.
-4. Dinamik olceklendirme: Eureka, yeni hizmetlerin otomatik olarak tespit edilmesini ve sistemdeki degisikliklere dinamik olarak uyum saglamayi mumkun kilar.
-5. Kendi kendine iyilestirme: Eureka, hizmetlerin durumunu izleyebilir ve gerektiginde sorunlari tespit edip cozebilir.
-
-</details>
-
-<details>
-
-<summary>Feign Client nedir?</summary>
-
-Servislerimiz arasindaki iletisimi klasik yontem diyebilecegimiz RestTemplate ile yaparak saglabiliyoruz. RestTemplate ile yapilan iletisim yontemini kullanarak metotlarimiz icerisinde ilgili api istegini kullanarak metotlarimizi bagimli hale getiriyoruz.
-
-OpenFeign kullanarak servis iletisimi interface templateler uzerinden yonetip, daha okunabilir ve configurasyonel olarak kullanabilmeyi saglamaktayiz.
-
-Bu kullanabilirlik sayesinde cok fazla kullanilan servislerin yonetilebilmesi ve olasi degisiklerde daha hizli ve kolay mudahale edebilmemizi saglamaktadir.
-
-Feign'in bazi temel ozellikleri sunlardir:
-
-1. Deklaratif API: Feign, RESTful servislerle etkilesimde bulunmak icin basit bir deklaratif API saglar. Bu sayede, gelistiricilerin uzak servislere istekler gondermek icin ayrintili kodlar yazmalari gerekmez.
-2. Annotasyonlar: Feign, metotlari ve parametreleri isaretlemek icin anotasyonlar kullanir. Bu anotasyonlar, isteklerin nasil yapilacagini ve hedef servislerin nerede oldugunu belirtir.
-3. Yapilandirilabilirlik: Feign, yapilandirilabilir ozelliklerle gelir, bu sayede gelistiricilerin isteklerin zaman asimi surelerini, yeniden deneme politikalarini ve diger baglamsal ayarlari kolayca belirlemelerine olanak tanir.
-
-</details>
-
-<details>
-
-<summary>Resilience4j Nedir ?</summary>
-
-[`https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52`](https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52)`-> Cok iyi anlatiyor`
-
-## 🎯 Resilience4j Nedir ?
-
-* Bilindiği üzere, arka-plan (back-end) servislerinin giderek karmaşıklaşması ve tek parça halinde sürdürülebilirliğinin zorlaşmasının sonucunda, mikroservis mimarisi kullanılarak arka-plan servislerinin birbirleriyle iletişim halinde olan, nispeten daha küçük servisler halinde düzenlenmesi oldukça popüler hale gelmiştir.
-* Bu servisler, birbirleriyle kapalı bir ağ üzerinde, çoğunlukla HTTP protokolünü kullanarak haberleşmektedirler.
-* Lakin, birbirleriyle HTTP üzerinden haberleşen servisler, bazı ek problemleri de beraberinde getirebilirler.
-* Projemden örnek verirsem user-service servisi, kendisine gelen istekleri karşılamak üzere department-service servisiyle iletişime geçiyor olsun.
-* department-service servisinde oluşabilecek bir sistem hatası, servisin yeni bir sürümünün sunucuya yüklenmesi veya yeni sürümde çıkabilecek istikrar sorunları gibi bir çok nedenden ötürü, department-service servisine giden isteklerin zamanlı bir biçimde yanıtlanamadığını ve bazı çağrılarda uygun bir cevap nesnesi yerine sunucu hatalarının döndürüldüğünü düşünün.
-* Bu durumda, department-service servisinin döndürdüğü hata user-service servisine de sıçrayacaktır.
-* Ardından, söz konusu hata department-service servisine çağrı yapılan katmandan itibaren üst katmanlara (servis, denetici (controller)vs.) fırlatılacak ve user-service servisine çağrı gerçekleştiren servisin de uygun bir yanıt alamamasına neden olacaktır.
-* Bu şekilde oluşan bir hata yayılım zinciri, son kullanıcının söz konusu web uygulamasını arzu ettiği bir biçimde kullanamamasıyla sonuçlanacaktır.
-* Bu durumlar ne gibi yöntemlerle giderilebilir.
-
-### 📌 Retry
-
-* Beklenmedik bir yanıtın - ya da yanıt alınamamasının - isteği tekrar göndererek düzeltilebileceğini varsaydığımızda, yeniden deneme kalıbını kullanmak yardımcı olabilir. Bu, işlem başarısız olarak işaretlenmeden önce başarısız isteklerin yapılandırılabilir sayıda yeniden denendiği çok basit bir modeldir.
-* Aşağıdaki durumlarda yeniden denemeler yararlı olabilir:
-* Paket kaybı gibi geçici ağ sorunları.
-* Hedef hizmetin dahili hataları, örneğin bir veritabanı kesintisinden kaynaklanan.
-* Hedef hizmete yönelik çok sayıda talep nedeniyle yanıt alınamaması veya yavaş yanıt alınması.
-
-### 📌 Fallback
-
-* Geri dönüş kalıbı, hizmetinizin başka bir hizmete yapılan başarısız bir istek durumunda yürütmeye devam etmesini sağlar. Eksik bir yanıt nedeniyle hesaplamayı iptal etmek yerine, bir geri dönüş değeri doldururuz.
-
-### 📌 Timeout
-
-* Zaman aşımı modeli oldukça basittir ve birçok HTTP istemcisinin yapılandırılmış varsayılan bir zaman aşımı vardır. Amaç, yanıtlar için sınırsız bekleme sürelerinden kaçınmak ve böylece zaman aşımı içinde yanıt alınamayan her isteği başarısız olarak değerlendirmektir.
-
-### 📌 Circuit breaker
-
-* Circuit Breakers deseni, adından anlaşılacağı üzere elektronik devrelerdeki, devre kesici şalt cihazlar gibi kurgulanan bir yöntemdir.
-* Devre kesiciler, elektronik devreyi korumak için sistemde meydana gelen bir aksaklık durumunda (yük akımını veya kısa devre akımları) yük geçişini durdururlar.
-* Circuit Breakers deseni uygulandığında, servisler arasında haberleşmeyi kapsayacak şekilde inşaa edilir.
-* Servisler arasındaki iletişimi (Event, Message, Http, vb.) izler ve haberleşmedeki meydana gelen hataları takip eder.
-* Request yapılan bir API ucunun, http 500 hata kodu dönmesi veya fırlatılan bir event’in handle edilememesi bu hata duruma örnek olarak gösterilebilir.
-* Sistemde meydana gelen hata durumu belirli bir eşik değerini geçtiğinde ise Circuit Breakers açık duruma geçer ve haberleşmeyi keser, daha önce belirlenen hata mesajlarını döndürür.
-* Bir süre bekledikten sonra devre yarı açık duruma geçer. Bu durumda bir isteğin geçmesine izin verir ve başarısız olması durumunda açık duruma veya başarılı olması durumunda kapalı duruma geri döner.
-* Circuit Breakers açık durumdayken haberleşme trafiğini izlemeye devam eder ve istek yapılan servis veya fırlatılan bir event başarılı sonuçlar dönmeye başlamışsa kapalı duruma geçer.
-* Circuit Breakers’ın üç durumu vardır. Bu durumlar: Açık (Open), Kapalı (Closed) ve Yarı-Açık (Half-Open).
-
-#### Closed
-
-* Sigorta tamamen kapalıdır. Bütün çağrıların yapılmasına izin verilir ve hatalı çağrılar kurtarma metoduna yönlendirilebilir (fallback). Hatalı çağrıların sayısının (veya oranının) belirli bir sayının üstünde olması takdirinde, sigorta, açık konuma getirilir.
-
-#### Open
-
-* Sigorta aktif konumdadır ve çağrıların tamamını reddetmektedir. Reddedilen çağrılar, mikroservis içerisinde yer alan bir kurtarma metoduna yönlendirilerek çağrının sorunsuz bir biçimde sonuçlanması sağlanabilir.
-
-#### Half-Open
-
-* Sigortanın açık konuma geçmesinden belirli bir süre sonra, sigorta, kendini yarı açık konuma getirir. Bu durumda belirli sayıda (veya oranda) çağrının gerçekleştirilmesine izin verilir. Eğer hatalı çağrıların oranı (veya sayısı) belirli bir sayının üzerinde olursa, tekrardan açık konuma geçilir; aksi takdirde sigorta tamamen kapatılır.
-
-</details>
 
 <details>
 
@@ -1224,3 +1130,218 @@ Outbox Pattern, bir sistemdeki veri degisikliklerini ve olaylari kaydetmek icin 
 Outbox Pattern, sistemlerin daha guvenilir, tutarli ve esnek bir sekilde calismasini saglamak icin kullanilir. Bu ozellikle dagitik sistemlerde, mikroservis mimarilerinde ve olaya dayali sistemlerde onemli bir rol oynar.
 
 </details>
+
+<details>
+
+<summary>Hibernate'de Fetch type'lar nelerdir?</summary>
+
+Hibernate, Java'da bir ORM (Object-Relational Mapping) aracidir ve veritabani islemlerini nesne yonelimli programlama (OOP) modeline entegre etmek icin kullanilir. Fetch tipi (Fetch Type), bir Hibernate iliskisi tanimlandiginda, bu iliskinin iliskilendirilmis nesnelerin nasil alinacagini belirleyen bir ozelliktir. Iki temel fetch tipi vardir: Eager Fetching ve Lazy Fetching.
+
+1.  **Eager Fetching (Istahli Alim):**
+
+    * Eager Fetching, bir iliskiye ait iliskilendirilmis nesnelerin, ana nesneyle birlikte hemen alinmasi anlamina gelir. Yani, bir sorgu calistirildiginda, iliskili nesneler de aninda yuklenir.
+    * Ornegin, bir `@ManyToOne` iliskisi icin Eager Fetching kullanildiginda, bir nesne alindiginda bu nesnenin iliskili oldugu diger nesneler de otomatik olarak alinir.
+    * Eager Fetching kullanimi, performans sorunlarina neden olabilir, cunku iliskili nesneleri surekli olarak almak, gereksiz veri alimina ve performans kaybina yol acabilir.
+
+    ```java
+    @Entity
+    public class Author {
+        // ...
+        @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+        private List<Book> books;
+        // ...
+    }
+    ```
+2.  **Lazy Fetching (Tembel Alim):**
+
+    * Lazy Fetching, bir iliskiye ait iliskilendirilmis nesnelerin, ana nesne uzerinden erisilmeye calisildiginda alinmasi anlamina gelir. Yani, iliskili nesneler yalnizca ihtiyac duyuldugunda yuklenir.
+    * Lazy Fetching, performansi artirabilir cunku iliskili nesneler, ihtiyac duyulmadikca yuklenmez. Ancak, kullanici tarafindan dikkatli bir sekilde yonetilmelidir, aksi takdirde "LazyInitializationException" gibi sorunlar ortaya cikabilir.
+
+    ```java
+    @Entity
+    public class Author {
+        // ...
+        @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+        private List<Book> books;
+        // ...
+    }
+    ```
+
+Fetch tipi, belirli bir Hibernate iliskisi uzerinde nasil veri alindigini kontrol etmek icin onemlidir. Eager Fetching ve Lazy Fetching'in her birinin avantajlari ve dezavantajlari vardir, ve secim genellikle uygulamanin ihtiyaclarina ve performans gereksinimlerine baglidir.
+
+</details>
+
+<details>
+
+<summary>Database 'de DML ve DDL nedir?</summary>
+
+DDL (Data Definition Language) ve DML (Data Manipulation Language), veritabani yonetim sistemlerinde kullanilan iki farkli SQL dilidir. Her biri farkli amaclara hizmet eder ve belirli veritabani islemlerini gerceklestirmek icin kullanilir.
+
+1. **DDL (Data Definition Language - Veri Tanimlama Dili):**
+   * DDL, veritabani semasini tanimlamak, degistirmek ve silmek icin kullanilir. Bu tur komutlar veritabani yapisini olusturan nesneleri (tablo, indeks, view, trigger vb.) tanimlar ve yonetir.
+   * DDL komutlari genellikle asagidaki gibi ifadeler icerir: `CREATE`, `ALTER`, `DROP`.
+   * Ornek DDL komutlari:
+     * Tablo olusturma: `CREATE TABLE my_table (id INT, name VARCHAR(255));`
+     * Tablo degistirme: `ALTER TABLE my_table ADD COLUMN age INT;`
+     * Tablo silme: `DROP TABLE my_table;`
+2. **DML (Data Manipulation Language - Veri Manipulasyon Dili):**
+   * DML, veritabanindaki verileri sorgulamak, eklemek, guncellemek ve silmek icin kullanilir. Temel amaci, veritabani icindeki kayitlarla etkilesimde bulunmaktir.
+   * DML komutlari genellikle asagidaki gibi ifadeler icerir: `SELECT`, `INSERT`, `UPDATE`, `DELETE`.
+   * Ornek DML komutlari:
+     * Veri sorgulama: `SELECT * FROM my_table WHERE age > 18;`
+     * Veri ekleme: `INSERT INTO my_table (id, name, age) VALUES (1, 'John', 25);`
+     * Veri guncelleme: `UPDATE my_table SET age = 26 WHERE name = 'John';`
+     * Veri silme: `DELETE FROM my_table WHERE id = 1;`
+
+DDL ve DML, bir veritabanini olusturmak, degistirmek ve sorgulamak icin temel araclardir. Ikisi birbirinden farkli islevlere sahiptir ve genellikle farkli baglamlarda kullanilirlar.
+
+</details>
+
+<details>
+
+<summary>Spring Cloud nedir?</summary>
+
+Spring Cloud, mikroservis mimarileri icin gelistirilmis bir projedir ve temelde dagitik sistemlerin gelistirilmesi ve yonetilmesini kolaylastirmak uzere tasarlanmis bir dizi arac ve kutuphaneyi icerir. Iste Spring Cloud icinde sikca kullanilan bazi bilesenlerden bazilari: Eureka Server, Config Server, Api Gateway Service
+
+</details>
+
+<details>
+
+<summary>Spring Cloud Config Server nedir?</summary>
+
+Spring Cloud Config Server, mikroservis mimarilerinde kullanilan bir bilesendir ve uygulama yapilandirma bilgilerini merkezi bir konumdan yonetmek ve dagitmak icin kullanilir. Bu, mikroservis uygulamalarinin ortak bir yapilandirma kaynagini kullanmasini saglar, bu da uygulama yapilandirmalarini merkezi bir konumda depolayarak ve guncelleyerek sistemdeki tum servislerin ayni yapilandirmayi kullanmasina olanak tanir.
+
+Spring Cloud Config Server'in temel ozellikleri sunlardir:
+
+1. **Merkezi Konfigurasyon Depolama:**
+   * Config Server, uygulama yapilandirma bilgilerini merkezi bir depoda (genellikle bir Git deposu) tutar. Bu depo, uygulama yapilandirma dosyalarini icerir ve servisler bu dosyalara Config Server uzerinden erisir.
+2. **Dinamik Yeniden Yukleme:**
+   * Config Server, yapilandirma bilgileri guncellendiginde, servislerin dinamik olarak bu guncellemeleri almasini saglar. Bu sayede uygulamalar yeniden baslatilmadan, sadece Config Server'daki yapilandirma dosyalarini guncelleyerek sistemi yonetmek mumkun olur.
+3. **Cevre (Environment) ve Profil Destegi:**
+   * Config Server, uygulama yapilandirmalarini cevre ve profil bazinda yonetme yetenegine sahiptir. Bu, farkli cevreler (development, production vb.) veya profiller (test, staging vb.) icin farkli yapilandirmalarin kullanilmasini saglar.
+4. **Yapilandirma Basvuru (Configuration References):**
+   * Config Server, servislerin ihtiyac duydugu yapilandirma degerlerini belirli bir referans uzerinden almalarini saglar. Bu, servislerin sadece kendi ihtiyaclari olan yapilandirmalara odaklanmasini saglar.
+
+Config Server, Spring Cloud projesinin bir parcasidir ve Spring Boot tabanlidir. Spring Cloud Config Server, mikroservis mimarilerinde yapilandirma yonetimini kolaylastirarak sistemdeki servislerin tutarli bir sekilde yapilandirilmasini saglar.
+
+</details>
+
+<details>
+
+<summary>Spring Cloud Eureka Server nedir? </summary>
+
+Bir mikroservis mimarisinde calisan tum mikroservislerin listesini tutar. Bu servislerin hangi IP adreslerinde calistiklarini ve hangi portlardan erisebileceklerini bilir. Bu bilgi diger servisler tarafindan kullanilarak bir servisin calistigi makineye baglanilabilir. Servislerin calisma durumunu izleyerek calismama durumunda diger servisleri uyararak bu servis yerine baska bir servisin calismasini saglar. Mikroservis mimarisinde servisler arasi iletisimi kolaylastirir. Eureka server bir REST API sunar. Bu API eureka server ‘ a kaydedilen mikroservislerin listesini dondurur ve mikroservislerin durumunu izler. Sonuc olarak eureka server, bir mikroservis mimarisinde kullanilan bir servis registry ‘ dir.
+
+Spring Cloud Netflix Eureka'nin temel ozellikleri sunlardir:
+
+1. Hizmet kaydi ve kesfi: Hizmetler, Eureka sunucusuna kaydedilir ve diger hizmetler bu sunucudan kayitli hizmetleri bulabilir.
+2. Yuk dengeleme: Eureka, yuk dengeleme islemlerini kolaylastirir ve hizmetler arasinda yuku dagitabilir.
+3. Hata toleransi: Eureka, sistemdeki hizmetlerin durumunu izler ve hata durumlarinda otomatik olarak yeniden dengeleme yapabilir.
+4. Dinamik olceklendirme: Eureka, yeni hizmetlerin otomatik olarak tespit edilmesini ve sistemdeki degisikliklere dinamik olarak uyum saglamayi mumkun kilar.
+5. Kendi kendine iyilestirme: Eureka, hizmetlerin durumunu izleyebilir ve gerektiginde sorunlari tespit edip cozebilir.
+
+</details>
+
+<details>
+
+<summary>Spring Cloud Api Gateway Service nedir?</summary>
+
+Spring Cloud Gateway, mikroservis mimarilerinde kullanilan bir API Gateway cozumudur. API Gateway, gelen istekleri alir, belirli bir is mantigina gore yonlendirir ve ardindan uygun mikroservislere yonlendirir. Bu, istemcilerin birkac farkli mikroservisi tek bir noktadan yonetmelerini saglar. Ayni zamanda API Gateway, kimlik dogrulama, yetkilendirme, guvenlik, gunlukleme gibi islevleri merkezi olarak yonetebilir.
+
+Spring Cloud Gateway'in temel ozellikleri sunlardir:
+
+1. **Routinge ve Filtreleme:**
+   * Spring Cloud Gateway, gelen istekleri belirli yollar ve filtreler uzerinden yonlendirme yetenegine sahiptir. Bu, bir istegi belirli bir mikroservise yonlendirmek veya istegi degistirmek icin kullanilabilir.
+2. **Kimlik Dogrulama ve Yetkilendirme:**
+   * API Gateway, gelen istekleri kimlik dogrulama ve yetkilendirme icin kontrol edebilir. Bu, guvenlik politikalarini merkezi olarak yonetmeyi ve korumayi saglar.
+3. **Rate Limiting (Hiz Sinirlama):**
+   * Belirli bir sure icinde belirli bir kullaniciya veya istemciye yapilan istek sayisini kontrol etme yetenegi. Bu, kotu niyetli kullanima karsi koruma saglayabilir.
+4. **Retry ve Circuit Breaker:**
+   * Hata durumlarinda otomatik olarak yeniden deneme (retry) ve hata durumlarini ele alma (circuit breaker) yetenekleri.
+5. **Yapilandirilabilirlik ve Dinamik Yeniden Yukleme:**
+   * Gateway, yapilandirma dosyalarini kullanarak genis bir yapilandirma secenekleri sunar ve yapilandirma dosyalarinin dinamik olarak yeniden yuklenmesine olanak tanir.
+6. **Yuk Dengeleme ve Hata Toleransi:**
+   * API Gateway, arkadaki mikroservislere gelen istekleri dengeleyebilir ve hata durumlarini ele alabilir. Bu, hizmetin daha yuksek kullanilabilirlik ve guvenilirlik saglamasina yardimci olur.
+
+Spring Cloud Gateway, Spring Boot tabanlidir ve Spring Cloud projelerinin bir parcasidir. API Gateway, mikroservis mimarilerinde istemcilerle servisler arasindaki etkilesimi yonetmek, guvenlik politikalarini uygulamak ve servisleri daha etkili bir sekilde kullanmak icin yaygin olarak kullanilir.
+
+</details>
+
+<details>
+
+<summary>Spring Cloud Feign Client nedir?</summary>
+
+Servislerimiz arasindaki iletisimi klasik yontem diyebilecegimiz RestTemplate ile yaparak saglabiliyoruz. RestTemplate ile yapilan iletisim yontemini kullanarak metotlarimiz icerisinde ilgili api istegini kullanarak metotlarimizi bagimli hale getiriyoruz.
+
+OpenFeign kullanarak servis iletisimi interface templateler uzerinden yonetip, daha okunabilir ve configurasyonel olarak kullanabilmeyi saglamaktayiz.
+
+Bu kullanabilirlik sayesinde cok fazla kullanilan servislerin yonetilebilmesi ve olasi degisiklerde daha hizli ve kolay mudahale edebilmemizi saglamaktadir.
+
+Feign'in bazi temel ozellikleri sunlardir:
+
+1. Deklaratif API: Feign, RESTful servislerle etkilesimde bulunmak icin basit bir deklaratif API saglar. Bu sayede, gelistiricilerin uzak servislere istekler gondermek icin ayrintili kodlar yazmalari gerekmez.
+2. Annotasyonlar: Feign, metotlari ve parametreleri isaretlemek icin anotasyonlar kullanir. Bu anotasyonlar, isteklerin nasil yapilacagini ve hedef servislerin nerede oldugunu belirtir.
+3. Yapilandirilabilirlik: Feign, yapilandirilabilir ozelliklerle gelir, bu sayede gelistiricilerin isteklerin zaman asimi surelerini, yeniden deneme politikalarini ve diger baglamsal ayarlari kolayca belirlemelerine olanak tanir.
+
+</details>
+
+<details>
+
+<summary>Resilience4j Nedir ?</summary>
+
+[`https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52`](https://umitsamimi.medium.com/circuit-breaker-resilience4j-7e1082610c52)`-> Cok iyi anlatiyor`
+
+## 🎯 Resilience4j Nedir ?
+
+* Bilindiği üzere, arka-plan (back-end) servislerinin giderek karmaşıklaşması ve tek parça halinde sürdürülebilirliğinin zorlaşmasının sonucunda, mikroservis mimarisi kullanılarak arka-plan servislerinin birbirleriyle iletişim halinde olan, nispeten daha küçük servisler halinde düzenlenmesi oldukça popüler hale gelmiştir.
+* Bu servisler, birbirleriyle kapalı bir ağ üzerinde, çoğunlukla HTTP protokolünü kullanarak haberleşmektedirler.
+* Lakin, birbirleriyle HTTP üzerinden haberleşen servisler, bazı ek problemleri de beraberinde getirebilirler.
+* Projemden örnek verirsem user-service servisi, kendisine gelen istekleri karşılamak üzere department-service servisiyle iletişime geçiyor olsun.
+* department-service servisinde oluşabilecek bir sistem hatası, servisin yeni bir sürümünün sunucuya yüklenmesi veya yeni sürümde çıkabilecek istikrar sorunları gibi bir çok nedenden ötürü, department-service servisine giden isteklerin zamanlı bir biçimde yanıtlanamadığını ve bazı çağrılarda uygun bir cevap nesnesi yerine sunucu hatalarının döndürüldüğünü düşünün.
+* Bu durumda, department-service servisinin döndürdüğü hata user-service servisine de sıçrayacaktır.
+* Ardından, söz konusu hata department-service servisine çağrı yapılan katmandan itibaren üst katmanlara (servis, denetici (controller)vs.) fırlatılacak ve user-service servisine çağrı gerçekleştiren servisin de uygun bir yanıt alamamasına neden olacaktır.
+* Bu şekilde oluşan bir hata yayılım zinciri, son kullanıcının söz konusu web uygulamasını arzu ettiği bir biçimde kullanamamasıyla sonuçlanacaktır.
+* Bu durumlar ne gibi yöntemlerle giderilebilir.
+
+### 📌 Retry
+
+* Beklenmedik bir yanıtın - ya da yanıt alınamamasının - isteği tekrar göndererek düzeltilebileceğini varsaydığımızda, yeniden deneme kalıbını kullanmak yardımcı olabilir. Bu, işlem başarısız olarak işaretlenmeden önce başarısız isteklerin yapılandırılabilir sayıda yeniden denendiği çok basit bir modeldir.
+* Aşağıdaki durumlarda yeniden denemeler yararlı olabilir:
+* Paket kaybı gibi geçici ağ sorunları.
+* Hedef hizmetin dahili hataları, örneğin bir veritabanı kesintisinden kaynaklanan.
+* Hedef hizmete yönelik çok sayıda talep nedeniyle yanıt alınamaması veya yavaş yanıt alınması.
+
+### 📌 Fallback
+
+* Geri dönüş kalıbı, hizmetinizin başka bir hizmete yapılan başarısız bir istek durumunda yürütmeye devam etmesini sağlar. Eksik bir yanıt nedeniyle hesaplamayı iptal etmek yerine, bir geri dönüş değeri doldururuz.
+
+### 📌 Timeout
+
+* Zaman aşımı modeli oldukça basittir ve birçok HTTP istemcisinin yapılandırılmış varsayılan bir zaman aşımı vardır. Amaç, yanıtlar için sınırsız bekleme sürelerinden kaçınmak ve böylece zaman aşımı içinde yanıt alınamayan her isteği başarısız olarak değerlendirmektir.
+
+### 📌 Circuit breaker
+
+* Circuit Breakers deseni, adından anlaşılacağı üzere elektronik devrelerdeki, devre kesici şalt cihazlar gibi kurgulanan bir yöntemdir.
+* Devre kesiciler, elektronik devreyi korumak için sistemde meydana gelen bir aksaklık durumunda (yük akımını veya kısa devre akımları) yük geçişini durdururlar.
+* Circuit Breakers deseni uygulandığında, servisler arasında haberleşmeyi kapsayacak şekilde inşaa edilir.
+* Servisler arasındaki iletişimi (Event, Message, Http, vb.) izler ve haberleşmedeki meydana gelen hataları takip eder.
+* Request yapılan bir API ucunun, http 500 hata kodu dönmesi veya fırlatılan bir event’in handle edilememesi bu hata duruma örnek olarak gösterilebilir.
+* Sistemde meydana gelen hata durumu belirli bir eşik değerini geçtiğinde ise Circuit Breakers açık duruma geçer ve haberleşmeyi keser, daha önce belirlenen hata mesajlarını döndürür.
+* Bir süre bekledikten sonra devre yarı açık duruma geçer. Bu durumda bir isteğin geçmesine izin verir ve başarısız olması durumunda açık duruma veya başarılı olması durumunda kapalı duruma geri döner.
+* Circuit Breakers açık durumdayken haberleşme trafiğini izlemeye devam eder ve istek yapılan servis veya fırlatılan bir event başarılı sonuçlar dönmeye başlamışsa kapalı duruma geçer.
+* Circuit Breakers’ın üç durumu vardır. Bu durumlar: Açık (Open), Kapalı (Closed) ve Yarı-Açık (Half-Open).
+
+#### Closed
+
+* Sigorta tamamen kapalıdır. Bütün çağrıların yapılmasına izin verilir ve hatalı çağrılar kurtarma metoduna yönlendirilebilir (fallback). Hatalı çağrıların sayısının (veya oranının) belirli bir sayının üstünde olması takdirinde, sigorta, açık konuma getirilir.
+
+#### Open
+
+* Sigorta aktif konumdadır ve çağrıların tamamını reddetmektedir. Reddedilen çağrılar, mikroservis içerisinde yer alan bir kurtarma metoduna yönlendirilerek çağrının sorunsuz bir biçimde sonuçlanması sağlanabilir.
+
+#### Half-Open
+
+* Sigortanın açık konuma geçmesinden belirli bir süre sonra, sigorta, kendini yarı açık konuma getirir. Bu durumda belirli sayıda (veya oranda) çağrının gerçekleştirilmesine izin verilir. Eğer hatalı çağrıların oranı (veya sayısı) belirli bir sayının üzerinde olursa, tekrardan açık konuma geçilir; aksi takdirde sigorta tamamen kapatılır.
+
+</details>
+
