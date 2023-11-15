@@ -1078,3 +1078,149 @@ Iliskisel (relational) ve iliskisel olmayan (non-relational veya NoSQL) veritaba
 Genellikle, projenin gereksinimleri, veri yapisi ve olceklenebilirlik ihtiyaclari, iliskisel veya iliskisel olmayan veritabani seciminde belirleyici olabilir.
 
 </details>
+
+<details>
+
+<summary>Circuit Breaker pattern nedir?</summary>
+
+"Circuit Breaker" (Devre Kesici) tasarim deseni, bir yazilim sisteminin istikrarsiz veya hatali bir bileseni nedeniyle devamli hata almasi durumunda sistemi korumak ve hatalarin yayilmasini engellemek amaciyla kullanilan bir desenidir. Bu desen, ozellikle mikroservis mimarileri gibi dagitik sistemlerde kullanilan bir stratejidir.
+
+Circuit Breaker deseni, geriye dusuk maliyetli bir hata kontrol stratejisi sunar. Calismayan bir sistem bileseni nedeniyle surekli hatalar alindiginda, Circuit Breaker mekanizmasi devreye girer ve hatali bileseni gecici olarak izole eder. Bu, hatalarin diger sistem bilesenlerine yayilmasini ve daha buyuk bir sistem hatasina neden olmasini engeller.
+
+Circuit Breaker deseninin temel prensipleri sunlardir:
+
+1. **Closed (Kapali) Durum:**
+   * Baslangicta devre kapalidir ve normal islemler devam eder.
+   * Sistemde hata orani belirli bir esigi astiginda devre acilir.
+2. **Open (Acik) Durum:**
+   * Devre acik durumda, hata orani asildigi icin sistem belirli bir sure boyunca hatalari tolere etmez.
+   * Hatalarin yayilmasini onlemek icin devre acik durumda hata firlatilir.
+3. **Half-Open (Yari Acik) Durum:**
+   * Belirli bir sure sonra devre otomatik olarak yari acik duruma gecer.
+   * Yari acik durumda, bir miktar trafik gecirilir ve sistemdeki hata durumu izlenir.
+
+Circuit Breaker deseni, sistemin belirli bir hata esigini astiginda hatalari tolere eden, hata orani dustugunde tekrar normal islemlere donen bir mekanizma saglar. Bu, hata toleransi ve sistem dayanikliligini artirir ve genellikle hata durumlarinin daha kontrollu bir sekilde ele alinmasina olanak tanir.
+
+Populer Java kutuphaneleri ve framework'ler, ozellikle mikroservis mimarileri icin Circuit Breaker desenini uygulamak icin kullanilabilir. Bu araclar arasinda Netflix Hystrix, Resilience4j ve Spring Cloud Circuit Breaker bulunmaktadir.
+
+</details>
+
+<details>
+
+<summary>@Transactional anotasyonu nedir? @Transactional anotasyonunda propagation type'lar nelerdir?</summary>
+
+`@Transactional` anotasyonu, Spring Framework tarafindan saglanan bir islem yonetimi anotasyonudur. Bu anotasyon, bir metodu veya bir servis sinifini saran bir islem icinde calistirmak icin kullanilir. Islem (transaction), bir dizi veritabani islemini (ornegin, ekleme, guncelleme, silme) tek bir mantiksal islem olarak ele alir ve bu islemlerin atomik (tamamlayici), tutarli, izole edilmis ve kalici olmasini saglar.
+
+`@Transactional` anotasyonu ayni zamanda `propagation` (yayilma) parametresini kullanarak islemlerin nasil yayilacagini belirlemenize olanak tanir. Propagation tipi, bir islem icinde baska bir islem cagrildiginda, cagrilan islemin var olan islemle nasil etkilesime girecegini belirtir. Iste propagation type'lar:
+
+1. **REQUIRED:**
+   * **Aciklama:** Eger bir islem zaten mevcutsa, mevcut islemde devam eder. Aksi takdirde yeni bir islem baslatir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.REQUIRED)`
+2. **SUPPORTS:**
+   * **Aciklama:** Mevcut bir islem icinde calisir. Ancak, mevcut bir islem yoksa islem baslatmaz.
+   * **Kullanim:** `@Transactional(propagation = Propagation.SUPPORTS)`
+3. **MANDATORY:**
+   * **Aciklama:** Bir islem icinde calisir. Ancak, mevcut bir islem yoksa bir istisna firlatilir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.MANDATORY)`
+4. **REQUIRES\_NEW:**
+   * **Aciklama:** Her zaman yeni bir islem baslatir, var olan bir islem varsa bu islemi askiya alir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.REQUIRES_NEW)`
+5. **NOT\_SUPPORTED:**
+   * **Aciklama:** Her zaman mevcut bir islem icinde calisir. Ancak, bu islemi askiya alir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.NOT_SUPPORTED)`
+6. **NEVER:**
+   * **Aciklama:** Her zaman mevcut bir islem icinde calisir. Ancak, mevcut bir islem varsa bir istisna firlatilir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.NEVER)`
+7. **NESTED:**
+   * **Aciklama:** Var olan bir islem icinde calisir, ancak ic ice gecmis bir islem olarak ele alinir. Eger distaki islem commit edilirse, icteki islem de commit edilir.
+   * **Kullanim:** `@Transactional(propagation = Propagation.NESTED)`
+
+</details>
+
+<details>
+
+<summary>CAP teoremi nedir?</summary>
+
+CAP teoremi (Consistency, Availability, Partition Tolerance), bir dagitik sistemde uc onemli ozelligi tanimlayan bir teoremidir. Bu uc ozellik sunlardir:
+
+1. **Consistency (Tutarlilik):**
+   * Her dugumun ayni veriyi ayni anda gormesini ifade eder. Tutarlilik, bir yazma islemi tamamlandiginda, okuma islemleri tarafindan hemen yansitilmalidir.
+2. **Availability (Erisilebilirlik):**
+   * Her istekte bir cevap alinmalidir. Sistem her zaman calisir durumda olmali ve kullanicilarin isteklerine cevap verebilmelidir.
+3. **Partition Tolerance (Bolum Toleransi):**
+   * Bir sistemde bir veya birden fazla dugum arasindaki iletisim kayboldugunda bile sistem calismaya devam etmelidir. Sistemdeki bir dugumun veya ag baglantisinin kopmasi durumunda bile diger dugumlerle iletisim surdurulmelidir.
+
+CAP teoremi, bir dagitik sistemde bu uc ozelligin ayni anda saglanamayacagini belirtir. Sistem tasariminda, bu ozelliklerden en fazla ikisini bir arada saglayabilirsiniz. Bu durumu ifade etmek icin CAP teoremi, bir ucgen seklinde gosterilir ve her iki kenarin bir arada olmadigi durumlar aciklanir.
+
+* CA (Consistency, Availability): Bolge icindeki tum dugumlerle surekli tutarlilik saglanir ancak bolge bolundugunde erisilebilirlik azalabilir.
+* CP (Consistency, Partition Tolerance): Bolge bolundugunde bile tutarlilik saglanir ancak bu durumda erisilebilirlik azalabilir.
+* AP (Availability, Partition Tolerance): Bolge bolundugunde bile erisilebilirlik saglanir ancak bu durumda tutarlilik azalabilir.
+
+CAP teoremi, sistem tasariminda uzlasma ve tercih yapma ihtiyacini vurgular. Farkli uygulamalar, ihtiyaclarina gore bu ozellikler arasinda bir denge kurarlar.
+
+</details>
+
+<details>
+
+<summary>Transaction Saga Pattern'e neden ihtiyac duyuyoruz ? </summary>
+
+Dagitik sistemlerdeki islemlerin karmasikligi ve zorluklari, geleneksel monolitik sistemlerden farklidir. Bu nedenle, tek bir buyuk islemi atomik bir sekilde gerceklestirmek yerine, buyuk islemleri kucuk, bagimsiz ve yonetilebilir parcalara bolmek gerekir. Bu bagimsiz parcalar, dagitik sistemlerde "Saga Pattern" veya "Transaction Saga" kullanilarak yonetilebilir. Iste Distribution Transaction Saga'nin neden ihtiyac duyuldugu ile ilgili bazi nedenler:
+
+1. **Dagitik Islemlerin Karmasikligi:**
+   * Dagitik sistemlerde, islemler genellikle birden cok servis arasinda bolunmus durumdadir. Bu durum, geleneksel monolitik sistemlerde oldugu gibi basit bir islem yapisini zorlastirir. Her servisin kendi baglamini ve sorumlulugunu tasidigi bir senaryoda, butunlugu saglamak daha karmasiktir.
+2. **Bagimsizlik ve Skalabilite:**
+   * Dagitik sistemlerdeki bagimsiz servislerin gelistirme, dagitim ve olceklendirme surecleri daha kolay olabilir. Fakat bu durum, islemlerin butunlugunu saglamak adina koordinasyon ve senkronizasyon mekanizmalarina ihtiyac duyulmasina neden olabilir.
+3. **Hata Durumlarinin Yonetimi:**
+   * Dagitik sistemlerde hata durumlari daha sik gorulebilir. Bu durumda, bir islemde bir hata meydana geldiginde, islemi geri almak veya duzeltmek icin koordineli bir yaklasim gerekebilir. Transaction Saga, hata durumlarini yonetme ve islemleri geri alma yetenekleri sunar.
+4. **Performans ve Olceklenebilirlik:**
+   * Dagitik sistemlerin performans ve olceklenebilirlik avantajlarindan yararlanmak icin, buyuk islemleri kucuk parcalara bolme ve paralel olarak isleme koyma ihtiyaci vardir. Transaction Saga, bu parcalar arasinda koordinasyonu saglar.
+5. **Asenkron ve Uzun Sureli Islemler:**
+   * Dagitik sistemlerde asenkron ve uzun sureli islemlerle daha sik karsilasilir. Transaction Saga, bu tur islemlerin yonetilmesini kolaylastirir.
+
+Transaction Saga, bir dizi adimin (islem) basariyla tamamlanmasi veya bir hata durumunda geri alinmasi gereken senaryolarda, dagitik sistemlerde islemlerin daha etkili bir sekilde yonetilmesini saglayan bir desen ve yonetim modelidir.
+
+</details>
+
+<details>
+
+<summary>CQRS Pattern'e neden ihtiyac duyuyoruz ?</summary>
+
+CQRS (Command Query Responsibility Segregation), bir yazilim mimarisidir ve genellikle gelismis veya olceklenebilir uygulamalarda kullanilir. Bu desenin temel amaci, bir uygulamanin yazma (komut) ve okuma (sorgu) islemlerini farkli modellere ayirmaktir. Iste CQRS Design Pattern'e neden ihtiyac duydugumuzun bazi nedenleri:
+
+1. **Performans ve Olceklenebilirlik:**
+   * Geleneksel tek model mimarilerinde, yazma ve okuma islemleri genellikle ayni veri modelini paylasir. Bu durum, olceklenebilirlik ve performans konularinda sorunlara yol acabilir. CQRS, yazma ve okuma islemlerini farkli modellerde gerceklestirerek olceklenebilirlik sorunlarini azaltabilir.
+2. **Farkli Veri Ihtiyaclari:**
+   * Yazma (komut) islemleri genellikle sadece veri guncellemeleri yapar ve is kurallarini uygular. Ote yandan, okuma (sorgu) islemleri genellikle farkli veri ihtiyaclarina sahiptir ve ogrenilmis verilerin hizli bir sekilde alinmasini gerektirir. CQRS, bu farkli ihtiyaclari karsilamak icin uygun modellerin kullanilmasina olanak tanir.
+3. **Is Kurallarinin Karmasikligi:**
+   * Gelismis uygulamalarda is kurallari oldukca karmasik olabilir. CQRS, yazma tarafinda is kurallarini yonetirken, okuma tarafinda daha basit ve optimize edilmis modeller kullanilmasina olanak tanir.
+4. **Daha Iyi Surdurulebilirlik:**
+   * CQRS, yazma ve okuma islemlerini ayri model ve servislerde gerceklestirerek, her biri kendi alaninda degisikliklere izin verir. Bu, yazma islemlerinin ve okuma islemlerinin surdurulebilirligini artirabilir, cunku degisiklikler bir tarafi etkilemeden diger taraf uzerinde gerceklestirilebilir.
+5. **Denetim ve Izleme Kolayligi:**
+   * CQRS, yazma islemleri ve okuma islemleri arasinda ayrim yaparak, her iki tarafin denetimi ve izlenmesini kolaylastirir. Ornegin, okuma tarafindaki modeller uzerinde yapilan sorgularin performansini izlemek daha basit hale gelir.
+
+CQRS, genellikle karmasik, buyuk olcekli ve ozel veri ihtiyaclarina sahip uygulamalarda kullanilir. Ancak, her uygulama icin uygun olmayabilir ve dikkatli bir tasarim ve uygulama gerektirebilir. Bu nedenle, ihtiyaclara ve projenin gereksinimlerine bagli olarak CQRS kullaniminin dusunulmesi onemlidir.
+
+</details>
+
+<details>
+
+<summary>Outbox Pattern'e neden ihtiyac duyuyoruz ?</summary>
+
+Outbox Pattern, bir sistemdeki veri degisikliklerini ve olaylari kaydetmek icin kullanilan bir tasarim desenidir. Bu desen, ozellikle dagitik sistemlerde, mikroservis mimarilerinde ve olaya dayali sistemlerde kullanislidir. Iste Outbox Pattern'e neden ihtiyac duydugumuzun bazi nedenleri:
+
+1. **Atomik Islemler:**
+   * Outbox Pattern, islemleri atomik bir sekilde gerceklestirmeyi saglar. Bir islem icinde hem veritabanina yazma hem de mesaj kuyruguna bir olay gonderme gibi iki aksiyonun bir arada ve atomik bir sekilde yapilmasini saglar.
+2. **Uygulama Durumu ve Veri Tutarliligi:**
+   * Outbox Pattern, uygulama durumunu ve veri tutarliligini korumak icin kullanilir. Bir islem basarili bir sekilde gerceklestirildiginde, ilgili veri degisiklikleri ve olaylar guvenli bir sekilde kaydedilir. Eger bir hata meydana gelirse, islem geri alinabilir ve veri tutarliligi saglanabilir.
+3. **Hassas Iliskiler:**
+   * Veritabani guncellemeleri ve olay gonderimleri arasinda hassas bir iliski varsa, Outbox Pattern bu iliskiyi koruma konusunda yardimci olabilir. Ozellikle, bir olayin gonderilip gonderilmedigi ve gonderildiyse basariyla mi oldugu gibi durumlar hassas bir bicimde yonetilebilir.
+4. **Sistematik Bir Yaklasim:**
+   * Outbox Pattern, veritabani ve mesaj kuyrugu entegrasyonu gibi dagitik sistem tasarimlarinda sistematik bir yaklasim sunar. Bu tasarim, dagitik sistemlerdeki hata durumlarini, geri alma senaryolarini ve durum takibini kolaylastirir.
+5. **Ileriye Donuk Uyum ve Esneklik:**
+   * Outbox Pattern, sistemi gelecekteki degisikliklere karsi uyumlu hale getirir. Ornegin, bir olay gonderimi yapisi degisirse veya baska bir sistemle etkilesim bicimi degisirse, bu degisiklikleri Outbox Pattern uzerinden kolayca uygulayabilirsiniz.
+6. **Mesaj Siralamasi:**
+   * Outbox Pattern, mesajlarin sirasini garanti altina alabilir. Veritabaninda yapilan bir degisiklik ve ardindan gonderilen bir olay arasindaki sira, sistem tarafindan guvence altina alinabilir.
+
+Outbox Pattern, sistemlerin daha guvenilir, tutarli ve esnek bir sekilde calismasini saglamak icin kullanilir. Bu ozellikle dagitik sistemlerde, mikroservis mimarilerinde ve olaya dayali sistemlerde onemli bir rol oynar.
+
+</details>
