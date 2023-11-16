@@ -1072,14 +1072,21 @@ Bu scope'lar, Spring konteyneri tarafindan yonetilen beanlerin nasil olusturuldu
 
 <summary>Spring Boot JPA kullanilarak veritabani islemleri gerceklestirirken, neden Java Records siniflarini entity olarak kullanmakta zorlaniriz?</summary>
 
-Java Records, Java dilinde veri tasiyan siniflari daha basitlestirmek ve kod yazimini azaltmak icin sunulan bir ozelliktir. Spring Boot ve JPA (Java Persistence API) ile calisirken, genellikle entity siniflari kullanilir. Ancak, Java Records'in bazi ozellikleri ve davranislari, JPA ile uyumlu olmasi zor olabilir, bu nedenle Spring Boot JPA projelerinde genellikle Records yerine geleneksel siniflar tercih edilir. Iste bazi nedenler:
+Spring Boot ile JPA (Java Persistence API) kullanilarak veritabani islemleri gerceklestirirken, Java Records siniflarini entity olarak kullanmakta zorlanma durumu, Records'in bazi ozellikleri ve JPA'nin beklentileri arasindaki uyumsuzluklardan kaynaklanabilir. Iste bu zorluklari anlamak icin bazi nedenler:
 
-1. **Immutable Olma Zorunlulugu:** JPA, entity siniflarinin genellikle immutable (degistirilemez) olmasini bekler. Records, immutable olmaya egilimli olsalar da, icerdikleri final alanlara sahip olmak zorunda degiller. Bu durum, JPA'nin beklentileri ile celisebilir.
-2. **Getter ve Setter Metotlari:** JPA, entity siniflarinda getter ve setter metotlarini kullanir. Records, otomatik olarak getter metotlari olustursa da, setter metotlarini otomatik olarak olusturmaz. Bu durum, JPA'nin beklentileriyle uyumsuz olabilir.
-3. **Parametreli Kurucu Metotlar:** JPA, entity siniflarinda genellikle parametreli kurucu metotlari bekler. Records, kendi kurucu metotlarini otomatik olarak olustursa da, bu durumun kontrolunu tam olarak saglamak bazen zor olabilir.
+1. **Records'in Immutable (Degistirilemez) Dogasi:**
+    - Records, immutable yani degistirilemez nesnelerdir. Bu ozellik, JPA'nin entity siniflarinda genellikle sahip olunan mutable (degistirilebilir) nesneler ile cakisabilir. JPA, entity siniflarindaki alanlarin get ve set metotlarina erisim saglamayi beklerken, Records'lar otomatik olarak final alanlar ve get metotlari olusturur. Bu durum, JPA'nin bekledigi standart getter ve setter yapilarina uymayabilir.
 
-Bu nedenlerle, Spring Boot JPA projelerinde genellikle geleneksel siniflar (POJO - Plain Old Java Object) tercih edilir. Bu siniflarin ozellikle JPA ile uyumlu ve beklenen davranislari karsilamasi daha kolaydir. Ancak, Java Records'in gelecekteki guncellemelerle birlikte bu durumu duzeltmesi veya iyilestirmesi mumkundur.
+2. **Records'in Ozel Metotlari:**
+    - Records, otomatik olarak equals(), hashCode(), ve toString() gibi ozel metotlari olusturur. Ancak, bu metotlar entity siniflarinda ozel bir sekilde uygulandiginda JPA'nin beklentileriyle cakisabilir. Ozellikle, JPA'nin entity siniflarinda equals ve hashCode metotlarinin ozel bir sekilde implement edilmesi gerekebilir.
 
+3. **JPA Lifecycle Yonetimi:**
+    - JPA, entity siniflarinin yasam dongusunu yonetir. Records siniflari, otomatik olarak bir builder metodu olusturdugu icin JPA'nin bu yasam dongusu yonetimine uygun olmayabilir.
+
+4. **Proxy Olusturma:**
+    - JPA, lazy loading gibi ozellikleri kullanabilmek icin proxy nesneler olusturabilir. Records siniflari, final alanlara sahip oldugu icin bu tur proxy olusturma mekanizmalari ile uyumsuz olabilir.
+
+Bu sorunlardan dolayi, Spring Boot JPA projelerinde genellikle daha geleneksel sinif yapilari veya JavaBeans kullanimi tercih edilir. Ancak, Java Records'larin kullanimi ve JPA entegrasyonu konusundaki destek ilerleyen donemlerde gelisebilir, bu nedenle guncel dokumantasyon ve versiyonlara goz atmak her zaman faydali olacaktir.
 </details>
 
 <details>
@@ -1164,25 +1171,25 @@ Populer Java kutuphaneleri ve framework'ler, ozellikle mikroservis mimarileri ic
 `@Transactional` anotasyonu ayni zamanda `propagation` (yayilma) parametresini kullanarak islemlerin nasil yayilacagini belirlemenize olanak tanir. Propagation tipi, bir islem icinde baska bir islem cagrildiginda, cagrilan islemin var olan islemle nasil etkilesime girecegini belirtir. Iste propagation type'lar:
 
 1. **REQUIRED:**
-   * **Aciklama:** Eger bir islem zaten mevcutsa, mevcut islemde devam eder. Aksi takdirde yeni bir islem baslatir.
+   * **Aciklama:** Eger bir transaction zaten mevcutsa, mevcut transactionde devam eder. Aksi takdirde yeni bir transaction baslatir.
    * **Kullanim:** `@Transactional(propagation = Propagation.REQUIRED)`
 2. **SUPPORTS:**
-   * **Aciklama:** Mevcut bir islem icinde calisir. Ancak, mevcut bir islem yoksa islem baslatmaz.
+   * **Aciklama:** Mevcut bir transaction icinde calisir. Ancak, mevcut bir transaction yoksa transaction baslatmaz.
    * **Kullanim:** `@Transactional(propagation = Propagation.SUPPORTS)`
 3. **MANDATORY:**
-   * **Aciklama:** Bir islem icinde calisir. Ancak, mevcut bir islem yoksa bir istisna firlatilir.
+   * **Aciklama:** Bir transaction icinde calisir. Ancak, mevcut bir transaction yoksa bir istisna firlatilir.
    * **Kullanim:** `@Transactional(propagation = Propagation.MANDATORY)`
 4. **REQUIRES\_NEW:**
-   * **Aciklama:** Her zaman yeni bir islem baslatir, var olan bir islem varsa bu islemi askiya alir.
+   * **Aciklama:** Her zaman yeni bir transaction baslatir, var olan bir transaction varsa bu transactioni askiya alir.
    * **Kullanim:** `@Transactional(propagation = Propagation.REQUIRES_NEW)`
 5. **NOT\_SUPPORTED:**
-   * **Aciklama:** Her zaman mevcut bir islem icinde calisir. Ancak, bu islemi askiya alir.
+   * **Aciklama:** Her zaman mevcut bir transaction icinde calisir. Ancak, bu transactioni askiya alir.
    * **Kullanim:** `@Transactional(propagation = Propagation.NOT_SUPPORTED)`
 6. **NEVER:**
-   * **Aciklama:** Her zaman mevcut bir islem icinde calisir. Ancak, mevcut bir islem varsa bir istisna firlatilir.
+   * **Aciklama:** Her zaman mevcut bir transaction icinde calisir. Ancak, mevcut bir transaction varsa bir istisna firlatilir.
    * **Kullanim:** `@Transactional(propagation = Propagation.NEVER)`
 7. **NESTED:**
-   * **Aciklama:** Var olan bir islem icinde calisir, ancak ic ice gecmis bir islem olarak ele alinir. Eger distaki islem commit edilirse, icteki islem de commit edilir.
+   * **Aciklama:** Var olan bir transaction icinde calisir, ancak ic ice gecmis bir transaction olarak ele alinir. Eger distaki transaction commit edilirse, icteki transaction de commit edilir.
    * **Kullanim:** `@Transactional(propagation = Propagation.NESTED)`
 
 </details>
