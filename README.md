@@ -1593,7 +1593,7 @@ oranda azaltılmış olur.
   Filmler
 
   | Film Adi              | Aciklamasi | Yonetmen | Kategori  | Tarih | Oyuncu 1 | Oyuncu 2 |
-                                                                                    | --------------------- | ---------- | -------- | --------- | ----- | -------- | -------- |
+                                                                                      | --------------------- | ---------- | -------- | --------- | ----- | -------- | -------- |
   | Yuzuklerin Efendisi 1 | ...        | Peter    | Fantastik | 2001  | Orlando  | Elijah   |
   | Dovus Kulubu          | ...        | David    | Dram      | 1999  | Brad     | Edward   |
 * Normalizasyon Yapilinca:
@@ -1601,28 +1601,28 @@ oranda azaltılmış olur.
   Filmler
 
   | id | Film Adi              | Aciklamasi | Yonetmen | Kategori | Tarih |
-                                                                                    | -- | --------------------- | ---------- | -------- | -------- | ----- |
+                                                                                      | -- | --------------------- | ---------- | -------- | -------- | ----- |
   | 1  | Yuzuklerin Efendisi 1 | ...        | 1        | 1        | 2001  |
   | 2  | Dovus Kulubu          | ...        | 2        | 2        | 1999  |
 
   Yonetmenler
 
   | id | Ad    |
-                                                                                    | -- | ----- |
+                                                                                      | -- | ----- |
   | 1  | Peter |
   | 2  | David |
 
   Kategori
 
   | id | Ad        |
-                                                                                    | -- | --------- |
+                                                                                      | -- | --------- |
   | 1  | Fantastik |
   | 2  | Dram      |
 
   Oyunucu
 
   | id | Ad      |
-                                                                                    | -- | ------- |
+                                                                                      | -- | ------- |
   | 1  | Orlando |
   | 2  | Elijah  |
   | 3  | Brad    |
@@ -1631,7 +1631,7 @@ oranda azaltılmış olur.
   Film Oyunculari
 
   | Film id | Oyuncu id |
-                                                                                    | ------- | --------- |
+                                                                                      | ------- | --------- |
   | 1       | 1         |
   | 1       | 2         |
   | 2       | 3         |
@@ -1696,7 +1696,7 @@ bu arayüzü uygulayarak kullanılabilir hale gelir.
 
 </details>
 
-<figure><img src="assets/1690607098312.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="assets/solid.gif" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -2408,9 +2408,10 @@ bunlardan bazilari:
 Bu stratejilerin kombinasyonu, hata toleransi ve dayanikliligi artirabilir. Kafka'nin replication, partitioning ve
 yuksek kullanilabilirlik ozellikleri, sistemlerin hata durumlarina karsi daha dayanikli olmasina yardimci olabilir.
 
-
-
 </details>
+
+<figure><img src="assets/kafka-use.gif" alt=""><figcaption></figcaption></figure>
+
 
 > Kafka vs RabbitMq
 
