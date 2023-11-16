@@ -743,6 +743,88 @@ Bu örnek, `Order` sınıfında `OrderItem` ile `@OneToMany` ilişkisinin olduğ
 
 <details>
 
+<summary>Hibernate “Lazy Initialization Exception” Nedir?</summary>
+
+    https://medium.com/@metinalniacik/hibernate-lazy-initialization-exception-hatas%C4%B1-ve-onun-%C3%A7%C3%B6z%C3%BCm%C3%BC-38515c4f98d0
+    
+Hibernate "LazyInitializationException", Hibernate'in tembel yukleme (lazy loading) stratejisini kullandigi durumlarda ortaya cikan bir istisnadir. Tembel yukleme, bir iliskilendirilmis nesnenin (ornegin, bir koleksiyon veya baska bir iliskili varlik) sadece kullanildigi zaman yuklenmesini saglayan bir stratejidir. Bu, performansi artirmak ve gereksiz veritabani sorgularini onlemek icin kullanilir.
+
+Ancak, eger Hibernate bir nesnenin tembel yuklenmesini gerceklestirirken ilgili Hibernate oturumu (session) kapandiysa veya nesne oturum disinda kullanilmaya calisiliyorsa, "LazyInitializationException" ortaya cikar. Bu durumda, Hibernate tembel yuklenen nesneyi almak icin gerekli olan veritabani sorgularini gerceklestiremez cunku oturum kapalidir.
+
+Bu durumu anlamak icin su ornek dusunulebilir:
+
+```java
+@Entity
+public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Book> books;
+
+    // getter ve setter metotlari
+}
+
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Author author;
+
+    // getter ve setter metotlari
+}
+```
+
+Yukaridaki ornekte, `Author` sinifinda `books` adinda tembel yuklenen bir koleksiyon bulunmaktadir. Eger bir `Author` nesnesi yaratilip Hibernate oturumu kapandiktan sonra, bu nesnenin tembel yuklenen koleksiyonu olan `books`'a erisilmeye calisilirsa, "LazyInitializationException" alinabilir:
+
+```java
+// Hibernate oturumu acilir
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+Author author = session.get(Author.class, 1L);
+
+// Hibernate oturumu kapatilir
+session.close();
+
+// Asagidaki satir "LazyInitializationException" hatasina neden olabilir
+List<Book> books = author.getBooks();
+```
+
+Bu hatayi onlemek icin birkac yaklasim vardir:
+
+1. **Eager Loading (Ileri Yukleme):** Iliskili nesneleri oturum icinde aninda yukleyerek bu hatayi onleyebilirsiniz. Ancak bu, performans sorunlarina yol acabilir cunku tum iliskili nesneleri her zaman yuklemeniz gerekebilir.
+
+    ```java
+    @ManyToOne(fetch = FetchType.EAGER)
+    ```
+
+2. **Oturum Acikken Calisma (Open Session in View):** Hibernate oturumunun bir HTTP istegi boyunca acik kalmasini saglayarak bu hatayi cozebilirsiniz. Ancak, bu yontem bazi durumlarda guvenlik ve performans sorunlarina neden olabilir.
+
+3. **DTO (Data Transfer Object) Kullanma:** Iliskili nesneleri yuklemek yerine sadece gerekli verileri iceren bir DTO kullanabilirsiniz.
+
+4. **Hibernate.initialize() Metodu:** Iliskili nesneleri elle yuklemek icin Hibernate'in `initialize()` metodunu kullanabilirsiniz.
+
+    ```java
+    Hibernate.initialize(entity.getRelatedObject());
+    ```
+
+Hangi yontemin kullanilacagi uygulamanin ihtiyaclarina ve gereksinimlerine baglidir.
+
+</details>
+
+
+<details>
+
 <summary>Hibernate N+1 problemi nedir ?</summary>
 
 Hibernate N+1 problemi, bir nesne ilişkisel eşlemesi (object-relational mapping - ORM) aracı olan Hibernate'in performans sorunlarına neden olan bir durumu ifade eder. Bu sorun, ilişkili nesnelerin veritabanından alınması için gereken sorgu sayısının aşırı artmasıyla ortaya çıkar.
