@@ -1593,7 +1593,7 @@ oranda azaltılmış olur.
   Filmler
 
   | Film Adi              | Aciklamasi | Yonetmen | Kategori  | Tarih | Oyuncu 1 | Oyuncu 2 |
-                                                    | --------------------- | ---------- | -------- | --------- | ----- | -------- | -------- |
+                                                                                    | --------------------- | ---------- | -------- | --------- | ----- | -------- | -------- |
   | Yuzuklerin Efendisi 1 | ...        | Peter    | Fantastik | 2001  | Orlando  | Elijah   |
   | Dovus Kulubu          | ...        | David    | Dram      | 1999  | Brad     | Edward   |
 * Normalizasyon Yapilinca:
@@ -1601,28 +1601,28 @@ oranda azaltılmış olur.
   Filmler
 
   | id | Film Adi              | Aciklamasi | Yonetmen | Kategori | Tarih |
-                                                    | -- | --------------------- | ---------- | -------- | -------- | ----- |
+                                                                                    | -- | --------------------- | ---------- | -------- | -------- | ----- |
   | 1  | Yuzuklerin Efendisi 1 | ...        | 1        | 1        | 2001  |
   | 2  | Dovus Kulubu          | ...        | 2        | 2        | 1999  |
 
   Yonetmenler
 
   | id | Ad    |
-                                                    | -- | ----- |
+                                                                                    | -- | ----- |
   | 1  | Peter |
   | 2  | David |
 
   Kategori
 
   | id | Ad        |
-                                                    | -- | --------- |
+                                                                                    | -- | --------- |
   | 1  | Fantastik |
   | 2  | Dram      |
 
   Oyunucu
 
   | id | Ad      |
-                                                    | -- | ------- |
+                                                                                    | -- | ------- |
   | 1  | Orlando |
   | 2  | Elijah  |
   | 3  | Brad    |
@@ -1631,7 +1631,7 @@ oranda azaltılmış olur.
   Film Oyunculari
 
   | Film id | Oyuncu id |
-                                                    | ------- | --------- |
+                                                                                    | ------- | --------- |
   | 1       | 1         |
   | 1       | 2         |
   | 2       | 3         |
@@ -2130,6 +2130,102 @@ Feign'in bazi temel ozellikleri sunlardir:
 
 <details>
 
+<summary>Kafka Nedir ve Temel Kavramlari Nelerdir Acikla</summary>
+
+Kafka, yuksek olcekli ve dayanikli bir veri akisi (streaming) platformudur. Baslangicta LinkedIn tarafindan gelistirilen
+ve su anda Apache Software Foundation tarafindan acik kaynak olarak yonetilen Kafka, buyuk miktarda veriyi guvenilir bir
+sekilde, hizli bir sekilde ve olceklenebilir bir bicimde islemek icin tasarlanmistir. Iste Kafka'nin temel kavramlari:
+
+1. **Broker:**
+    - Kafka'nin temel yapi tasidir.
+    - Verilerin depolandigi ve akisini kontrol ettigi sunuculardir.
+    - Bir Kafka kumesinde birden fazla broker bulunabilir.
+    - Brokerlar, yonetim ve liderlik icin Zookeeper ile iletisim kurar.
+
+2. **Topic:**
+    - Veri ureten uygulamalardir.
+    - Belirli bir topic'e mesaj gonderirler.
+    - Mesajlar, belirli bir partition icine yazilir.
+
+3. **Producer:**
+    - Veri ureten veya yayinlayan uygulamalardir.
+    - Belirli bir topic'e mesaj gonderirler.
+
+4. **Consumer:**
+    - Veriyi tuketen uygulamalardir.
+    - Belirli bir topic'den mesajlari alirlar.
+    - Her bir consumer, belirli bir partition'dan mesajlari okur.
+
+5. **Consumer Group:**
+    - Birden cok consumer'i bir araya getiren mantiksal bir gruptur.
+    - Ayni topic'ten gelen mesajlari paylasan consumer'lar arasinda is bolumu yapilmasini saglar.
+    - Her partition'a sadece bir consumer atanir, bu sayede paralel isleme imkani saglanir.
+
+6. **Partition:**
+    - Bir topic icindeki verilerin fiziksel olarak bolundugu birimlerdir.
+    - Her partition, sirali bir sekilde sirali mesajlari icerir.
+    - Paralel isleme ve olceklenebilirlik saglar.
+
+7. **Offset:**
+    - Her partition icindeki bir mesajin benzersiz bir tanimlayicisidir.
+    - Consumer'lar, okuduklari son mesajin offset'ini hatirlar, boylece bir sonraki mesajdan okumaya devam edebilirler.
+
+8. **Zookeeper:**
+    - Kafka kumesinin koordinasyonunu saglayan bir aractir.
+    - Broker'larin durumunu ve konfigurasyonunu yonetir.
+    - Kafka'nin sagligini izler ve failover islemlerini yonetir.
+
+Kafka, genellikle buyuk veri akislari, loglama sistemleri, uygulama olaylari ve gercek zamanli analitikler gibi
+senaryolarda kullanilir. Dayaniklilik, olceklenebilirlik ve yuksek performans gibi avantajlari, Kafka'nin populerligini
+artirmistir.
+
+</details>
+
+<figure><img src="assets/kafka.png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Kafka Topic Nedir?</summary>
+
+Kafka'da bir "topic", veri akisini (streaming) duzenlemenin ve kategorize etmenin bir yoludur. Temel olarak, belirli bir
+turdeki veri akisini ifade eden adlandirilmis bir kanaldir. Kafka'nin temel mantigi, veriyi konseptsel olarak bir veya
+daha fazla topik icinde duzenlemektir.
+
+Iste Kafka topic'inin temel ozellikleri:
+
+1. **Adlandirma:**
+    - Topic'lere anlamli ve aciklayici adlar verilir. Ornegin, "loglar", "kullanici etkinlikleri" gibi.
+    - Adlar, veri akisinin icerigini temsil eder ve veriyi kategorize eder.
+
+2. **Iletisim:**
+    - Producer'lar belirli bir topige mesajlar gonderir.
+    - Consumer'lar belirli bir topigi dinler ve mesajlari alir.
+
+3. **Paralel Isleme:**
+    - Kafka topic'leri, icerdikleri verinin sirali ve paralel islenmesine izin veren partition'lara bolunebilir.
+    - Partition'lar, belirli bir sirayla mesajlarin islenmesini saglar ve ayni anda birden cok tuketiciye hizmet
+      verebilir.
+
+4. **Olceklenebilirlik:**
+    - Bir konu, birden fazla broker uzerinde bolumlere ayrilabilir ve bu da olceklenebilirlik saglar.
+    - Her bir partition, ayri bir fiziksel depolama birimine karsilik gelir.
+
+5. **Veri Saklama:**
+    - Mesajlar, topic icindeki partition'larda saklanir.
+    - Belirli bir sure boyunca veya belirli bir boyuta ulasana kadar saklanabilir.
+
+6. **Yayin ve Abonelik Modeli:**
+    - Kafka, yayin/abonelik (publish/subscribe) modelini benimser. Producer'lar mesajlari belirli bir topic'e gonderir
+      ve Consumer'lar belirli bir topic'den mesajlari alir.
+
+Ornegin, bir "sensor_verileri" topic'i, bir IoT (Internet of Things) uygulamasinda bir dizi sensor tarafindan uretilen
+verileri icerebilir. Bu sayede, sensor verilerini islemek isteyen uygulamalar bu belirli topic uzerinden verilere
+erisebilirler.
+
+</details>
+
+<details>
+
 <summary>Kafka'ya Event Gonderirken Neden "Key" Gondeririz?</summary>
 
 "Key", mesajlari gruplamak ve belirli bir sirayla islemek icin kullanilir. Key, mesajin hangi partisyon icinde
@@ -2139,21 +2235,79 @@ depolanacagini belirlemek icin kullanilabilir.
 
 <details>
 
-<summary>Kafka Partisyonu Nedir?</summary>
+<summary>Zookeeper ve Kafka Iliskisi Nedir?</summary>
 
-Kafka, mesajlari parcalara boler ve bu parcalari farkli sunucu parcalarinda depolar. Bu parcalara "partisyon" adi
-verilir. Partisyonlar, verilerin paralel islenmesini ve yuksek olceklenebilirlik saglar.
+Zookeeper ve Kafka arasindaki iliski, Kafka'nin koordinasyon ve yonetiminde onemli bir rol oynayan Zookeeper tarafindan
+saglanan hizmetlere dayanir. Iste bu iki sistem arasindaki temel iliskiler:
+
+1. **Koordinasyon ve Broker Yonetimi:**
+    - Kafka, bir veri akisi platformu olarak calisir ve bircok broker icerir. Bu broker'larin koordinasyonunu saglamak
+      icin Zookeeper kullanilir.
+    - Zookeeper, Kafka broker'larinin durumunu ve konfigurasyonunu takip eder. Her bir broker, Zookeeper znodes adi
+      verilen kucuk veri dugumlerine sahip olur ve bu dugumler araciligiyla durum bilgilerini paylasir.
+
+2. **Leader Secimi:**
+    - Zookeeper, Kafka partition'larinda lider (leader) ve takipci (follower) rolleri arasinda lider secimi islevini
+      yonetir.
+    - Her bir partition icin bir lider belirlenir ve Zookeeper, lider degisimini ve partition durumunu izleyerek tum
+      broker'lar arasinda liderligi korur.
+
+3. **Broker Discovery:**
+    - Zookeeper, Kafka broker'larinin dinamik olarak eklendigi veya kaldirildigi durumlari yonetir. Yeni broker'lar
+      eklenirse veya mevcut broker'lar cikartilirsa, Zookeeper bunu tum sistemle paylasir ve gerekli guncellemeleri
+      yapar.
+
+4. **Group Coordinator:**
+    - Kafka, consumer gruplari adi verilen gruplarda tuketici (consumer) islemlerini destekler. Zookeeper, consumer
+      gruplari arasinda bir koordinasyon rolu ustlenir ve consumer'larin durumunu izler.
+
+5. **Offset Takibi:**
+    - Kafka, tuketici gruplari icin konum bilgisini (offset) Zookeeper uzerinde saklar. Bu, tuketici gruplarinin
+      kaldiklari yerden devam etmelerini saglar.
+
+Bu Zookeeper ve Kafka iliskisi, Kafka'nin dagitik dogasini yonetmek, koordinasyonu saglamak ve yuksek kullanilabilirlik
+saglamak icin onemlidir.
+
+
 
 </details>
 
 <details>
 
-<summary>Herhangi Bir Servisten Hata Geldiginde Bu Hata Durumunu Nasil Tolere Edersiniz?</summary>
+<summary>Kafka Partisyonu Nedir?</summary>
 
-"Kafka Shovel", hatali verilerin diger sistemler tarafindan tolere edilmesini saglar. Bu, hatali verilerin baska bir
-konuma kaydedilmesini veya gecici olarak saklanmasini saglar. Spring Retry, bazi durumlarda dezavantajlara sahip
-olabilir, bu nedenle Kafka Shovel gibi alternatifleri tercih etmek daha uygundur.
+Kafka'da bir partition (partisyon), bir topic icindeki verilerin fiziksel olarak bolundugu birimidir. Her bir partition,
+icindeki mesajlarin sirali bir sekilde saklandigi bir veri depolama birimidir. Kafka, partisyonlari kullanarak
+olceklenebilirlik, paralel isleme ve yuksek performans saglar. Iste Kafka partisyonlarina dair temel bilgiler:
 
+1. **Paralel Isleme:**
+    - Bir topic'teki veriler, partition'lara bolunerek paralel isleme imkani saglanir.
+    - Her bir partition, sirali olarak mesajlari icerir, ancak farkli partition'lar arasinda mesajlar eszamansiz bir
+      sekilde islenebilir.
+
+2. **Olceklenebilirlik:**
+    - Bir topic icindeki verilerin coklu partitionlara bolunmesi, yuksek olceklenebilirlik saglar.
+    - Bu sayede Kafka kumesi, cok sayida broker ve partition ile genis bir veri yukunu ele alabilir.
+
+3. **Durabilite ve Dayaniklilik:**
+    - Her bir partition, kendi basina bir dayaniklilik seviyesine sahiptir. Mesajlar bir partition icinde sirali olarak
+      saklanir ve gerektiginde tekrar okunabilir.
+    - Mesajlar bir partition icinde belirli bir sure boyunca veya belirli bir boyuta ulasana kadar saklanabilir.
+
+4. **Mesaj Siralamasi:**
+    - Her bir partition icindeki mesajlar, belirli bir sira ile saklanir.
+    - Ancak, farkli partition'lar arasindaki mesajlar eszamansiz bir sekilde islenebilir.
+
+5. **Consumer Gruplari ile Is Bolumu:**
+    - Farkli consumer gruplari, ayni topic'ten farkli partition'lari tuketebilir. Bu, paralel isleme ve yuksek
+      olceklenebilirlige olanak tanir.
+
+6. **Mesajlarin Dagilimi:**
+    - Mesajlar, belirli bir partition icindeki offset'e gore siralanir.
+    - Her bir partition, bir Kafka kumesindeki birden fazla broker uzerinde dagitilabilir.
+
+Partisyonlar, Kafka'nin esnek ve olceklenebilir bir yapiya sahip olmasini saglar. Veri akisinin islenmesindeki paralel
+isleme, olceklenebilirlik ve dayaniklilik gibi avantajlar, Kafka partisyonlarinin kullanimini onemli kilar.
 </details>
 
 <details>
@@ -2174,9 +2328,447 @@ tekrar gonderilmesini saglayabilirsiniz.
 
 </details>
 
+<details>
+
+<summary>Kafka Replication Nedir ve Neden Onemlidir?</summary>
+
+Kafka replication, Kafka'nin dayanikliligini artirmak ve yuksek kullanilabilirlik saglamak amaciyla kullanilan bir
+ozelliktir. Replication, verilerin bir broker'dan digerine kopyalanmasini ve saklanmasini ifade eder. Bu, bir brokerun
+cokmesi veya veri kaybi durumunda sistemin calismaya devam etmesini saglar. Iste Kafka replication'in onemi ve nasil
+calistigiyla ilgili bazi ana noktalar:
+
+1. **Dayaniklilik:**
+    - Replication, her bir partition'in birincil ve bir veya daha fazla ikincil kopyasinin olusturulmasini icerir. Bu
+      sayede bir broker coktugunde veya bir partition kayboldugunda, veri kaybi onlenir.
+
+2. **Yuksek Kullanilabilirlik:**
+    - Replication, yuksek kullanilabilirlik saglamak icin birden cok broker uzerinde yedek kopyalar olusturarak sistemin
+      cokmesi durumunda kesintiye ugramamasini saglar.
+
+3. **Lider ve Takipci Modeli:**
+    - Her bir partition icin bir lider (leader) ve bir veya daha fazla takipci (follower) belirlenir.
+    - Producer'lar ve consumer'lar genellikle lider ile etkilesimde bulunur. Takipci kopyalar, liderin durumu izleyerek
+      ve onunla eszamanli olarak guncellenerek dayanikliligi saglar.
+
+4. **Kafka Broker'larin Cokmesi Durumunda:**
+    - Bir broker coktugunde, o broker uzerindeki partition'lar devralinabilir ve bir baska broker uzerindeki takipci
+      kopyalardan devralan bir lider atanabilir.
+    - Bu sayede sistem calismaya devam eder.
+
+5. **Lider Degisimi:**
+    - Replication, lider broker'da bir hata olmasi durumunda liderin otomatik olarak bir takipciye gecmesini saglar. Bu,
+      kesintisiz bir hizmet saglamaya yardimci olur.
+
+6. **Performans Iyilestirmeleri:**
+    - Replication, paralel olarak birden cok broker uzerinde veri kopyalama islemlerini destekler. Bu, yuksek talep
+      durumlarinda performansin artirilmasina yardimci olabilir.
+
+Replication, Kafka'nin guvenilir ve dayanikli bir veri akisi platformu olarak kullanilmasinda kritik bir rol oynar.
+Ozellikle buyuk olcekli uygulamalarda ve kritik sistemlerde, veri kaybini onlemek ve yuksek kullanilabilirlik saglamak
+icin replication stratejileri onemlidir.
+
+</details>
+
+<details>
+
+<summary>Herhangi Bir Servisten Hata Geldiginde Bu Hata Durumunu Nasil Tolere Edersiniz?"Kafka Shovel"</summary>
+
+"Kafka Shovel" terimi, Kafka'nin dayanikliligini artirmak ve hata durumlarina tolerans gostermek amaciyla kullanilan bir
+yaklasimi ifade edebilir. Ancak, bu terim spesifik bir Kafka icerigiyle genel olarak iliskilendirilmemistir, bu nedenle
+benzer bir kavrami aciklayarak yardimci olmaya calisacagim.
+
+Hata durumlarina tolerans gostermek ve sistemdeki hatalarla basa cikmak icin birkac genel strateji vardir. Iste
+bunlardan bazilari:
+
+1. **Retry Mekanizmalari:**
+    - Hata durumlarinda, hatali islemleri tekrar denemek icin bir "retry" mekanizmasi kurulabilir. Eger hata gecici bir
+      durumsa, belirli araliklarla tekrar deneme stratejisi kullanilabilir.
+
+2. **Backoff Stratejileri:**
+    - Hata durumlarina karsi, belirli bir sure boyunca tekrar deneme yapmamak veya tekrar deneme araliklarini artirmak
+      gibi "backoff" stratejileri kullanilabilir. Bu, asiri yuk altindaki sistemlere karsi daha direncli olabilir.
+
+3. **Hata Kuyruklari (Error Queues):**
+    - Hatali islemler, bir kuyruga yonlendirilebilir ve daha sonra manuel mudahale veya otomatik bir surecle
+      incelenebilir. Bu, hatalari izleme ve cozme surecini kolaylastirabilir.
+
+4. **Dead Letter Queues (Olu Mektup Kuyruklari):**
+    - Hatali islemler, bir "olu mektup kuyrugu"na yonlendirilebilir. Bu kuyruk, islenmeyen veya basarisiz olan islemleri
+      saklamak icin kullanilir. Bu sekilde, hatali islemler incelenebilir ve sorunlarin cozulmesi icin analiz
+      yapilabilir.
+
+5. **Circuit Breaker Pattern:**
+    - Hatalar belirli bir esigi astiginda, sistem bir "circuit breaker" devreye alabilir ve islemleri gecici olarak
+      durdurabilir. Bu, sistemin asiri yuklenmesini ve daha fazla hasari onleyebilir.
+
+6. **Hata Kayitlari ve Izleme:**
+    - Hatalarin ayrintili kayitlari tutulabilir ve bir izleme sistemi araciligiyla hatalarin gercek zamanli olarak takip
+      edilmesi saglanabilir.
+
+Bu stratejilerin kombinasyonu, hata toleransi ve dayanikliligi artirabilir. Kafka'nin replication, partitioning ve
+yuksek kullanilabilirlik ozellikleri, sistemlerin hata durumlarina karsi daha dayanikli olmasina yardimci olabilir.
+
+
+
+</details>
+
 > Kafka vs RabbitMq
 
 <figure><img src="assets/image.png" alt=""><figcaption></figcaption></figure>
+
+---
+
+### *Redis*
+
+<details>
+
+<summary>Redis Nedir ve Temel Kavramlari Nelerdir?</summary>
+
+- *Redis Nedir:* Redis, acik kaynakli ve anahtar-deger tabanli bir in-memory veri depolama sistemidir. Hizli, esnek ve
+  yuksek performansli bir NoSQL veritabani olarak kullanilir.
+- *Temel Kavramlar:*
+    - *String:* Tek bir degeri temsil eder.
+    - *List:* Sirali veri koleksiyonudur.
+    - *Set:* Tekil degerlerin koleksiyonudur.
+    - *Hash:* Alan/deger ciftlerini iceren bir veri koleksiyonudur.
+    - *Zset (Sorted Set):* Sirali bir settir, her ogrenin bir siralama skoru vardir.
+
+</details>
+
+<details>
+
+<summary>Redis ile Iliskisel Veritabanlari (RDBMS) Arasindaki Temel Farklar Nelerdir?</summary>
+
+- *Veri Modeli:* Redis, anahtar-deger tabanli bir model kullanir; iliskisel veritabanlari tablo ve satir modeline
+  dayanir.
+- *Performans:* Redis, verileri bellekte tuttugu icin yuksek performans saglar; RDBMS disk tabanli calisir.
+- *Veri Iliskileri:* Redis, basit veri yapilari kullanir ve karmasik iliskisel yapilari desteklemez; RDBMS kompleks
+  iliskileri yonetir.
+- *Veri Depolama Mekanizmasi:* Redis, verileri genellikle RAM'de tutar; RDBMS disk uzerinde depolama yapar.
+- *Kullanim Senaryolari:* Redis hizli okuma/yazma islemleri ve cache icin uygundur; RDBMS kompleks sorgular ve iliskisel
+  veri modelleri icin uygundur.
+
+</details>
+
+<details>
+
+<summary>Redis Publish/Subscribe Modelini Aciklayin. Nasil Calisir?</summary>
+
+- Redis Publish/Subscribe (Pub/Sub) modeli, bir yayin yapan (publisher) ve bu yayini dinleyen (subscriber) ogelerden
+  olusur.
+- Bir publisher, belirli bir kanala (channel) mesaj gonderir.
+- Subscribers, ilgilendikleri kanallara abone olur ve bu kanallardan gelen mesajlari alir.
+- Pub/Sub modeli, asenkron mesajlasma, olay bildirimi ve gercek zamanli iletisim gibi senaryolarda kullanilir.
+
+</details>
+
+<details>
+
+<summary>Redis Cache Nedir ve Nasil Kullanilir?</summary>
+
+- Redis, hafiza tabanli bir veritabani oldugu icin dogal olarak cache olarak kullanilabilir.
+- Ozellikle sik erisilen veya maliyetli olan verilerin hizli erisim icin kullanilir.
+- Cache olarak kullanilirken, verilerin belirli bir sure boyunca (TTL - Time-To-Live) tutulmasi sikca tercih edilen bir
+  stratejidir.
+
+</details>
+
+<details>
+
+<summary>Redis'in Genis Olcude Cache Olarak Kullanilmasinin Avantajlari Nelerdir?</summary>
+
+- *Hizli Erisim:* Redis, verileri hafizada tuttugu icin cok hizli erisim saglar.
+- *Performans:* Cache olarak kullanildiginda, sik kullanilan verilere tekrar tekrar disk uzerinden erisme maliyetinden
+  kacinilir.
+- *Yuk Dengeleme:* Veritabani yukunu azaltarak genel sistem performansini artirir.
+- *Onbellege Alma Stratejileri:* Onbellege alma stratejileri sayesinde istenen verilere daha hizli erisim saglanabilir.
+- *Maliyet Azalmasi:* Sik kullanilan verileri her defasinda diskten okuma yerine bellekte tutmak, genel sistem
+  maliyetini azaltabilir.
+
+Bu cevaplar, Redis'in temel kavramlari, kullanim alanlari ve cache olarak kullanilmasinin avantajlari hakkinda genel bir
+anlayis saglamayi amaclamaktadir.
+
+</details>
+
+<details>
+
+<summary>Redis'te TTL (Time-To-Live) Nedir ve Neden Kullanilir?</summary>
+
+TTL (Time-To-Live), Redis (Remote Dictionary Server) veri tabaninda bir ozelliktir ve bir anahtarin ne kadar sureyle
+saklanacagini belirten bir sure degeridir. Bu sure, bir anahtarin Redis veri tabaninda kalma suresini sinirlar.
+Anahtarin belirtilen sure boyunca kullanilmamasi durumunda, Redis otomatik olarak bu anahtari kaldirir.
+
+TTL'nin kullanilmasinin bazi temel nedenleri sunlardir:
+
+1. **Cache Yonetimi:**
+    - Redis, hafiza icinde calisan bir veri deposu (in-memory data store) oldugu icin, sik kullanilan verileri bellekte
+      tutmak icin yaygin olarak kullanilir. TTL, ozellikle gecici verilerin (ornegin, onbellek verileri) yonetiminde
+      onemlidir. Bu sayede bellekte gereksiz veri birikimi onlenir.
+
+2. **Onbellek Yonetimi:**
+    - Redis, hizli okuma ve yazma performansi sagladigi icin sikca onbellek olarak kullanilir. TTL, onbellekteki
+      verilerin belirli bir sure boyunca gecerliligini korumasini saglar. Bu, eski veya guncelligini yitirmis verilerin
+      onbellekte tutulmasini onler.
+
+3. **Gecici Veri Depolama:**
+    - Bazi durumlarda, gecici olarak depolanmasi gereken veriler vardir. TTL, bu tur gecici verilerin otomatik olarak
+      temizlenmesini saglar.
+
+4. **Oturum Yonetimi:**
+    - Redis, oturum yonetimi icin kullanilabilir. Kullanici oturumlarini takip etmek ve belirli bir sure boyunca
+      kullanici oturumlarini tutmak amaciyla TTL kullanilabilir. Kullanici oturumu belirli bir sure boyunca etkilesim
+      olmadiginda otomatik olarak sona erer.
+
+TTL degeri, Redis'teki `EXPIRE` veya `SETEX` komutlari ile belirlenir. Ornegin:
+
+```redis
+SET mykey "myvalue"
+EXPIRE mykey 3600  # 3600 saniye (1 saat) boyunca sakla
+```
+
+Bu ornekte `mykey` anahtari, 1 saat boyunca saklanacaktir. Bu sure zarfinda bu anahtar uzerinde islem yapilmazsa,
+otomatik olarak silinecektir. TTL, Redis veri tabanindaki bellek yonetimini daha etkili bir sekilde yonetmeye ve gecici
+verilerin kontrollu bir sekilde kullanilmasina olanak tanir.
+
+</details>
+
+---
+
+### *Elasticsearch*
+
+<details>
+
+<summary>Elasticsearch Nedir?</summary>
+
+Elasticsearch, veri arama, analiz ve gorsellestirme islemlerini hizli ve etkili bir sekilde gerceklestirmenizi saglayan
+bir acik kaynakli veri arama ve analiz platformudur.
+Elasticsearch, buyuk miktardaki verileri duzenli bir sekilde saklayabilen, hizli ve olceklenebilir bir veritabani ve
+arama motoru(**full-text search**) olarak dusunulebilir.
+
+</details>
+
+<figure><img src="assets/full-text-search.png" alt=""><figcaption></figcaption></figure>
+
+
+<details>
+
+<summary>Elasticsearch'un Avantajlari</summary>
+
+- `High Performance(Yuksek Performans):`
+
+  Elasticsearch, guclu tam metin arama yetenekleriyle bilinir. Apache Lucene altyapisi kullanarak ters indeksleme ve
+  gelismis arama algoritmalari kullanarak hizli ve dogru arama sonuclari saglar. Tipik bir SQL veritabanindan daha
+  hizlidir.
+
+
+- `Near Real-Time Operations(Neredeyse Gercek Zamanli Islemler):`
+
+  Veri okuma veya yazma gibi Elasticsearch islemleri genellikle bir saniyeden daha kisa surede tamamlanir. Bu nedenle
+  Elasticsearch'ten uygulama izleme ve anormallik algilama gibi neredeyse gercek zamanli kullanim amaclari dogrultusunda
+  faydalanabilirsiniz.
+
+
+- `Lots of Search Options(Cok Sayida Arama Secenegi):`
+
+  Elasticsearch, arama konusunda bircok ozellik sunar. Full-text search(tam metin arama),auto-complete(otomatik
+  tamamlama), instant search(anlik arama) ve daha fazlasini alabilirsiniz.
+
+  Autocompletion(Otomatik tamamlama) ve instant search(anlik arama), yazarken oneriler sunar. Oneriler, arama gecmisi
+  veya ilgilige dayali olarak tahmin edilir. Ayrica yazim hatasi varsa bile kullanicilar ilgili aramalar alir.
+
+
+- `Distributed Approach(Dagitik mimari):`
+
+  Elasticsearch, dagitik bir mimaride calisir. Sonuc olarak, buyuk miktarda veriyi hizli bir sekilde isleyebilir.
+  Diziler parcalara ayrilir. Parcalar tam islevli bir dizin gibi calisir. Her parcada cok sayida kopya olabilir. Bu
+  parcalari Elasticsearch kumesinin herhangi bir yerine barindirabilirsiniz.
+
+
+- `Cluster and Backup Support (Cluster ve Yedekleme Destegi):`
+
+  Elasticsearch, coklu dugumlerden (nodes) olusan bir kume (cluster) icinde calisabilir. Bu, yuksek kullanilabilirlik
+  saglamak ve veri kaybini onlemek icin onemlidir. Ayrica, verilerin yedeklenmesi icin kapsamli bir sistem sunar.
+
+
+- `Plugins and Integrations(Eklentiler ve Entegrasyonlar):`
+
+  Elasticsearch, eklentiler ve entegrasyonlarla yuksek uyumludur. Eklentiler, islevselligi artirmak ve aramalari
+  ozellestirmek icin kullanilir. Ozel eslemeler, analizciler ve kesifler eklemeye yardimci olur.
+
+
+- `RESTful API:`
+
+  Elasticsearch, sundugu basit REST tabanli API'ler sayesinde hizmeti hizla kullanmaya baslamanizi ve farkli kullanim
+  orneklerine uygun uygulamalar tasarlamanizi saglar.
+
+
+- `Security(Guvenlik):`
+
+  Elasticsearch, kullanici kimlik dogrulama, erisim kontrolu ve veri sifreleme gibi guvenlik onlemlerini destekler.
+
+
+- `Easy Application Development:`
+
+  Kolay uygulama gelistirme Java, Python, PHP, JavaScript, Node.js, Ruby ve daha bircok dil icin destek sunar.
+
+</details>
+
+<details>
+
+<summary>Elasticsearch Kullanim Alanlari</summary>
+
+`1. Web Arama ve Indeksleme`<br>
+
+`2. Metin Analizi ve Madencilik`<br>
+
+`3. Log Yonetimi`<br>
+
+`4. Muzik ve Medya Isleme`<br>
+
+`5. E-ticaret ve Pazarlama`<br>
+
+`6. Urun ve Icerik Onerileri`<br>
+
+`7. Finansal Veri Analizi`<br>
+
+</details>
+
+<details>
+
+<summary>Elasticsearch Temel Kavramlari Neler?</summary>
+
+`index = database`<br>
+`field = column`<br>
+`document = row`<br>
+`type = table`<br>
+
+<details>
+<summary>Index</summary>
+Elasticsearch'te verilerin duzenli bir sekilde depolandigi birimdir ve genellikle bir kutuphane koleksiyonunu temsil eder. Ornegin, bir kutuphane sistemi, kitaplarin depolandigi bir "kitaplar" endeksi olusturabilir.
+</details>
+
+<details>
+<summary>Document</summary>
+Elasticsearch endekslerinde saklanan verilerin temel yapi tasidir. Genellikle JSON formatinda bilgileri icerir ve bir kitabin tum ayrintilarini icerebilir, bu da kitap adi, yazar, yayin tarihi gibi bilgileri icerir.
+</details>
+
+<details>
+<summary>Field</summary>
+Elasticsearch dokumanlari icindeki verileri temsil eden bilesendir. Ornegin, bir kitap dokumaninda "kitap adi" veya "yazar" gibi alanlar birer field'dir.
+</details>
+
+<details>
+<summary>Type (Tur, Artik Onerilmemektedir)</summary>
+Elasticsearch 6.0 ve sonraki surumlerde kullanimdan kaldirilmis olsa da, Elasticsearch 5.0 ve onceki surumlerde bulunan bir kavramdir. Type, bir dizindeki belgelerin altinda bulunan turdur.
+</details>
+
+<details>
+<summary>Indexing</summary>
+Elasticsearch'te yeni dokumanlarin endekslendigi veya mevcut dokumanlarin guncellendigi islemdir. Veri eklemek veya degistirmek icin kullanilir.
+</details>
+
+<details>
+<summary>Query</summary>
+Elasticsearch'te veri sorgulamak icin kullanilan bir terimdir. Belirli kriterlere uyan dokumanlari aramak veya filtrelemek icin kullanilir.
+</details>
+
+<details>
+<summary>Mapping</summary>
+Elasticsearch'te veri yapisini tanimlayan bir yapidir. Hangi alanlarin hangi veri turlerini icerdigini ve hangi analizleri uyguladiginizi belirtir. Ornegin, bir alanin metin veya sayi veri turunde oldugunu ve dil analizi uygulandigini belirtmek icin kullanilir.
+</details>
+
+<details>
+<summary>Analysis</summary>
+Elasticsearch'te metin verilerinin islenme surecidir. Metinleri dil analizi ve belirli kriterlere gore ayristirma islemi icerir. Bu, metin tabanli aramalari daha etkili hale getirir.
+</details>
+
+<details>
+<summary>Cluster</summary>
+Elasticsearch sunucularinin bir araya gelerek olusturdugu bir yapidir. Verilerin guvenli bir sekilde depolanmasi ve sorgulanmasi icin kullanilir.
+</details>
+
+<details>
+<summary>Node</summary>
+Elasticsearch kumesinin bir parcasi olan bir sunucu veya dugumdur. Verileri depolar ve sorgulari isler. Birden cok node, bir cluster olusturur.
+</details>
+
+<details>
+<summary>Shard</summary>
+Elasticsearch endekslerinin bolundugu fiziksel veya mantiksal birimlerdir. Veri dagitimini ve performansi optimize etmeye yardimci olur.
+</details>
+
+<details>
+<summary>Replica</summary>
+Bir endeksin yedek kopyasidir ve veri yedeklemesi saglar. Arizali bir nodenin yerine gecebilir ve veri kaybini onler.
+</details>
+
+</details>
+
+<details>
+
+<summary>Elasticsearch Sorgu Tipleri</summary>
+
+<details>
+<summary>Match Query</summary>
+Belirli bir metin terimini veya sorgu ifadesini arar ve eslesen belgeleri dondurur.
+</details>
+
+<details>
+<summary>Term Query</summary>
+Belirli bir alanin degerinin tam eslesme icin kullanilir.
+</details>
+
+<details>
+<summary>Bool Query</summary>
+Mantiksal operatorleri (AND, OR, NOT) kullanarak birden cok sorguyu birlestirmek icin kullanilir.
+</details>
+
+<details>
+<summary>Range Query</summary>
+Bir alanin belirli bir araliga dusup dusmedigini kontrol eder.
+</details>
+
+<details>
+<summary>Fuzzy Query</summary>
+Benzer ancak kesin olmayan terimleri aramak icin kullanilir.
+</details>
+
+<details>
+<summary>Wildcard Query</summary>
+Jokert karakterler (* veya ?) kullanarak eslesen terimleri bulmak icin kullanilir.
+</details>
+
+<details>
+<summary>Prefix Query</summary>
+Belirli bir on ek ile baslayan terimleri aramak icin kullanilir.
+</details>
+
+<details>
+<summary>Autocomplete Suggester</summary>
+Otomatik tamamlama islevselligi icin kullanilir ve kullanicinin yazmaya basladigi terimleri tamamlamak icin kullanilir.
+</details>
+
+<details>
+<summary>Highlighting</summary>
+Eslesen terimleri veya metni vurgulamak icin kullanilir.
+</details>
+
+<details>
+<summary>Aggregations</summary>
+Verileri toplamak, gruplamak ve analiz etmek icin kullanilir.
+</details>
+
+<details>
+<summary>Ranking Functions</summary>
+Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama islevleri vardir.
+</details>
+
+<details>
+<summary>Match Phrase Query</summary>
+Metin teriminin tamamini iceren belgeleri dondurmek icin kullanilir.
+</details>
+
+</details>
 
 ---
 
