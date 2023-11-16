@@ -827,6 +827,68 @@ Hangi yontemin kullanilacagi uygulamanin ihtiyaclarina ve gereksinimlerine bagli
 
 <summary>Hibernate N+1 problemi nedir ?</summary>
 
+Hibernate N+1 problemi, bir ORM (Object-Relational Mapping) aracı olan Hibernate'in performansla ilgili bir sorunudur. Bu problem, ilişkisel veritabanı tabloları arasındaki ilişkilerin getirilmesi sırasında ortaya çıkar ve genellikle birleştirilmiş sorgu (join fetch) veya entity graph kullanılmadığında meydana gelir.
+
+N+1 problemi şu şekilde özetlenebilir: Bir ana nesne (örneğin, bir Entity sınıfı) alındığında, bu ana nesnenin ilişkili olduğu diğer nesneler ayrı ayrı sorgularla çekilir. Bu durumda, birinci sorgu ana nesneyi getirirken, N adet ek sorgu, bu ana nesnenin ilişkili olduğu diğer nesneleri getirir. Bu durumu bir örnek üzerinden açıklayalım.
+
+```java
+@Entity
+public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Book> books;
+
+    // Getter ve Setter metotları
+}
+
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
+
+    // Getter ve Setter metotları
+}
+```
+
+Yukarıdaki örnekte, `Author` sınıfı ile `Book` sınıfı arasında One-to-Many ilişkisi bulunmaktadır. Bir yazarın tüm kitaplarını getirmek için şu şekilde bir sorgu yapılabilir:
+
+```java
+List<Author> authors = entityManager.createQuery("SELECT a FROM Author a", Author.class).getResultList();
+
+for (Author author : authors) {
+    System.out.println("Author: " + author.getName());
+    
+    for (Book book : author.getBooks()) {
+        System.out.println("Book: " + book.getTitle());
+    }
+}
+```
+
+Bu sorgu, ilk olarak tüm yazarları getirir (1. sorgu). Ancak, her bir yazarın kitaplarına ulaşmak için ayrı ayrı sorgular yapılır (N adet sorgu). Bu durumda, toplamda N+1 sorgusu gerçekleşir.
+
+N+1 probleminden kaçınmak için genellikle şu yöntemler kullanılır:
+
+1. **Eager veya Lazy Yüklenme Ayarları:**
+    - İlişkili varlıkları getirirken FetchType.EAGER veya FetchType.LAZY ayarlarını kullanarak hangi durumlarda ilişkili varlıkların getirileceğini belirleyebilirsiniz.
+
+2. **Birleştirilmiş Sorgular (Join Fetch):**
+    - İlişkili varlıkları tek bir sorguda getirmek için birleştirilmiş sorgular (join fetch) kullanabilirsiniz. Bu, N+1 problemini önler ve performansı artırır.
+
+
+---
+
 Hibernate N+1 problemi, bir nesne ilişkisel eşlemesi (object-relational mapping - ORM) aracı olan Hibernate'in performans sorunlarına neden olan bir durumu ifade eder. Bu sorun, ilişkili nesnelerin veritabanından alınması için gereken sorgu sayısının aşırı artmasıyla ortaya çıkar.
 
 Örneğin, bir ilişkisel veritabanında "Kitap" ve "Yazar" tabloları olduğunu düşünelim. Her bir kitap bir yazar tarafından yazılmıştır ve bu nedenle "Kitap" tablosu ile "Yazar" tablosu arasında bir ilişki vardır. Hibernate, bu ilişkiyi kullanarak bir kitabı alırken ilişkili yazar bilgilerini de getirebilir.
@@ -1042,6 +1104,8 @@ Kafka, mesajlari parcalara boler ve bu parcalari farkli sunucu parcalarinda depo
 <details>
 
 <summary>Spring’te Bean scope’lari nedir?</summary>
+
+    https://medium.com/tapu-com-bak%C4%B1%C5%9F-a%C3%A7%C4%B1s%C4%B1/spring-boot-bean-scope-kavram%C4%B1-ve-%C3%B6nemi-d67cb6396270
 
 Spring Framework, uygulama icindeki beanlerin yasam dongusunu ve kullanim kapsamlarini yonetmek icin bean scope'larini tanimlar. Bean scope'u, bir bean'in bir uygulama icindeki belirli bir baglam icindeki yasam suresini ve gorunurlugunu belirler. Iste Spring'te bulunan bazi yaygin bean scope'lari:
 
