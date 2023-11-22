@@ -2825,3 +2825,84 @@ kalmadan ekran anlık olarak güncellenebilir.
 
 </details>
 
+---
+
+### *Code*
+
+<details>
+
+<summary>Ciktisi ne olur?</summary>
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        Base obj = new Child();
+        obj.func();
+    }
+
+    public static class Base {
+        public Base() {
+            func();
+        }
+
+        public void func() {
+            System.out.println("Inside base");
+        }
+    }
+
+    public static class Child extends Base {
+        public Child() {
+            func();
+        }
+
+        public void func() {
+            System.out.println("Inside child");
+        }
+    }
+}
+```
+
+```java
+Cevap:
+Inside child
+Inside child
+Inside child
+```
+
+</details>
+
+<details>
+
+<summary>Ciktisi ne olur?</summary>
+
+```java
+class C1 {
+   int x = 50;
+}
+
+class C2 extends C1 {
+   int x = 40;
+}
+
+public class Check {
+   public static void main(String[] args) {
+      C2 c2 = new C2();
+      System.out.println(c2.x);
+
+      C1 c1 = new C1();
+      System.out.println(c1.x);
+
+      C1 c3 = new C2();
+      System.out.println(c3.x);
+   }
+}
+```
+
+```java
+Cevap:
+40
+50
+50
+```
+
+</details>
