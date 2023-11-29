@@ -2825,6 +2825,27 @@ kalmadan ekran anlık olarak güncellenebilir.
 
 </details>
 
+<details>
+
+<summary>Exception vs Error arasindaki fark nedir?</summary>
+
+1. **Exception (Istisna):**
+   - Genellikle programin normal akisinin disindaki bir durumu belirtir.
+   - Programin calisma zamaninda ortaya cikan ozel bir durumu temsil eder.
+   - Ornekler arasinda dosya bulunamamasi, bolme hatasi (zero division error), tip hatasi (type error) gibi durumlar bulunabilir.
+   - Genellikle programcinin kontrolu altinda islenebilir ve try-catch (veya try-except) bloklari kullanilarak ele alinabilir.
+
+2. **Error (Hata):**
+   - Genellikle daha ciddi durumlari belirtir.
+   - Programin calisma zamaninda ortaya cikan bir hata veya sorunun genel bir adidir.
+   - Sistem seviyesinde veya programin mantiksal yapisinda bir sorunu ifade edebilir.
+   - Ornekler arasinda hafiza hatasi (memory error), sintaks hatasi (syntax error), isim hatasi (name error) gibi durumlar bulunabilir.
+   - Genellikle programcinin kontrolu disinda olup, programin calismasini durdurabilir.
+
+Ozetle, "exception" genellikle programcinin beklenmeyen durumlarla basa cikmasina izin veren ve programin devam etmesine olanak taniyan bir mekanizmayi ifade ederken, "error" genellikle daha ciddi ve genellikle programin devam etmesine izin vermeyen sorunlari ifade eder. Ancak bu ayrim, bazi durumlarda kullanimlarinin ortustugu ve baglamin onemli oldugu bir konsepttir.
+
+</details>
+
 ---
 
 ### *Code*
