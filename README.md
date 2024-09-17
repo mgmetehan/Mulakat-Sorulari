@@ -2846,6 +2846,28 @@ Ozetle, "exception" genellikle programcinin beklenmeyen durumlarla basa cikmasin
 
 </details>
 
+<details>
+   
+<summary>authentication vs authorization arasindaki fark nedir?</summary>
+   
+**Authentication** ve **authorization** (yetkilendirme) güvenlik sistemlerinde kullanılan iki temel kavramdır, ancak farklı işlevlere sahiptirler:
+
+1. **Authentication (Kimlik Doğrulama):** 
+   - Bu adımda sistem, kullanıcının kim olduğunu doğrular. Kullanıcı genellikle kullanıcı adı, şifre, parmak izi gibi bilgileri kullanarak sisteme giriş yapar ve sistem bu bilgileri kontrol ederek kullanıcının gerçekten o kişi olup olmadığını doğrular. 
+   - Örneğin, bir web sitesine giriş yaptığınızda kullanıcı adı ve şifre girmeniz bir **kimlik doğrulama** işlemidir.
+
+2. **Authorization (Yetkilendirme):**
+   - Yetkilendirme, kimlik doğrulanan kullanıcının hangi işlemleri yapabileceğini veya hangi kaynaklara erişebileceğini belirler. Kullanıcının erişim seviyesini ya da yetkilerini kontrol eder.
+   - Örneğin, bir yönetici paneline sadece yöneticilerin erişebilmesi, **yetkilendirme** süreci ile belirlenir.
+
+Kısacası:
+- **Authentication:** "Sen kimsin?" sorusuna cevap verir.
+- **Authorization:** "Neye erişebilirsin?" sorusuna cevap verir.
+
+Bu iki kavram genellikle karıştırılsa da sırasıyla ve birlikte kullanılırlar: önce kimlik doğrulama yapılır, ardından kullanıcının yetkileri kontrol edilerek neye erişebileceği belirlenir.
+   
+</details>
+
 ---
 
 ### *Code*
