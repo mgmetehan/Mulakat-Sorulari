@@ -1657,6 +1657,41 @@ or/ Elbise mağazası sınıfı, yalnızca elbise stoklarını takip etmek ve el
 Örneğin, elbiselerin stok seviyelerini güncellemek, yeni elbise eklemek, elbise satışlarını kaydetmek gibi işlemleri
 yapabilir.
 
+### 1. **Single Responsibility Principle (SRP)** - **Tek Sorumluluk İlkesi**
+- **Açıklama**: Her sınıfın veya modülün yalnızca bir sorumluluğu olmalı, yani sadece bir iş yapmalıdır.
+- **Avantajı**: Bu ilkeye uyulduğunda, bir sınıfta değişiklik yapmanız gerektiğinde sadece o işin gereklilikleri doğrultusunda değişiklik yaparsınız. Böylece sınıflar daha küçük ve yönetilebilir olur.
+
+**Örnek:**
+   ```java
+   class Invoice {
+       private InvoiceCalculator calculator;
+       
+       public void calculateTotal() {
+           calculator.calculate();
+       }
+
+       public void printInvoice() {
+           // SRP'ye uymayan bir tasarım
+           // Hem hesaplama hem de yazdırma işlemini içeriyor.
+       }
+   }
+   ```
+
+SRP'ye uygun hali:
+   ```java
+   class InvoicePrinter {
+       public void printInvoice(Invoice invoice) {
+           // Sadece fatura yazdırma işlemi yapılır.
+       }
+   }
+
+   class InvoiceCalculator {
+       public void calculate(Invoice invoice) {
+           // Sadece hesaplama işlemi yapılır.
+       }
+   }
+   ```
+
 #### O— Open-closed principle
 
 **ÖZET**: Bir sınıf ya da fonksiyon halihazırda var olan özellikleri korumalı ve değişikliğe izin vermemelidir. Yani
@@ -1664,6 +1699,33 @@ davranışını değiştirmiyor olmalı ve yeni özellikler kazanabiliyor olmal�
 
 or/ Elbise mağazası sınıfı, yeni elbiselerin eklenmesine açık olmalıdır. Yeni bir elbise türü eklenmek istendiğinde,
 mevcut mağaza sınıfı değiştirilmeden yeni elbise türü sınıfı oluşturularak eklenir.
+
+### 2. **Open/Closed Principle (OCP)** - **Açık/Kapalı İlkesi**
+- **Açıklama**: Bir sınıf genişlemeye açık, ancak değişime kapalı olmalıdır. Yani, var olan bir sınıfı değiştirmeden yeni işlevsellik ekleyebilmeliyiz.
+- **Avantajı**: Yazılımın genişletilmesini kolaylaştırır, mevcut kodu değiştirme ihtiyacını azaltarak hataları önler.
+
+**Örnek:**
+   ```java
+   interface Shape {
+       double calculateArea();
+   }
+
+   class Circle implements Shape {
+       private double radius;
+       public double calculateArea() {
+           return Math.PI * radius * radius;
+       }
+   }
+
+   class Rectangle implements Shape {
+       private double width, height;
+       public double calculateArea() {
+           return width * height;
+       }
+   }
+
+   // Yeni bir şekil eklemek (örneğin Üçgen), var olan kodu değiştirmeden sadece yeni bir sınıf eklemek yeterlidir.
+   ```
 
 #### L— Liskov substitution principle
 
@@ -1673,6 +1735,28 @@ yerine kullanabilmeliyiz.
 or/ Elbise mağazasında farklı türde elbiseler bulunabilir, örneğin elbiseler, gömlekler, pantolonlar gibi. Bu durumda,
 her tür elbisenin kullanılabilirliği ve davranışları aynı olmalıdır. Yani, her tür elbise, mağaza işlemlerinde
 birbirinin yerine geçebilmelidir.
+
+### 3. **Liskov Substitution Principle (LSP)** - **Liskov Yerine Geçme İlkesi**
+- **Açıklama**: Türetilmiş sınıflar, temel sınıfların yerine geçebilmeli ve programın doğru çalışmasını sağlamalıdır. Yani, alt sınıflar üst sınıfların tüm işlevlerini yerine getirebilmelidir.
+- **Avantajı**: Bu ilke, alt sınıfların, üst sınıfların davranışlarını bozmadan kullanılabilmesini sağlar.
+
+**Örnek:**
+   ```java
+   class Bird {
+       public void fly() {
+           // Uçma yeteneği
+       }
+   }
+
+   class Ostrich extends Bird {
+       @Override
+       public void fly() {
+           throw new UnsupportedOperationException("Devekuşları uçamaz!");
+       }
+   }
+   ```
+
+LSP'ye uymuyor, çünkü Ostrich "uçma" fonksiyonunu bozuyor. Çözüm: "Bird" sınıfının "fly()" yeteneğini devralmamalı.
 
 #### I— Interface segregation principle
 
@@ -1684,6 +1768,45 @@ gerçekleştirebilir. Ancak, tüm bu işlemler için tek bir genel arayüz kulla
 arayüz, stok kontrolü için ayrı bir arayüz ve raporlama için ayrı bir arayüz gibi daha özelleştirilmiş arayüzler
 oluşturulabilir.
 
+### 4. **Interface Segregation Principle (ISP)** - **Arayüz Ayrımı İlkesi**
+- **Açıklama**: Sınıflar, kullanmadıkları metodları içeren arayüzleri implement etmek zorunda kalmamalıdır. Yani, büyük ve genel bir arayüz yerine, daha küçük ve spesifik arayüzler olmalıdır.
+- **Avantajı**: Bu, sınıfların yalnızca ihtiyaç duydukları işlevleri kullanmasını sağlar ve daha esnek bir yapı oluşturur.
+
+**Örnek:**
+   ```java
+   interface Worker {
+       void work();
+       void eat();
+   }
+
+   class Robot implements Worker {
+       public void work() {
+           // Çalışabilir
+       }
+
+       public void eat() {
+           // Robot yemek yemez
+       }
+   }
+   ```
+
+ISP'ye uymuyor. Çözüm:
+   ```java
+   interface Workable {
+       void work();
+   }
+
+   interface Eatable {
+       void eat();
+   }
+
+   class Robot implements Workable {
+       public void work() {
+           // Sadece çalışır
+       }
+   }
+   ```
+
 #### D— Dependency Inversion Principle
 
 **ÖZET**: Sınıflar arası bağımlılıklar olabildiğince az olmalıdır özellikle üst seviye sınıflar alt seviye sınıflara
@@ -1693,6 +1816,65 @@ or/ Elbise mağazası sınıfı, doğrudan stok veritabanına veya satış işle
 bağımlı olmamalıdır. Bunun yerine, bir arayüz üzerinden bağımlılık oluşturulabilir ve ilgili işlemler bu arayüz
 üzerinden gerçekleştirilebilir. Bu sayede, farklı veritabanları veya satış işlemlerini gerçekleştiren farklı sınıflar,
 bu arayüzü uygulayarak kullanılabilir hale gelir.
+
+### 5. **Dependency Inversion Principle (DIP)** - **Bağımlılığı Tersine Çevirme İlkesi**
+- **Açıklama**: Yüksek seviyeli modüller (iş süreçleri), düşük seviyeli modüllere (detaylar) bağlı olmamalıdır. Her iki taraf da soyutlamalara (arayüzlere veya abstract class'lara) bağımlı olmalıdır.
+- **Avantajı**: Bu ilke, sınıflar arasındaki bağımlılıkları azaltarak esnekliği artırır ve test edilebilirliği iyileştirir.
+
+**Örnek:**
+   ```java
+   class LightBulb {
+       public void turnOn() {
+           // Ampulü açar
+       }
+
+       public void turnOff() {
+           // Ampulü kapatır
+       }
+   }
+
+   class Switch {
+       private LightBulb bulb;
+
+       public Switch(LightBulb bulb) {
+           this.bulb = bulb;
+       }
+
+       public void operate() {
+           bulb.turnOn();
+       }
+   }
+   ```
+
+DIP'ye uymuyor. Çözüm:
+   ```java
+   interface Switchable {
+       void turnOn();
+       void turnOff();
+   }
+
+   class LightBulb implements Switchable {
+       public void turnOn() {
+           // Ampul açılır
+       }
+
+       public void turnOff() {
+           // Ampul kapatılır
+       }
+   }
+
+   class Switch {
+       private Switchable device;
+
+       public Switch(Switchable device) {
+           this.device = device;
+       }
+
+       public void operate() {
+           device.turnOn();
+       }
+   }
+   ```
 
 </details>
 
